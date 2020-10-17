@@ -1,13 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Assess yo' risk<</h1>
-
+    <h1>Assess yo' risk</h1>
+    <p>Answer the following questions so that we can calculate your current risk score.</p>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
+        <p>In the past two weeks, how many times have you...?</p>
+        <p>
+            {{ form.activity1.label }}
+            {{ form.activity1 }}<br>
+            {% for error in form.activity1.errors %}
+              <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+
+            {{ form.activity2.label }}
+            {{ form.activity2 }}<br>
+            {% for error in form.activity2.errors %}
+              <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+
+            {{ form.activity3.label }}
+            {{ form.activity3 }}<br>
+            {% for error in form.activity3.errors %}
+              <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
         <p>
             {{ form.statename.label }}<br>
-            {{ form.statename(size=32) }}<br>
+            {{ form.statename }}<br>
             {% for error in form.statename.errors %}
               <span style="color:red;">[{{ error }}]</span>
             {% endfor %}
