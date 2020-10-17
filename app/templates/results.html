@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endwith %}
+
+{% block content %}
+  <h1>Your risk score</h1>
+  <p>...is coming soon</p>
+
+  <a href="{{ url_for('formInput') }}">Try again</a>
+
+{% endblock%}

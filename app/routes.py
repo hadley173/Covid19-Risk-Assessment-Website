@@ -12,5 +12,9 @@ def formInput():
 	form = RiskForm()
 	if form.validate_on_submit():
 		flash('Submission received: {}'.format(form.statename.data))
-		return redirect(url_for('index'))
-	return render_template('form-input.html', title = 'Input', form=form)
+		return redirect(url_for('results'))
+	return render_template('form-input.html', title = 'Calculator', form=form)
+
+@app.route('/results')
+def results():
+	return render_template('results.html', title='Risk score')
