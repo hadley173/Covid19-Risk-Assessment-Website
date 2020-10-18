@@ -1,26 +1,38 @@
-<html>
-  <head>
-    <title>{{ title }} - COVID-19 Risk App</title>
-  </head>
-  <body>
-      <div>
-        App: 
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('formInput') }}">Assess your risk</a>
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+  {% if title %}
+    {{ title }} - COVID-19 Risk App
+  {% else %}
+    COVID-19 Risk App
+  {% endif %}
+{% endblock %}
+
+{% block navbar %}
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('index') }}">COVID-19 Risk App</a>
       </div>
-      <hr>
-
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('formInput') }}">Assess your risk</a></li>
         </ul>
-        {% endif %}
-      {% endwith %}
+      </div>
+    </div>
+  </nav>
+{% endblock %}
 
-      {% block content %}
-      {% endblock %}
-  </body>
-</html>
+{% block content %}
+  <div class="container">
+    {% block app_content %}
+    {% endblock %}
+  </div>
+{% endblock %}
