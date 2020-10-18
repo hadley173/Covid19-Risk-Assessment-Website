@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-{% endwith %}
-
 {% block app_content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  {% endwith %}
+  
   <h1>Your risk score</h1>
   <p>...is coming soon</p>
 
