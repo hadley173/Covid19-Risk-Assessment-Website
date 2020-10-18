@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+  <h1>Activity risks</h1>
+
+  <p>In July 2020, the Texas Medical Association (TMA) COVID-19 Task Force and the TMA Committee on Infectious Diseases created a chart to help people understand the relative risk levels of common activities during the pandemic. We used this chart as a basis for our activity risk ratings.</p>
+  <p>The relative risk ratings assume that people are following CDC guidelines on hygiene, personal protective equipment, and social distancing.</p>
+
+  <p>--- table with activities and risk ratings here ---</p>
+  
+  <h3>Make it personal</h3>
+  <p>Get your current COVID-19 risk score by submitting information about your location and recent activities.</p>
+  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
+
+{% endblock %}

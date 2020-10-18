@@ -2,4 +2,18 @@
 
 {% block app_content %}
   <h1>Hello, visitor! Feeling risky?</h1>
+  <p>Ahoy, fellow Americans (and guests). Chantey pressgang rope's end grog sloop Jack Tar keelhaul carouser league lee. Rum yardarm cable swing the lead aft snow draft spyglass hands cog.</p>
+  <p>Fire ship Barbary Coast Admiral of the Black brigantine smartly pirate jolly boat aft rum hang the jib.</p>
+
+  <h2>COVID-19 Risk Calculator</h2>
+  <p>Get your personal COVID-19 risk score by submitting information about your location and recent activities.</p>
+  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
+
+  <h3>About the calculator</h3>
+  <p>Inputs and magic and outputs, oh my! How does it all work?</p>
+  <a class="btn btn-info" href="{{ url_for('about') }}" role="button">Learn more</a>
+
+  <h3>Risk ratings</h3>
+  <p>Knowledge is power: View a list of common activities and their relative risk profiles.</p>
+  <a class="btn btn-info" href="{{ url_for('activities') }}" role="button">View the activities</a>
 {% endblock %}

@@ -18,3 +18,11 @@ def formInput():
 @app.route('/results')
 def results():
 	return render_template('results.html', title='Risk score')
+
+@app.route('/about')
+def about():
+	return render_template('about.html', title='About')
+
+@app.route('/activities')
+def activities():
+	return render_template('activities.html', title='Activities')

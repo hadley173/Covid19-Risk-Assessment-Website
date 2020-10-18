@@ -28,7 +28,7 @@
         </div>
 
         <div class="form-row">
-            {{ form.submit() }}
+            {{ wtf.form_field(form.submit, button_map={'submit': 'primary'}) }}
         </div>
 
     </form>
