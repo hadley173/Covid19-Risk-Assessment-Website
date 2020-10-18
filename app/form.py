@@ -12,6 +12,12 @@ class RiskForm(FlaskForm):
 	activity1 = IntegerField('Gone grocery shopping', default=0, validators=[InputRequired()])
 	activity2 = IntegerField('Walked, ran, biked, or sported outdoors with others', default=0, validators=[InputRequired()])
 	activity3 = IntegerField('Ate at a restaurant (outdoors)', default=0, validators=[InputRequired()])
+	activity4 = IntegerField('Walked in a busy downtown', default=0, validators=[InputRequired()])
+	activity5 = IntegerField('Spent an hour at a playground', default=0, validators=[InputRequired()])
+	activity6 = IntegerField('Sat in a doctor’s waiting room', default=0, validators=[InputRequired()])
+	activity7 = IntegerField('Gone to a library or museum', default=0, validators=[InputRequired()])
+	activity8 = IntegerField('Visited an elderly relative or friend in their home', default=0, validators=[InputRequired()])
+
 	statename = SelectField(
 					  	'Which U.S. state are you in?',
 					  	choices=[(i) for i in states],

@@ -22,10 +22,18 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li><a href="{{ url_for('about') }}">About</a></li>
-          <li><a href="{{ url_for('formInput') }}">Assess your risk</a></li>
-          <li><a href="{{ url_for('activities') }}">Activity risk ratings</a></li>
+          <li {% if request.path == url_for('index') %}class="active"{% endif %}>
+            <a href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li {% if request.path == url_for('about') %}class="active"{% endif %}>
+            <a href="{{ url_for('about') }}">About</a>
+          </li>
+          <li {% if request.path == url_for('formInput') %}class="active"{% endif %}>
+            <a href="{{ url_for('formInput') }}">Assess your risk</a>
+          </li>
+          <li {% if request.path == url_for('activities') %}class="active"{% endif %}>
+            <a href="{{ url_for('activities') }}">Activity risk ratings</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -36,5 +44,19 @@
   <div class="container">
     {% block app_content %}
     {% endblock %}
+    <br>
   </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <hr>
+        <div class="col-sm-6">
+          <h5>DISCLAIMER</h5>
+          <p>This is a student project. The content displayed on this website is not medical advice and cannot be used to diagnose or treat anything.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 {% endblock %}
+
