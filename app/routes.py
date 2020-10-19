@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.form import RiskForm
+from app.algo import Algo
 
 @app.route('/')
 @app.route('/index')
@@ -12,12 +13,19 @@ def formInput():
 	form = RiskForm()
 	if form.validate_on_submit():
 		flash('Submission received: {}'.format(form.statename.data))
-		return redirect(url_for('results'))
+		algo = Algo()
+		algo.state = form.statename.data
+		algo.act1 = form.activity1.data
+		algo.act2 = form.activity2.data
+		algo.act3 = form.activity3.data
+		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
+		return render_template('results.html', title='Risk score', algo=algo)
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
-@app.route('/results')
-def results():
-	return render_template('results.html', title='Risk score')
+# do we still need this?
+#@app.route('/results')
+#def results(algo):
+#	return render_template('results.html', title='Risk score', algo=algo)
 
 @app.route('/about')
 def about():

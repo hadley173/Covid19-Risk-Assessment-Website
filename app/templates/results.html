@@ -12,8 +12,13 @@
   {% endwith %}
   
   <h1>Your risk score</h1>
-  <p>...is coming soon</p>
+  <p>State: {{ algo.state }}</p>
+  <p>Activity 1 frequency: {{ algo.act1 }}</p>
+  <p>Activity 2 frequency: {{ algo.act2 }}</p>
+  <p>Activity 3 frequency: {{ algo.act3 }}</p>
+  <p>(...well, at least the form works)</p>
+  <br>
 
-  <a href="{{ url_for('formInput') }}">Try again</a>
+  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
 
 {% endblock%}
