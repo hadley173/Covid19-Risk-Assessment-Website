@@ -13,6 +13,7 @@
   
   <!-- maybe display only the activities with frequence > 0? -->
   <h1>Your risk score</h1>
+  <h3>Testing we received form input correctly:</h3>
   <p>State: {{ userData.state }}</p>
   <p>Number of times grocery shopping: {{ userData.act1 }}</p>
   <p>Number of times walked, ran, biked, or sported outdoors with others: {{ userData.act2 }}</p>
@@ -34,6 +35,11 @@
   <p>Number of times Attended an event with 500+ people: {{ userData.act18 }}</p>
   <p>Number of times Gone to a bar: {{ userData.act19 }}</p>
   <p>(...well, at least the form works)</p>
+  <br>
+  
+  <h3>Testing we recieved api data correctly:</h3>
+  <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in California</p>
+  <br>
   <br>
 
   <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>

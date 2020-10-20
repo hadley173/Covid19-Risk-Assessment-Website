@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, url_for
 from app import app
 from app.form import RiskForm
 from app.userData import UserData
+from app.algo import getData
 
 @app.route('/')
 @app.route('/index')
@@ -34,9 +35,11 @@ def formInput():
 		userData.act17 = form.activity17.data
 		userData.act18 = form.activity18.data
 		userData.act19 = form.activity19.data
+
+		posIncrease = getData()
 		
 		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
-		return render_template('results.html', title='Risk score', userData=userData)
+		return render_template('results.html', title='Risk score', userData=userData, posIncrease=posIncrease)
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
 # do we still need this?
