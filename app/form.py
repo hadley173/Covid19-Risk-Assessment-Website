@@ -17,6 +17,17 @@ class RiskForm(FlaskForm):
 	activity6 = IntegerField('Sat in a doctor’s waiting room', default=0, validators=[InputRequired()])
 	activity7 = IntegerField('Gone to a library or museum', default=0, validators=[InputRequired()])
 	activity8 = IntegerField('Visited an elderly relative or friend in their home', default=0, validators=[InputRequired()])
+	activity9 = IntegerField('Sent kids to school, camp, or day care', default=0, validators=[InputRequired()])
+	activity10 = IntegerField('Worked in an office building', default=0, validators=[InputRequired()])
+	activity11 = IntegerField('Gone to a hair salon or barbershop', default=0, validators=[InputRequired()])
+	activity12 = IntegerField('Ate at a restaurant (indoors)', default=0, validators=[InputRequired()])
+	activity13 = IntegerField('Attended a wedding or funeral', default=0, validators=[InputRequired()])
+	activity14 = IntegerField('Traveled by plane', default=0, validators=[InputRequired()])
+	activity15 = IntegerField('Played an organized team sport', default=0, validators=[InputRequired()])
+	activity16 = IntegerField('Worked out at a gym', default=0, validators=[InputRequired()])
+	activity17 = IntegerField('Gone to a theater or amusement park', default=0, validators=[InputRequired()])
+	activity18 = IntegerField('Attended an event with 500+ people', default=0, validators=[InputRequired()])
+	activity19 = IntegerField('Gone to a bar', default=0, validators=[InputRequired()])
 
 	statename = SelectField(
 					  	'Which U.S. state are you in?',

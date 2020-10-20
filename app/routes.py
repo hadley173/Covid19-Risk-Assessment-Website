@@ -18,7 +18,24 @@ def formInput():
 		userData.act1 = form.activity1.data
 		userData.act2 = form.activity2.data
 		userData.act3 = form.activity3.data
-		#return redirect(url_for('results')) <-- but can't pass in values like this
+		userData.act4 = form.activity4.data
+		userData.act5 = form.activity5.data
+		userData.act6 = form.activity6.data
+		userData.act7 = form.activity7.data
+		userData.act8 = form.activity8.data
+		userData.act9 = form.activity9.data
+		userData.act10 = form.activity10.data
+		userData.act11 = form.activity11.data
+		userData.act12 = form.activity12.data
+		userData.act13 = form.activity13.data
+		userData.act14 = form.activity14.data
+		userData.act15 = form.activity15.data
+		userData.act16 = form.activity16.data
+		userData.act17 = form.activity17.data
+		userData.act18 = form.activity18.data
+		userData.act19 = form.activity19.data
+		
+		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
 		return render_template('results.html', title='Risk score', userData=userData)
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
