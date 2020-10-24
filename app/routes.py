@@ -13,7 +13,6 @@ def index():
 def formInput():
 	form = RiskForm()
 	if form.validate_on_submit():
-		flash('Submission received: {}'.format(form.statename.data))
 		userData = UserData()
 		userData.state = form.statename.data
 		userData.act1 = form.activity1.data
