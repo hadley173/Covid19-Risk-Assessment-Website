@@ -10,7 +10,7 @@
     </ul>
     {% endif %}
   {% endwith %}
-  
+
   <!-- maybe display only the activities with frequence > 0? -->
   <h1>Your risk score</h1>
   <h3>Testing we received form input correctly:</h3>
@@ -36,9 +36,11 @@
   <p>Number of times Gone to a bar: {{ userData.act19 }}</p>
   <p>(...well, at least the form works)</p>
   <br>
-  
+
   <h3>Testing we recieved api data correctly:</h3>
-  <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in California</p>
+
+  <!-- Display positive increase cases for selected state -->
+  <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}</p>
   <br>
   <br>
 
