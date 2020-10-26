@@ -1,18 +1,10 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  {% endwith %}
+<h1>Your risk score</h1>
+<h2><span style="color:red;">{{ userData.state }} multiplier: {{ state_score }}</span></h2>
 
   <!-- maybe display only the activities with frequence > 0? -->
-  <h1>Your risk score</h1>
   <h3>Testing we received form input correctly:</h3>
   <p>State: {{ userData.state }}</p>
   <p>Number of times grocery shopping: {{ userData.act1 }}</p>
