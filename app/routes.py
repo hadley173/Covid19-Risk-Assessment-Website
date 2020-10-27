@@ -4,6 +4,7 @@ from app.form import RiskForm
 from app.userData import UserData
 from app.algo import getData
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -15,6 +16,47 @@ def formInput():
 	if form.validate_on_submit():
 		flash('Submission received: {}'.format(form.statename.data))
 		userData = UserData()
+		
+		# input validation for negative numbers, refactoring needed badly
+		if(form.activity1.data < 0):
+			form.activity1.data = 0
+		if(form.activity2.data < 0):
+			form.activity2.data = 0
+		if(form.activity3.data < 0):
+			form.activity3.data = 0
+		if(form.activity4.data < 0):
+			form.activity4.data = 0
+		if(form.activity5.data < 0):
+			form.activity5.data = 0
+		if(form.activity6.data < 0):
+			form.activity6.data = 0
+		if(form.activity7.data < 0):
+			form.activity7.data = 0
+		if(form.activity8.data < 0):
+			form.activity8.data = 0
+		if(form.activity9.data < 0):
+			form.activity9.data = 0
+		if(form.activity10.data < 0):
+			form.activity10.data = 0
+		if(form.activity11.data < 0):
+			form.activity11.data = 0
+		if(form.activity12.data < 0):
+			form.activity12.data = 0
+		if(form.activity13.data < 0):
+			form.activity13.data = 0
+		if(form.activity14.data < 0):
+			form.activity14.data = 0
+		if(form.activity15.data < 0):
+			form.activity15.data = 0
+		if(form.activity16.data < 0):
+			form.activity16.data = 0
+		if(form.activity17.data < 0):
+			form.activity17.data = 0
+		if(form.activity18.data < 0):
+			form.activity18.data = 0
+		if(form.activity19.data < 0):
+			form.activity19.data = 0
+
 		userData.state = form.statename.data
 		userData.act1 = form.activity1.data
 		userData.act2 = form.activity2.data
@@ -35,8 +77,8 @@ def formInput():
 		userData.act17 = form.activity17.data
 		userData.act18 = form.activity18.data
 		userData.act19 = form.activity19.data
-
-		print("test user data 19", userData.act19)
+		
+		print("test user data 1", userData.act1)
 		#posIncrease = getData()
 		posIncrease, state_score, risk_rating = getData()
 

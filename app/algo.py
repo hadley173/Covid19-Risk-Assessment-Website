@@ -2,6 +2,7 @@ import requests
 from app.form import RiskForm
 
 def getData():
+	form = RiskForm()
 # TEST: Get current data for California, USA
 	#return json_response["state"]
 
@@ -50,10 +51,10 @@ def getData():
 	high_risk_rate = .16  * (1 + state_score)
 
 
-	low_risk_events = RiskForm().activity1.data + RiskForm().activity2.data + RiskForm().activity3.data + RiskForm().activity4.data + RiskForm().activity5.data + RiskForm().activity6.data + RiskForm().activity7.data
-	mod_risk_events = RiskForm().activity8.data + RiskForm().activity9.data + RiskForm().activity10.data
-	mod_high_risk_events = RiskForm().activity11.data + RiskForm().activity12.data + RiskForm().activity13.data + RiskForm().activity14.data + RiskForm().activity15.data
-	high_risk_events = RiskForm().activity16.data + RiskForm().activity17.data + RiskForm().activity18.data + RiskForm().activity19.data
+	low_risk_events = form.activity1.data + form.activity2.data + form.activity3.data + form.activity4.data + form.activity5.data + form.activity6.data + form.activity7.data
+	mod_risk_events = form.activity8.data + form.activity9.data + form.activity10.data
+	mod_high_risk_events = form.activity11.data + form.activity12.data + form.activity13.data + form.activity14.data + form.activity15.data
+	high_risk_events = form.activity16.data + form.activity17.data + form.activity18.data + form.activity19.data
 
 	print("low_risk_events", low_risk_events)
 	print("mod_risk_events", mod_risk_events)
