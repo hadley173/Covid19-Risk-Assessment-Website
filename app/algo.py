@@ -44,4 +44,26 @@ def getData():
 		state_score = 0.083  #average positive test rate for all states over one week was 8.3%
 		print("default state score: ", state_score)
 
-	return positive_increase, state_score
+	low_risk_rate = .02 * (1 + state_score)
+	mod_risk_rate = .04  * (1 + state_score)
+	mod_high_risk_rate = .08  * (1 + state_score)
+	high_risk_rate = .16  * (1 + state_score)
+
+
+	low_risk_events = RiskForm().activity1.data + RiskForm().activity2.data + RiskForm().activity3.data + RiskForm().activity4.data + RiskForm().activity5.data + RiskForm().activity6.data + RiskForm().activity7.data
+	mod_risk_events = RiskForm().activity8.data + RiskForm().activity9.data + RiskForm().activity10.data
+	mod_high_risk_events = RiskForm().activity11.data + RiskForm().activity12.data + RiskForm().activity13.data + RiskForm().activity14.data + RiskForm().activity15.data
+	high_risk_events = RiskForm().activity16.data + RiskForm().activity17.data + RiskForm().activity18.data + RiskForm().activity19.data
+
+	print("low_risk_events", low_risk_events)
+	print("mod_risk_events", mod_risk_events)
+	print("mod_high_risk_events", mod_high_risk_events)
+	print("high_risk_events", high_risk_events)
+
+	base_score = 1 - (pow((1 - low_risk_rate), low_risk_events) * pow((1 - mod_risk_rate), mod_risk_events) * pow((1 - mod_high_risk_rate), mod_high_risk_events) * pow((1 - high_risk_rate), high_risk_events))
+	print("base score: ", base_score)
+
+	risk_rating = round(float(base_score *100), 2)
+	print("risk_rating: ", risk_rating)
+
+	return positive_increase, state_score, risk_rating

@@ -36,11 +36,12 @@ def formInput():
 		userData.act18 = form.activity18.data
 		userData.act19 = form.activity19.data
 
+		print("test user data 19", userData.act19)
 		#posIncrease = getData()
-		posIncrease, state_score = getData()
+		posIncrease, state_score, risk_rating = getData()
 
 		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
-		return render_template('results.html', title='Risk score', userData=userData, posIncrease=posIncrease, state_score=state_score)
+		return render_template('results.html', title='Risk score', userData=userData, posIncrease=posIncrease, state_score=state_score, risk_rating=risk_rating)
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
 # do we still need this?
