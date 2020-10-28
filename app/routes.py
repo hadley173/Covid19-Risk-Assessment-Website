@@ -18,7 +18,7 @@ def formInput():
 		userData = UserData()
 		
 		activity = {}
-		activity[0] = form.activity1.data
+		activity[0] = form.activity1.data # frequency for each activity
 		activity[1] = form.activity2.data
 		activity[2] = form.activity3.data
 		activity[3] = form.activity4.data
@@ -44,6 +44,8 @@ def formInput():
 				activity[i] = 0
 			#fill userData object
 			userData.act[i] = activity[i]
+
+		userData.state = form.statename.data
 
 		for i in range(19):
 			# test print to make sure data copied correctly

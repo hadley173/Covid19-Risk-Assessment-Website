@@ -50,7 +50,6 @@ def getData():
 	mod_high_risk_rate = .08  * (1 + state_score)
 	high_risk_rate = .16  * (1 + state_score)
 
-
 	low_risk_events = form.activity1.data + form.activity2.data + form.activity3.data + form.activity4.data + form.activity5.data + form.activity6.data + form.activity7.data
 	mod_risk_events = form.activity8.data + form.activity9.data + form.activity10.data
 	mod_high_risk_events = form.activity11.data + form.activity12.data + form.activity13.data + form.activity14.data + form.activity15.data
@@ -64,6 +63,10 @@ def getData():
 	base_score = 1 - (pow((1 - low_risk_rate), low_risk_events) * pow((1 - mod_risk_rate), mod_risk_events) * pow((1 - mod_high_risk_rate), mod_high_risk_events) * pow((1 - high_risk_rate), high_risk_events))
 	print("base score: ", base_score)
 
+	if base_score == 0:
+		base_score = .01 * (1 + state_score)
+		
+	# need to account for default state risk with no activities
 	risk_rating = round(float(base_score *100), 2)
 	print("risk_rating: ", risk_rating)
 

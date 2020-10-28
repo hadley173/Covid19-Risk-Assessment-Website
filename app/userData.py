@@ -5,4 +5,4 @@ class UserData:
 
 	for i in range(19):
 		act[i] = '0'
-	state = 'none'
+		state = 'none'
