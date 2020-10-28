@@ -4,6 +4,7 @@ from app.form import RiskForm
 from app.userData import UserData
 from app.algo import getData
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -14,31 +15,45 @@ def formInput():
 	form = RiskForm()
 	if form.validate_on_submit():
 		userData = UserData()
-		userData.state = form.statename.data
-		userData.act1 = form.activity1.data
-		userData.act2 = form.activity2.data
-		userData.act3 = form.activity3.data
-		userData.act4 = form.activity4.data
-		userData.act5 = form.activity5.data
-		userData.act6 = form.activity6.data
-		userData.act7 = form.activity7.data
-		userData.act8 = form.activity8.data
-		userData.act9 = form.activity9.data
-		userData.act10 = form.activity10.data
-		userData.act11 = form.activity11.data
-		userData.act12 = form.activity12.data
-		userData.act13 = form.activity13.data
-		userData.act14 = form.activity14.data
-		userData.act15 = form.activity15.data
-		userData.act16 = form.activity16.data
-		userData.act17 = form.activity17.data
-		userData.act18 = form.activity18.data
-		userData.act19 = form.activity19.data
-
-		posIncrease = getData()
 		
+		activity = {}
+		activity[0] = form.activity1.data # frequency for each activity
+		activity[1] = form.activity2.data
+		activity[2] = form.activity3.data
+		activity[3] = form.activity4.data
+		activity[4] = form.activity5.data
+		activity[5] = form.activity6.data
+		activity[6] = form.activity7.data
+		activity[7] = form.activity8.data
+		activity[8] = form.activity9.data
+		activity[9] = form.activity10.data
+		activity[10] = form.activity11.data
+		activity[11] = form.activity12.data
+		activity[12] = form.activity13.data
+		activity[13] = form.activity14.data
+		activity[14] = form.activity15.data
+		activity[15] = form.activity16.data
+		activity[16] = form.activity17.data
+		activity[17] = form.activity18.data
+		activity[18] = form.activity19.data
+
+		for i in range(19):
+			# input validation for negative numbers
+			if activity[i] < 0:
+				activity[i] = 0
+			#fill userData object
+			userData.act[i] = activity[i]
+
+		userData.state = form.statename.data
+
+		for i in range(19):
+			# test print to make sure data copied correctly
+			print("USER DATA ARRAY i:",i, activity[i])
+
+		posIncrease, state_score, risk_rating = getData()
+
 		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
-		return render_template('results.html', title='Risk score', userData=userData, posIncrease=posIncrease)
+		return render_template('results.html', title='Risk score', userData=userData, posIncrease=posIncrease, state_score=state_score, risk_rating=risk_rating)
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
 # do we still need this?
