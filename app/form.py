@@ -31,8 +31,13 @@ class RiskForm(FlaskForm):
 	activity19 = IntegerField('Gone to a bar', default=0, validators=[InputRequired()])
 
 	statename = SelectField(
-					  	'Which U.S. state are you in?',
-					  	choices=[(i) for i in states],
+					  	u'Which U.S. state are you in?',
+					  	#choices=[(i) for i in states],
+						choices=[('AL', 'AL'), 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
+						'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+						'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+						'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+						'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'],
 					  	validators=[InputRequired()])
 
 	#statename = StringField('Which State are you in?', validators=[InputRequired()])
