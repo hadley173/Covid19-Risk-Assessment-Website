@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<h1>Your risk score</h1>
+<h1><span style="color:red;">Your Unique Risk Score: {{ risk_rating }}% </span></h1>
 <h2><span style="color:red;">{{ userData.state }} multiplier: {{ state_score*100 }}%</span></h2>
-<h2><span style="color:red;">Risk Rating: {{ risk_rating }}% </span></h2>
 
   <!-- maybe display only the activities with frequence > 0? -->
   <h3>Testing we received form input correctly:</h3>
@@ -27,7 +26,6 @@
   <p>Number of times Gone to a theater or amusement park: {{ userData.act[16] }}</p>
   <p>Number of times Attended an event with 500+ people: {{ userData.act[17] }}</p>
   <p>Number of times Gone to a bar: {{ userData.act[18] }}</p>
-  <p>(...well, at least the form works)</p>
   <br>
 
   <h3>Testing we recieved api data correctly:</h3>
