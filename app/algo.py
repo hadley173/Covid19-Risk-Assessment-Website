@@ -47,7 +47,7 @@ def getData():
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
 		print("default state score: ", state_score)
 
-	if state_score == 0:
+	if state_score <= 0:
 		state_score = default_risk
 
 	low_risk_rate = .02 * (1 + state_score)
