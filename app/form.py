@@ -29,8 +29,10 @@ class RiskForm(FlaskForm):
 	activity18 = IntegerField('Attended an event with 500+ people', default=0, validators=[InputRequired()])
 	activity19 = IntegerField('Gone to a bar', default=0, validators=[InputRequired()])
 
-	statename = SelectField(
-					  	'Which U.S. state are you in?',
-					  	choices=[(i) for i in states],
-					  	validators=[InputRequired()])
+	#statename = SelectField(
+	#				  	'Which U.S. state are you in?',
+	#				  	choices=[(i) for i in states],
+	#				  	validators=[InputRequired()])
+
+	statename = StringField('Which State are you in?', validators=[InputRequired()])
 	submit = SubmitField('Calculate your risk')
