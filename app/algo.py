@@ -43,7 +43,6 @@ def getData():
 		state_score = round(float(positive_increase / total_test_results_increase), 2)
 		print("state score: ", state_score)
 	except ZeroDivisionError:
-		# fix this
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
 		print("default state score: ", state_score)
 
@@ -72,7 +71,8 @@ def getData():
 		base_score = .01 * (1 + state_score)
 
 	# need to account for default state risk with no activities
+	# convert risk and state scores to % so they can be displayed to the user
 	risk_rating = round(float(base_score *100), 2)
-	print("risk_rating: ", risk_rating)
+	state_score = round(float(state_score*100),2)
 
 	return positive_increase, state_score, risk_rating

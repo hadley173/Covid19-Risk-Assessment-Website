@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<!-- Needed for displaying state score to 2 decimals -->
-<script> state_score = Math.round(state_score*(10^2))/(10^2)  </script>
 <h1><span style="color:red;">Your Unique Risk Score: {{ risk_rating }}% </span></h1>
-<h2><span style="color:red;">{{ userData.state }} multiplier: {{ state_score*100 }}%</span></h2>
+<h2><span style="color:red;">{{ userData.state }} multiplier: {{ state_score }}%</span></h2>
 
   <!-- maybe display only the activities with frequence > 0? -->
   <h3>Testing we received form input correctly:</h3>
