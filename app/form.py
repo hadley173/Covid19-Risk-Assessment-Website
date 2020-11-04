@@ -3,13 +3,6 @@ from wtforms import StringField, IntegerField, SelectField, SubmitField
 from wtforms.validators import InputRequired
 
 class RiskForm(FlaskForm):
-	"""
-	states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
-						'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-						'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-						'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-						'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
-	"""
 	
 	activity1 = IntegerField('Gone grocery shopping', default=0, validators=[InputRequired()])
 	activity2 = IntegerField('Walked, ran, biked, or sported outdoors with others', default=0, validators=[InputRequired()])
@@ -33,7 +26,6 @@ class RiskForm(FlaskForm):
 
 	statename = SelectField(
 					  	u'Which U.S. state are you in?',
-					  	#choices=[(i) for i in states],
 						choices=[
 						('AL', 'AL'), ('AK', 'AK'), ('AZ', 'AZ'), ('AR', 'AR'), ('CA', 'CA'), ('CO', 'CO'), ('CT', 'CT'), ('DC', 'DC'), ('DE', 'DE'), ('FL', 'FL'), 
 						('GA', 'GA'), ('HI', 'HI'), ('ID', 'ID'), ('IL', 'IL'), ('IN', 'IN'), ('IA', 'IA'), ('KS', 'KS'), ('KY', 'KY'), ('LA', 'LA'), ('ME', 'ME'), 
@@ -42,7 +34,4 @@ class RiskForm(FlaskForm):
 						('SC', 'SC'), ('SD', 'SD'), ('TN', 'TN'), ('TX', 'TX'), ('UT', 'UT'), ('VT', 'VT'), ('VA', 'VA'), ('WA', 'WA'), ('WV', 'WV'), ('WI', 'WI'), ('WY', 'WY')],
 					  	validators=[InputRequired()])
 
-
-						   
-	#statename = StringField('Which State are you in?', validators=[InputRequired()])
 	submit = SubmitField('Calculate your risk')
