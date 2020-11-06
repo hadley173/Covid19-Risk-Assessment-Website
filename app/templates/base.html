@@ -1,16 +1,8 @@
 {% extends 'bootstrap/base.html' %}
 
-{% block title %}
-  {% if title %}
-    {{ title }} - COVID-19 Risk App
-  {% else %}
-    COVID-19 Risk App
-  {% endif %}
-{% endblock %}
-
 {% block navbar %}
-  <nav class="navbar navbar-default">
-    <div class="container">
+<nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
+    <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -21,7 +13,7 @@
         <a class="navbar-brand" href="{{ url_for('index') }}">COVID-19 Risk App</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav" style="float: right">
           <li {% if request.path == url_for('index') %}class="active"{% endif %}>
             <a href="{{ url_for('index') }}">Home</a>
           </li>
@@ -41,22 +33,13 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    {% block app_content %}
-    {% endblock %}
-    <br>
+  <div class="container-fluid" style="background-color: white background-color: lightgray;padding-left: 0px;padding-right: 0px;">
+  <!-- Content here -->
+  {% block app_content %}
+  {% endblock %}
   </div>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <hr>
-        <div class="col-sm-6">
-          <h5>DISCLAIMER</h5>
-          <p>This is a student project. The content displayed on this website is not medical advice and cannot be used to diagnose or treat anything.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
 {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+{% endblock %}
