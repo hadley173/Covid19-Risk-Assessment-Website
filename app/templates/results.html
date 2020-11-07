@@ -8,7 +8,7 @@
     <div class="col-sm-4">
       <h3>Your state</h3>
       <p>Based on the latest reported data, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
-      <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score*100 }}%</b></span></p>
+      <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score }}%</b></span></p>
       <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
     </div>
   </div>

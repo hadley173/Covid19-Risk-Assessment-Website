@@ -3,10 +3,12 @@ from app import app
 from app.form import RiskForm
 from app.userData import UserData
 from app.algo import getData
+
 @app.route('/')
 @app.route('/index')
 def index():
 	return render_template('index.html', title='Home')
+
 @app.route('/form-input', methods=['GET', 'POST'])
 def formInput():
 	form = RiskForm()
@@ -51,9 +53,11 @@ def formInput():
 		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
 		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, posIncrease=posIncrease, state_score=state_score, risk_rating=risk_rating)
 	return render_template('form-input.html', title = 'Calculator', form=form)
+
 @app.route('/about')
 def about():
 	return render_template('about.html', title='About')
+
 @app.route('/activities')
 def activities():
 	return render_template('activities.html', title='Activities')
