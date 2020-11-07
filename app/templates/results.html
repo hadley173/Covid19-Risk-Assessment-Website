@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block app_content %}
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <h1>Your risk score: <span id="score", style="color:red;">{{ risk_rating }}</span></h1>
       <canvas id="gaugeChart" width="600" height="400"></canvas>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <h3>Your state</h3>
-      <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
+      <p>Based on the latest reported data, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
       <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score*100 }}%</b></span></p>
     </div>
   </div>
