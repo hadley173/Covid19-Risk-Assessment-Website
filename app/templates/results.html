@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% block app_content %}
-  <h1>Your risk score: <span id="score", style="color:red;">{{ risk_rating }}</span></h1>
-  <canvas id="gaugeChart" width="600" height="400"></canvas>
-  <h3>Your state</h3>
-  <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
-  <p>State risk multiplier: <span style="color:red;"><b>{{ state_score*100 }}%</b></span></p>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Your risk score: <span id="score", style="color:red;">{{ risk_rating }}</span></h1>
+      <canvas id="gaugeChart" width="600" height="400"></canvas>
+    </div>
+    <div class="col-sm-6">
+      <h3>Your state</h3>
+      <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
+      <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score*100 }}%</b></span></p>
+    </div>
+  </div>
+  
   <br>
   <h2>Example Line Chart</h2>
   <canvas id="lineChart" width="400" height="300"></canvas>
@@ -17,6 +24,7 @@
   <p>Number of times walked, ran, biked, or sported outdoors with others: {{ userData.act[1] }}</p>
   <p>(...well, at least the form works)</p> -->
   <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
+
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/chartjs-gauge@0.2.0/dist/chartjs-gauge.js"></script>
