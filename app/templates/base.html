@@ -34,7 +34,6 @@
 
 {% block content %}
   <div class="container-fluid" style="background-color: white background-color: lightgray;padding-left: 0px;padding-right: 0px;">
-  <!-- Content here -->
   {% block app_content %}
   {% endblock %}
   </div>
@@ -42,4 +41,5 @@
 
 {% block scripts %}
 {{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 {% endblock %}
