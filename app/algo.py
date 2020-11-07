@@ -12,7 +12,6 @@ def getData():
 
 	# Build URL query string
 	url = 'https://api.covidtracking.com/v1/states/' + state + '/current.json'
-	#print(url)
 
 	#Get response and convert to json payload
 	response = requests.get(url)
@@ -21,17 +20,21 @@ def getData():
 	#DEBUG: Print json
 	print(json_response)
 
+
 	#iterate through json payload
-	for key, value in json_response.items():
-		if key == 'state':
-			state = value
-			#print(state)
-		if key == 'positiveIncrease':
-			positive_increase = value
-			#print("Positive increase: ", positive_increase)
-		if key == 'totalTestResultsIncrease':
-			total_test_results_increase = value
-			#print("total tests: " , total_test_results_increase)
+	#for key, value in json_response.items():
+	#	if key == 'state':
+	#		state = value
+	#	if key == 'positiveIncrease':
+	#		positive_increase = value
+	#	if key == 'totalTestResultsIncrease':
+	#		total_test_results_increase = value
+
+	# let's do this instead of iterating through the entire payload!
+	state = json_response['state']
+	positive_increase = json_response['positiveIncrease']
+	total_test_results_increase = json_response['totalTestResultsIncrease']
+
 
 	print(state)	
 	print("Positive tests: ", positive_increase)	
@@ -76,7 +79,7 @@ def getData():
 
 	# need to account for default state risk with no activities
 	# convert risk and state scores to % so they can be displayed to the user
-	risk_rating = round(float(base_score *100), 2)
-	state_score = round(float(state_score*100), 2)
+	risk_rating = round(float(base_score *100), 1)
+	state_score = round(float(state_score*100), 1)
 
-	return positive_increase, state_score, risk_rating
+	return positive_increase, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events

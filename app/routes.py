@@ -3,19 +3,16 @@ from app import app
 from app.form import RiskForm
 from app.userData import UserData
 from app.algo import getData
-
-
 @app.route('/')
 @app.route('/index')
 def index():
 	return render_template('index.html', title='Home')
-
 @app.route('/form-input', methods=['GET', 'POST'])
 def formInput():
 	form = RiskForm()
 	if form.validate_on_submit():
+		flash('Submission received: {}'.format(form.statename.data))
 		userData = UserData()
-		
 		activity = {}
 		activity[0] = form.activity1.data # frequency for each activity
 		activity[1] = form.activity2.data
@@ -36,35 +33,26 @@ def formInput():
 		activity[16] = form.activity17.data
 		activity[17] = form.activity18.data
 		activity[18] = form.activity19.data
-
 		for i in range(19):
 			# input validation for negative numbers
 			if activity[i] < 0:
 				activity[i] = 0
 			#fill userData object
 			userData.act[i] = activity[i]
-
 		userData.state = form.statename.data
-
-		for i in range(19):
-			# test print to make sure data copied correctly
-			print("USER DATA ARRAY i:",i, activity[i])
-
-		posIncrease, state_score, risk_rating = getData()
-
+		
+		posIncrease, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events = getData()
+		# CHART.JS example line charttest
+		legend = 'Monthly Data'
+		labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+		values = [10, 9, 8, 7, 6, 4, 8]
 		#return redirect(url_for('results')) <-- first attempt, but can't pass in values like this
-		return render_template('results.html', title='Risk score', userData=userData, posIncrease=posIncrease, state_score=state_score, risk_rating=risk_rating)
+		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, posIncrease=posIncrease, 
+		state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, high_risk_events=high_risk_events)
 	return render_template('form-input.html', title = 'Calculator', form=form)
-
-# do we still need this?
-#@app.route('/results')
-#def results(algo):
-#	return render_template('results.html', title='Risk score')
-
 @app.route('/about')
 def about():
 	return render_template('about.html', title='About')
-
 @app.route('/activities')
 def activities():
 	return render_template('activities.html', title='Activities')

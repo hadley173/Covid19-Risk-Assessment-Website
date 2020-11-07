@@ -1,5 +1,4 @@
 {% extends 'bootstrap/base.html' %}
-
 {% block title %}
   {% if title %}
     {{ title }} - COVID-19 Risk App
@@ -7,7 +6,6 @@
     COVID-19 Risk App
   {% endif %}
 {% endblock %}
-
 {% block navbar %}
   <nav class="navbar navbar-default">
     <div class="container">
@@ -39,14 +37,14 @@
     </div>
   </nav>
 {% endblock %}
-
 {% block content %}
   <div class="container">
     {% block app_content %}
+    {% block scripts %}
+    {% endblock %}
     {% endblock %}
     <br>
   </div>
-
   <footer class="footer">
     <div class="container">
       <div class="row">
@@ -59,4 +57,3 @@
     </div>
   </footer>
 {% endblock %}
-
