@@ -9,34 +9,41 @@
       <h3>Your state</h3>
       <p>Based on the latest reported data, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
       <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score }}%</b></span></p>
+      
+      <h3>Your activities</h3>
+      <p>Low-risk activities: <span id="low_risk_events", style="color:red;">{{ low_risk_events }}</span></p> 
+      <p>Moderate-risk activities: <span id="mod_risk_events", style="color:red;">{{ mod_risk_events }}</span></p>
+      <p>Moderate-High risk activities: <span id="mod_high_risk_events", style="color:red;">{{ mod_high_risk_events }}</span></p>
+      <p>High-risk activities: <span id="high_risk_events", style="color:red;">{{ high_risk_events }}</span></p>
+        
       <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
-      <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
-      <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score }}%</b></span></p>
     </div>
   </div>
   
-  <p>low_risk_events: <span id="low_risk_events", >{{ low_risk_events }}</span></p>
-  <p>mod_risk_events: <span id="mod_risk_events", >{{ mod_risk_events }}</span></p>
-  <p>mod_high_risk_events: <span id="mod_high_risk_events", >{{ mod_high_risk_events }}</span></p>
-  <p>high_risk_events: <span id="high_risk_events", >{{ high_risk_events }}</span></p> 
+  <div class="row">
+    <h2>Supplementary information</h2>
+  </div>
 
-  <br>
-  <h2>Supplementary information about {{ userData.state }}</h2>
-  <h3>Example Line Chart</h3>
-  <canvas id="lineChart" width="400" height="300"></canvas>
-  <p id="caption">Here's a caption for the chart</p>
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Activity Risk Groups</h3>
+      <canvas id="pieChart" width="300" height="300"></canvas>
+      <p id="caption">Risk contributed per activity type</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Example Line Chart</h3>
+      <canvas id="lineChart" width="300" height="300"></canvas>
+      <p id="caption">Here's a caption for the chart</p>
+    </div>
+    <div class="col-sm-4" style="background-color: whitesmoke">
+      <h3>A Third Chart Here?</h3>
+      <canvas id="" width="300" height="300"></canvas>
+      <p id="caption">Here's a caption for the chart</p>
+    </div>
+  </div>
   <br>
   <br>
 
-  <h2>Event Type Breakdown</h2>
-  <canvas id="pieChart" width="400" height="400"></canvas>
-  <p id="caption">Percentage of Risk Score Contributed Per Event Type</p>
-  <!-- 
-  <h3>(Testing we received form input correctly:)</h3>
-  <p>Number of times grocery shopping: {{ userData.act[0] }}</p>
-  <p>Number of times walked, ran, biked, or sported outdoors with others: {{ userData.act[1] }}</p> 
-  -->
-  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
 
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
@@ -83,7 +90,7 @@
                   {% endfor %}],
         datasets : [{
             label: '{{ legend }}',
-            fill: false,
+            fill: false, // choose true to make it an area chart
             lineTension: 0.1,
             backgroundColor: "rgba(84,181,220,0.24)",
             borderColor: "rgba(84,181,220,0.99)",
@@ -94,25 +101,32 @@
             pointBorderColor: "rgba(75,192,192,1)",
             pointBackgroundColor: "#fff",
             pointBorderWidth: 3,
+            pointRadius: 1,
             pointHoverRadius: 6,
             pointHoverBackgroundColor: "rgba(84,181,220,0.24)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
             pointHitRadius: 10,
             data : [{% for item in values %}
                       {{item}},
                     {% endfor %}],
-            spanGaps: false
+            spanGaps: false,
         }]
       }
+
       // create the chart using the chart canvas
       var lineChart = new Chart(ctx, {
         type: 'line',
         data: chartData,
         options: {
+          legend: {
+            labels: {
+              fontSize: 26,
+              fontStyle: 'bold',
+            },
+          },
           events: ['click'], // prevents a weird hover bug
-        }
+        },
       }); 
 
       var ctx = document.getElementById("pieChart").getContext("2d");
@@ -140,19 +154,26 @@
             backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
           }],
           labels: [
-            'Low Risk Events',
-            'Moderate Risk Events',
-            'Moderate-High Risk Events',
-            'High Risk Events'
+            'Low risk',
+            'Moderate risk',
+            'Moderate-High risk',
+            'High risk'
           ]
         },
         options: {
           cutoutPercentage: 50,
-          valueLabel: {
+          legend: {
             display: true,
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 20,
+              fontSize: 26,
+              fontStyle: 'bold',
+            },
           },
           events: ['click'], // prevents a weird hover bug
-        }
+        },
       });
 
     </script>
