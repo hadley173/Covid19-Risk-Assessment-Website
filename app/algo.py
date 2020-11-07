@@ -82,4 +82,4 @@ def getData():
 	risk_rating = round(float(base_score *100), 1)
 	state_score = round(float(state_score*100), 1)
 
-	return positive_increase, state_score, risk_rating
+	return positive_increase, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events

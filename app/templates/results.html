@@ -10,15 +10,33 @@
       <p>Based on the latest reported data, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
       <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score }}%</b></span></p>
       <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
+      <p>Today, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
+      <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score }}%</b></span></p>
     </div>
   </div>
   
+  <p>low_risk_events: <span id="low_risk_events", >{{ low_risk_events }}</span></p>
+  <p>mod_risk_events: <span id="mod_risk_events", >{{ mod_risk_events }}</span></p>
+  <p>mod_high_risk_events: <span id="mod_high_risk_events", >{{ mod_high_risk_events }}</span></p>
+  <p>high_risk_events: <span id="high_risk_events", >{{ high_risk_events }}</span></p> 
+
   <br>
   <h2>Supplementary information about {{ userData.state }}</h2>
   <h3>Example Line Chart</h3>
   <canvas id="lineChart" width="400" height="300"></canvas>
   <p id="caption">Here's a caption for the chart</p>
-  
+  <br>
+  <br>
+
+  <h2>Event Type Breakdown</h2>
+  <canvas id="pieChart" width="400" height="400"></canvas>
+  <p id="caption">Percentage of Risk Score Per Event Type</p>
+  <!-- 
+  <h3>(Testing we received form input correctly:)</h3>
+  <p>Number of times grocery shopping: {{ userData.act[0] }}</p>
+  <p>Number of times walked, ran, biked, or sported outdoors with others: {{ userData.act[1] }}</p> 
+  -->
+  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
 
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
@@ -96,6 +114,44 @@
           events: ['click'], // prevents a weird hover bug
         }
       }); 
+
+      var ctx = document.getElementById("pieChart").getContext("2d");
+      // get chart data
+      var low_risk_events = 0
+      low_risk_events += document.getElementById("low_risk_events").innerHTML
+      var mod_risk_events = 0
+      mod_risk_events += document.getElementById("mod_risk_events").innerHTML
+      var mod_high_risk_events = 0
+      mod_high_risk_events += document.getElementById("mod_high_risk_events").innerHTML
+      var high_risk_events = 0
+      high_risk_events += document.getElementById("high_risk_events").innerHTML
+
+
+      // create chart using the canvas
+      var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            value: [(low_risk_events), (mod_risk_events), (mod_high_risk_events), (high_risk_events)],
+            data: [(low_risk_events*.02), (mod_risk_events*.04), (mod_high_risk_events*.08), (high_risk_events*.16)],
+            backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+          }],
+          labels: [
+            'Low Risk Events',
+            'Moderate Risk Events',
+            'Moderate-High Risk Events',
+            'High Risk Events'
+          ]
+        },
+        options: {
+          cutoutPercentage: 50,
+          valueLabel: {
+            display: true,
+          },
+          events: ['click'], // prevents a weird hover bug
+        }
+      });
+
     </script>
     {% endblock %}
 {% endblock%}
