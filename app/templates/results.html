@@ -2,20 +2,21 @@
 {% block app_content %}
   <div class="row">
     <div class="col-sm-8">
-      <h1>Your risk score: <span id="score", style="color:red;">{{ risk_rating }}</span></h1>
+      <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }}</span></h1>
       <canvas id="gaugeChart" width="600" height="400"></canvas>
     </div>
     <div class="col-sm-4">
       <h3>Your state</h3>
-      <p>Based on the latest reported data, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
-      <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score }}%</b></span></p>
+      <p>Based on the latest reported data, there are <span class="user-data">{{ posIncrease }}</span> new cases in {{ userData.state }}.</p>
+      <p>{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
       
       <h3>Your activities</h3>
-      <p>Low-risk activities: <span id="low_risk_events", style="color:red;">{{ low_risk_events }}</span></p> 
-      <p>Moderate-risk activities: <span id="mod_risk_events", style="color:red;">{{ mod_risk_events }}</span></p>
-      <p>Moderate-High risk activities: <span id="mod_high_risk_events", style="color:red;">{{ mod_high_risk_events }}</span></p>
-      <p>High-risk activities: <span id="high_risk_events", style="color:red;">{{ high_risk_events }}</span></p>
-        
+      <p>Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
+      <p>Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
+      <p>Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
+      <p>High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>
+      
+      <br>  
       <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
     </div>
   </div>

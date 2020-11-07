@@ -6,6 +6,7 @@
     COVID-19 Risk App
   {% endif %}
 {% endblock %}
+
 {% block navbar %}
   <nav class="navbar navbar-default">
     <div class="container">
@@ -37,6 +38,13 @@
     </div>
   </nav>
 {% endblock %}
+
+{% block styles%}
+  {{super()}}
+  <link rel="stylesheet" href="../static/css/styles.css">
+
+{% endblock %}
+
 {% block content %}
   <div class="container">
     {% block app_content %}
