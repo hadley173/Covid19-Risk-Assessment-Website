@@ -9,21 +9,16 @@
       <h3>Your state</h3>
       <p>Based on the latest reported data, there are <span style="color:red;"><b>{{ posIncrease }}</b></span> new cases in {{ userData.state }}.</p>
       <p>{{ userData.state }}'s current risk multiplier: <span style="color:red;"><b>{{ state_score*100 }}%</b></span></p>
+      <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
     </div>
   </div>
   
   <br>
-  <h2>Example Line Chart</h2>
+  <h2>Supplementary information about {{ userData.state }}</h2>
+  <h3>Example Line Chart</h3>
   <canvas id="lineChart" width="400" height="300"></canvas>
   <p id="caption">Here's a caption for the chart</p>
-  <br>
-  <br>
-  <!-- maybe display only the activities with frequence > 0? 
-  <h3>(Testing we received form input correctly:)</h3>
-  <p>Number of times grocery shopping: {{ userData.act[0] }}</p>
-  <p>Number of times walked, ran, biked, or sported outdoors with others: {{ userData.act[1] }}</p>
-  <p>(...well, at least the form works)</p> -->
-  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
+  
 
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
