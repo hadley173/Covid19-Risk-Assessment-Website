@@ -46,35 +46,10 @@
 {% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
-  <div class="container">
+  <div class="container-fluid" style="background-color: white background-color: lightgray;padding-left: 0px;padding-right: 0px;">
     {% block app_content %}
     {% block scripts %}
     {% endblock %}
     {% endblock %}
-    <br>
-  </div>
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <hr>
-        <div class="col-sm-6">
-          <h5>DISCLAIMER</h5>
-          <p>This is a student project. The content displayed on this website is not medical advice and cannot be used to diagnose or treat anything.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-{% endblock %}
-=======
-  <div class="container-fluid" style="background-color: white background-color: lightgray;padding-left: 0px;padding-right: 0px;">
-  {% block app_content %}
-  {% endblock %}
   </div>
 {% endblock %}
-
-{% block scripts %}
-  {{ super() }}
-
-{% endblock %}
->>>>>>> cd7a2ce67118abfd29f09ae1327d62e8f1c9e4c5
