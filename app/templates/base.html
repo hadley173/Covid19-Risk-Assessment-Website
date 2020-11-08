@@ -1,14 +1,15 @@
 {% extends 'bootstrap/base.html' %}
 
-{% block head %}
-<head>
-  {{ super() }}
-  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block title %}
+  {% if title %}
+    {{ title }} - COVID-19 Risk App
+  {% else %}
+    COVID-19 Risk App
+  {% endif %}
 {% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
+  <nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -47,11 +48,6 @@
 {% endblock %}
 
 {% block scripts %}
-{{ super() }}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script>$('#myList a').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
+  {{ super() }}
+
 {% endblock %}
