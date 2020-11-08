@@ -1,5 +1,12 @@
 {% extends 'bootstrap/base.html' %}
 
+{% block head %}
+<head>
+  {{ super() }}
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+{% endblock %}
+
 {% block navbar %}
 <nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
     <div class="container-fluid">
@@ -42,4 +49,9 @@
 {% block scripts %}
 {{ super() }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>$('#myList a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
 {% endblock %}
