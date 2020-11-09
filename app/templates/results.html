@@ -25,23 +25,27 @@
     <h2>Supplementary information</h2>
   </div>
 
-  <div class="row">
-    <div class="col-sm-4">
-      <h3>Activity Risk Groups</h3>
-      <canvas id="pieChart" width="300" height="300"></canvas>
-      <p id="caption">Risk contributed per activity type</p>
+  {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
+      <h2>No Data Available</h2>
+  {% else %}
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>Activity Risk Groups</h3>
+          <canvas id="pieChart" width="300" height="300"></canvas>
+        <p id="caption">Risk contributed per activity type</p>
+      </div>
+      <div class="col-sm-4">
+        <h3>Example Line Chart</h3>
+        <canvas id="lineChart" width="300" height="300"></canvas>
+        <p id="caption">Here's a caption for the chart</p>
+      </div>
+      <div class="col-sm-4" style="background-color: whitesmoke">
+        <h3>A Third Chart Here?</h3>
+        <canvas id="" width="300" height="300"></canvas>
+        <p id="caption">Here's a caption for the chart</p>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <h3>Example Line Chart</h3>
-      <canvas id="lineChart" width="300" height="300"></canvas>
-      <p id="caption">Here's a caption for the chart</p>
-    </div>
-    <div class="col-sm-4" style="background-color: whitesmoke">
-      <h3>A Third Chart Here?</h3>
-      <canvas id="" width="300" height="300"></canvas>
-      <p id="caption">Here's a caption for the chart</p>
-    </div>
-  </div>
+  {% endif %}
   <br>
   <br>
 
@@ -144,39 +148,38 @@
       total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
 
       // create chart using the canvas
-      var chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          datasets: [{
-            //value: [((low_risk_events*.02)+(mod_risk_events*.04)+ (mod_high_risk_events*.08)+ (high_risk_events*.16))],
-            // displays each event type by percentage of total risk score to 2 decimals
-            data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
-            (Math.round(high_risk_events*16/total_events*(100))/100)],
-            backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-          }],
-          labels: [
-            'Low risk',
-            'Moderate risk',
-            'Moderate-High risk',
-            'High risk'
-          ]
-        },
-        options: {
-          cutoutPercentage: 50,
-          legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            labels: {
-              boxWidth: 20,
-              fontSize: 26,
-              fontStyle: 'bold',
-            },
+        var chart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            datasets: [{
+              //value: [((low_risk_events*.02)+(mod_risk_events*.04)+ (mod_high_risk_events*.08)+ (high_risk_events*.16))],
+              // displays each event type by percentage of total risk score to 2 decimals
+              data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
+              (Math.round(high_risk_events*16/total_events*(100))/100)],
+              backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+            }],
+            labels: [
+              'Low risk',
+              'Moderate risk',
+              'Moderate-High risk',
+              'High risk'
+            ]
           },
-          events: ['click'], // prevents a weird hover bug
-        },
-      });
-
+          options: {
+            cutoutPercentage: 50,
+            legend: {
+              display: true,
+              position: 'top',
+              align: 'start',
+              labels: {
+                boxWidth: 20,
+                fontSize: 26,
+                fontStyle: 'bold',
+              },
+            },
+            events: ['click'], // prevents a weird hover bug
+          },
+        });
     </script>
     {% endblock %}
 {% endblock%}
