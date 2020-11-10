@@ -7,6 +7,11 @@
   {% endif %}
 {% endblock %}
 
+{% block styles %}
+  {{super()}}
+  <link type="text/css" rel="stylesheet" href="../static/css/styles.css">
+{% endblock %}
+
 {% block navbar %}
   <nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
     <div class="container-fluid">
@@ -39,22 +44,12 @@
   </nav>
 {% endblock %}
 
-{% block styles %}
-  {{super()}}
-  <link type="text/css" rel="stylesheet" href="../static/css/styles.css">
-{% endblock %}
-
 {% block content %}
   <div class="container-fluid" style="background-color: white background-color: lightgray;padding-left: 0px;padding-right: 0px;">
     {% block app_content %}
-<<<<<<< HEAD
-    {% block scripts %}
-      {{super()}}
-    {% endblock %}
-=======
       {% block scripts %}
+        {{super()}}
       {% endblock %}
->>>>>>> main
     {% endblock %}
   </div>
 {% endblock %}
