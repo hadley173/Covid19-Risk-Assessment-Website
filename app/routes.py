@@ -43,14 +43,15 @@ def formInput():
 			userData.act[i] = activity[i]
 		userData.state = form.statename.data
 		
-		posIncrease, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events = getData()
-		# CHART.JS example line charttest
+		posIncrease, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently = getData()
+		# CHART.JS example line chart test
 		legend = 'Monthly Data'
 		labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
 		values = [10, 9, 8, 7, 6, 4, 8]
 
 		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, posIncrease=posIncrease, 
-		state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, high_risk_events=high_risk_events)
+		state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, 
+		high_risk_events=high_risk_events, icuCurrently=icuCurrently, hospCurrently=hospCurrently)
 	
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
