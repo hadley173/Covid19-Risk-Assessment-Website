@@ -2,7 +2,8 @@
 {% block app_content %}
   <div class="row">
     <div class="col-sm-8">
-      <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }}</span></h1>
+      <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }} </span></h1>
+      <p> Testing {{stateList[index].state}} {{stateList[index].positive}} </p>
       <canvas id="gaugeChart" width="600" height="400"></canvas>
     </div>
     <div class="col-sm-4">
@@ -15,37 +16,45 @@
       <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
       <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
       <p class="p-larger">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>
-      
       <br>  
       <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
     </div>
   </div>
-  
+
+  <!-- bug in here somewhere. Activity data is not displayed if there is no hospitilization data? 
+        works correctly if hospitilization data is present -->
   <div class="row">
     <h2>Supplementary information</h2>
   </div>
 
-  {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
-      <h2>No Data Available</h2>
-  {% else %}
     <div class="row">
       <div class="col-sm-4">
-        <h3>Activity Risk Groups</h3>
-          <canvas id="pieChart1" width="300" height="300"></canvas>
-        <p id="caption">Risk contributed per activity type</p>
+        {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
+          <h2>No Activity Data Available</h2>
+        {% else %}
+          <h3>Activity Risk Groups</h3>
+            <canvas id="pieChart1" width="300" height="300"></canvas>
+          <p id="caption">Risk contributed per activity type</p>
+        {% endif %}
       </div>
+
+      <!-- bug here somewhere? -->
       <div class="col-sm-4">
-        <h3>Current hospitalizations in {{ userData.state }}</h3>
-        <canvas id="pieChart2" width="300" height="300"></canvas>
-        <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p>
+        {% if hospCurrently == icuCurrently == 0 %}
+          <h2>No Hospitilization Data Available</h2>
+        {% else %}
+          <h3>Current hospitalizations in {{ userData.state }}</h3> 
+          <canvas id="pieChart2" width="300" height="300"></canvas>
+         <!--  <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p> -->
+          <p id="caption"><span class="user-data">{{ stateList[index].hospitalizedCurrently + stateList[index].inIcuCurrently }}</span> total hospitalizations</p>
+        {% endif %}
       </div>
       <div class="col-sm-4" style="background-color: whitesmoke">
-        <h3>A Third Chart Here?</h3>
-        <canvas id="" width="300" height="300"></canvas>
-        <p id="caption">Here's a caption for the chart</p>
+        <h3>Bar Chart?</h3>
+          <canvas id="barChart" width="300" height="300"></canvas>
+        <p id="caption">positive cases per state</p>
       </div>
     </div>
-  {% endif %}
   <br>
   <br>
 
@@ -166,6 +175,30 @@
           events: ['click'], // prevents a weird hover bug
         },
       });
+
+     // --------------- Bar CHART goes here ---------------
+     /* 
+    var ctx = document.getElementById("barChart").getContext("2d");
+    var barChart = new Chart(ctx, {
+      type: 'bar',
+      data: [{{ hospCurrently }}, {{ icuCurrently }}],
+      options: options
+
+      <script> 
+    
+    
+  });
+
+  console.log("hello there out");
+      function myFunction(){
+        console.log("hello there in");
+        var i;
+        for (i in stateList){
+          console.log(i.state);
+          
+        }
+      }
+      */
     </script>
     {% endblock %}
 {% endblock%}

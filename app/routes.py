@@ -43,15 +43,21 @@ def formInput():
 			userData.act[i] = activity[i]
 		userData.state = form.statename.data
 		
-		posIncrease, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently = getData()
+		#state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, positive, posIncrease, inIcuCurrently, hospCurrently, total_test_results_increase = getData()
+		stateList=[]
+		risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, user_state, icuCurrently, hospCurrently, index = getData()
 		# CHART.JS example line chart test
 		legend = 'Monthly Data'
 		labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
 		values = [10, 9, 8, 7, 6, 4, 8]
 
-		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, posIncrease=posIncrease, 
+		"""
+		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, positive=positive posIncrease=posIncrease, 
 		state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, 
-		high_risk_events=high_risk_events, icuCurrently=icuCurrently, hospCurrently=hospCurrently)
+		high_risk_events=high_risk_events, icuCurrently=inIcuCurrently, hospCurrently=hospCurrently, total_test_results_increase=total_test_results_increase)
+		"""
+		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, 
+		high_risk_events=high_risk_events, stateList=stateList, user_state=user_state, icuCurrently=icuCurrently, hospCurrently=hospCurrently, index=index)
 	
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
