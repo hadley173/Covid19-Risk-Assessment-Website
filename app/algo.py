@@ -45,18 +45,23 @@ def getData():
 		inIcuCurrently = json_response['inIcuCurrently']
 		hospitalizedCurrently = json_response['hospitalizedCurrently']
 
+		if inIcuCurrently == None:
+			inIcuCurrently = 0
+		if hospitalizedCurrently == None:
+			hospitalizedCurrently = 0
+
 		# create new object for each state and add to list
 		stateList.append( State(state, positive, positive_increase, totalTestResultsIncrease, inIcuCurrently, hospitalizedCurrently))
 		
 		#DEBUG: Print info
-		
+		"""
 		print(state)
 		print(positive)
 		print(positive_increase)
 		print(totalTestResultsIncrease)
 		print(inIcuCurrently)
 		print(hospitalizedCurrently)
-		
+		"""
 
 		#DEBUG: Print json
 		#print(json_response)
@@ -91,6 +96,7 @@ def getData():
 			if(i.state.lower() == user_state):
 				print("match found")
 				state_score = round(float(i.positiveIncrease /i.totalTestResultsIncrease), 2)
+				# some of this uneeded
 				icuCurrently = i.inIcuCurrently
 				hospCurrently = i.hospitalizedCurrently
 				print("state score: ", state_score)
