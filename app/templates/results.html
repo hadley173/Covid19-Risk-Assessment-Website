@@ -8,7 +8,7 @@
     </div>
     <div class="col-sm-4">
       <h3>Your state</h3>
-      <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ posIncrease }}</span> new cases in {{ userData.state }}.</p>
+      <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ stateList[index].positiveIncrease }}</span> new cases in {{ stateList[index].state }}.</p>
       <p class="p-larger">{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
       
       <h3>Your activities</h3>
@@ -21,37 +21,37 @@
     </div>
   </div>
 
-  <!-- bug in here somewhere. Activity data is not displayed if there is no hospitilization data? 
-        works correctly if hospitilization data is present -->
   <div class="row">
     <h2>Supplementary information</h2>
   </div>
 
+  <!--Activity Risk Group Pie Chart-->
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
-          <h2>No Activity Data Available</h2>
+              <h2>No Activity Data Available</h2>
         {% else %}
           <h3>Activity Risk Groups</h3>
             <canvas id="pieChart1" width="300" height="300"></canvas>
-          <p id="caption">Risk contributed per activity type</p>
-        {% endif %}
+            <p id="caption">Risk contributed per activity type</p>
+         {% endif %}
       </div>
 
-      <!-- bug here somewhere? -->
-      <div class="col-sm-4">
+      <!--Hospitilization Pie Chart-->
+      <div class="col-sm-6">
         {% if hospCurrently == icuCurrently == 0 %}
           <h2>No Hospitilization Data Available</h2>
         {% else %}
           <h3>Current hospitalizations in {{ userData.state }}</h3> 
           <canvas id="pieChart2" width="300" height="300"></canvas>
-         <!--  <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p> -->
-          <p id="caption"><span class="user-data">{{ stateList[index].hospitalizedCurrently + stateList[index].inIcuCurrently }}</span> total hospitalizations</p>
         {% endif %}
       </div>
-      <div class="col-sm-4" style="background-color: whitesmoke">
+    </div>
+    <!--State Positive Cases Chart-->
+    <div class="row"></div>
+      <div class="col-sm-12" style="background-color: whitesmoke">
         <h3>Bar Chart?</h3>
-          <canvas id="barChart" width="300" height="300"></canvas>
+          <canvas id="barChart" width="1100" height="300"></canvas>
         <p id="caption">positive cases per state</p>
       </div>
     </div>
@@ -98,107 +98,168 @@
 
       // --------------- PIE CHART 2 ---------------
       // get chart canvas
-      var ctx = document.getElementById("pieChart2").getContext("2d");
+      try{
+        var ctx = document.getElementById("pieChart2").getContext("2d");
+        var hospitilized = {{hospCurrently}};
+        var icu = {{icuCurrently}};
 
-      // create chart using the canvas
-      var pieChart2 = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          datasets: [{
-            // displays each event type by percentage of total risk score to 2 decimals
-            data: [{{ hospCurrently }}, {{ icuCurrently }}],
-            backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-          }],
-          labels: ['In hospital','In ICU'],
-        },
-        options: {
-          cutoutPercentage: 0,
-          legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            labels: {
-              boxWidth: 20,
-              fontSize: 26,
-              fontStyle: 'bold',
-            },
+        // create chart using the canvas
+        var pieChart2 = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            datasets: [{
+              // displays each event type by percentage of total risk score to 2 decimals
+              data: [ hospitilized , icu ],
+              backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+            }],
+            labels: ['In hospital','In ICU'],
           },
-          events: ['click'], // prevents a weird hover bug
-        },
-      });
+          options: {
+            cutoutPercentage: 0,
+            legend: {
+              display: true,
+              position: 'top',
+              align: 'start',
+              labels: {
+                boxWidth: 20,
+                fontSize: 26,
+                fontStyle: 'bold',
+              },
+            },
+            events: ['click'], // prevents a weird hover bug
+          },
+        });
+      } 
+      catch(err) {
+        console.log("no activity data");
+      }
 
       // --------------- PIE CHART 1 ---------------
       // get chart canvas
-      var ctx = document.getElementById("pieChart1").getContext("2d");
+      try{
+        var ctx = document.getElementById("pieChart1").getContext("2d");
 
       // get chart data
-      var low_risk_events = 0
-      low_risk_events += document.getElementById("low_risk_events").innerHTML
-      var mod_risk_events = 0
-      mod_risk_events += document.getElementById("mod_risk_events").innerHTML
-      var mod_high_risk_events = 0
-      mod_high_risk_events += document.getElementById("mod_high_risk_events").innerHTML
-      var high_risk_events = 0
-      high_risk_events += document.getElementById("high_risk_events").innerHTML
-      var total_events = 0
-      total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
+      
+        var low_risk_events = 0
+        low_risk_events += document.getElementById("low_risk_events").innerHTML
+        var mod_risk_events = 0
+        mod_risk_events += document.getElementById("mod_risk_events").innerHTML
+        var mod_high_risk_events = 0
+        mod_high_risk_events += document.getElementById("mod_high_risk_events").innerHTML
+        var high_risk_events = 0
+        high_risk_events += document.getElementById("high_risk_events").innerHTML
+        var total_events = 0
+        total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
+     
 
-      // create chart using the canvas
-      var chart = new Chart(ctx, {
-        type: 'pie',
+        // create chart using the canvas
+        var chart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            datasets: [{
+              // displays each event type by percentage of total risk score to 2 decimals
+              data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
+              (Math.round(high_risk_events*16/total_events*(100))/100)],
+              backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+            }],
+            labels: [
+              'Low risk',
+              'Moderate risk',
+              'Moderate-High risk',
+              'High risk'
+            ]
+          },
+          options: {
+            cutoutPercentage: 50,
+            legend: {
+              display: true,
+              position: 'top',
+              align: 'start',
+              labels: {
+                boxWidth: 20,
+                fontSize: 26,
+                fontStyle: 'bold',
+              },
+            },
+            events: ['click'], // prevents a weird hover bug
+          },
+        });
+      }
+      catch(err){
+        console.log('No activities selected')
+      }
+
+
+     // --------------- Bar CHART goes here --------------
+    //console.log({{all_states_pos}});
+    var pos = {{all_states_pos}};
+    //console.log({{all_states_pos_inc}});
+    var pos_inc = {{all_states_pos_inc}};
+    var idx = {{index}};
+    console.log('idx: ' + idx);
+    console.log('pos: ' + pos);
+    console.log('pos_inc: ' + pos_inc);
+    //var pos2 = [];
+    //var pos_inc2 = [];
+
+    //for (var i = 0, len = 56; i < len; i++) {
+      //console.log(i);
+      //console.log(pos[i]);
+      //pos2[i] = pos[i];
+      //console.log(pos2[i])
+      //pos_inc2[i] = pos_inc[i];
+      //console.log(pos_inc2[i])
+    //}   
+    //console.log('pos2: ' + pos2);
+    //console.log('pos_inc2: '  + pos_inc2);
+    //var positive_cases = {};
+    //Object.assign(all_states_pos, positive_cases);
+    //var positive_cases_inc = {};
+    //Object.assign(all_states_pos_inc, positive_cases_inc);
+    //console.log(positive_cases);
+    //console.log(positive_cases_inc);
+      
+     // stateCodes = ['al', 'ak', 'az','ar','ca','co','ct','dc','de','fl', 'ga','hi','id','il','in','ia', 
+     //'ks','ky','la','me', 'md','ma','mi','mn','ms', 'mo','mt','ne','nv','nh', 'nj','nm',
+				//	'ny','nc','nd','oh','ok','or','pa','ri', 'sc','sd','tn','tx','ut','vt','va','wa','wv','wi','wy']
+    
+
+    var ctx = document.getElementById("barChart").getContext("2d");
+    var chart = new Chart(ctx, {
+        type: 'bar',
         data: {
           datasets: [{
-            // displays each event type by percentage of total risk score to 2 decimals
-            data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
-            (Math.round(high_risk_events*16/total_events*(100))/100)],
-            backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+            data: [ pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13], pos[14], pos[15], pos[16], pos[17],
+            pos[18], pos[19], pos[20], pos[21], pos[22], pos[23], pos[24], pos[25], pos[26], pos[27], pos[28], pos[29], pos[30], pos[31], pos[32], pos[33], pos[34], pos[35],
+            pos[36], pos[37], pos[38], pos[39], pos[40], pos[41], pos[42], pos[43], pos[44], pos[45], pos[46], pos[47], pos[48], pos[49], pos[50], pos[51], pos[52], pos[53], 
+            pos[54], pos[55], pos[56]],
           }],
           labels: [
-            'Low risk',
-            'Moderate risk',
-            'Moderate-High risk',
-            'High risk'
+          ('AK', 'Alaska'), ('AL', 'Alabama'), ('AR', 'Arkansas'), ('AS', 'American Samoa'), ('AZ', 'Arizona'), ('CA', 'California'), ('CO', 'Colorado'), 
+						('CT', 'Connecticut'), ('DC', 'Washington DC'), ('DE', 'Delaware'), ('FL', 'Florida'), ('GA', 'Georgia'), ('GU', 'Guam'), ('HI', 'Hawaii'), ('IA', 'Iowa'), ('ID', 'Idaho'), 
+						('IL', 'Illinois'), ('IN', 'Indiana'), ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisianna'), ('MA', 'Massachusettes'), ('MD', 'Maryland'), ('ME', 'Maine'), 
+						('MI', 'Michigan'), ('MN', 'Minnisota'), ('MO', 'Missouri'), ('MP', 'Nortern Mariana Islands'), ('MS', 'Mississippi'), 
+						('MT', 'Montana'), ('NC', 'North Carolina'), ('ND', 'North Dakota'), ('NE', 'Nebraska'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NV', 'Nevada'),  
+						('NY', 'New York'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('PR', 'Puerto Rico'),
+						('RI', 'Rhode Island'), ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VA', 'Virginia'), 
+						('VI', 'Virgin Islands'), ('VT', 'Vermont'), ('WA', 'Washington'), ('WI', 'Wisconsin'), ('WV', 'West Virginia'), ('WY', 'Wyoming')
+
           ]
         },
         options: {
-          cutoutPercentage: 50,
-          legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            labels: {
-              boxWidth: 20,
-              fontSize: 26,
-              fontStyle: 'bold',
-            },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                  offsetGridLines: true
+              },
+            }],
           },
-          events: ['click'], // prevents a weird hover bug
         },
-      });
+        events: ['click'], // prevents a weird hover bug
+    });
 
-     // --------------- Bar CHART goes here ---------------
-     /* 
-    var ctx = document.getElementById("barChart").getContext("2d");
-    var barChart = new Chart(ctx, {
-      type: 'bar',
-      data: [{{ hospCurrently }}, {{ icuCurrently }}],
-      options: options
-
-      <script> 
     
-    
-  });
-
-  console.log("hello there out");
-      function myFunction(){
-        console.log("hello there in");
-        var i;
-        for (i in stateList){
-          console.log(i.state);
-          
-        }
-      }
-      */
     </script>
     {% endblock %}
 {% endblock%}
