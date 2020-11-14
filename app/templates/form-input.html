@@ -8,21 +8,23 @@
   <form class="form" action="" method="post" role="form" novalidate>
   {{ form.hidden_tag() }}
 
-  <div class="form-group">
-    <div class="row">
-      <div class="col-sm-6">
-        <p>Please provide your location.</p>
+    <div class="form-row">
+      <div class="col-8">
+        <p class="lead">Please provide your location.</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-6">
+    <div class="form-row space-below">
+      <div class="col-8">
         {{ wtf.form_field(form.statename) }}
       </div>
     </div>
-  </div>
 
   <div class="form-group">
-    <p>In the past two weeks, how many times have you...?</p>
+    <div class="form-row">
+      <div class="col-8">
+        <p class="lead">In the past two weeks, how many times have you...?</p>
+      </div>
+    </div>
     <div class="form-row">
       <div class="form-inline col-6">
         {{ wtf.form_field(form.activity1) }}
