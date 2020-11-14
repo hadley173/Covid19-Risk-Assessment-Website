@@ -1,3 +1,9 @@
+!-- Import D3 Scale Chromatic via CDN -->
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<!--<script src="\app\utils\color-generator.js"></script>-->
+
 {% extends "base.html" %}
 {% block app_content %}
   <div class="row">
@@ -49,12 +55,12 @@
     </div>
     <!--State Positive Cases Chart-->
     <div class="row"></div>
-      <div class="col-sm-12" style="background-color: whitesmoke">
-        <h3>Bar Chart?</h3>
-          <canvas id="barChart" width="1100" height="300"></canvas>
-        <p id="caption">positive cases per state</p>
-      </div>
-    </div>
+        <h3>Positive Cases For All States</h3>
+        <div class="app-container">
+          <div class="chart-container">
+            <canvas id="bar-chart"></canvas>
+          </div>
+       </div>
   <br>
   <br>
 
@@ -191,7 +197,7 @@
       }
 
 
-     // --------------- Bar CHART goes here --------------
+     // --------------- Bar CHART  --------------
     // need to copy data sent by routes.py into javascript variables
     var pos = {{all_states_pos}};
     var pos_inc = {{all_states_pos_inc}};
@@ -200,42 +206,121 @@
     console.log('pos: ' + pos);
     console.log('pos_inc: ' + pos_inc);
     
+    // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
+function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
+  /* Grab chart element by id */
+  
+  const chartElement = document.getElementById(chartId);
 
-    var ctx = document.getElementById("barChart").getContext("2d");
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          datasets: [{
-            data: [ pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13], pos[14], pos[15], pos[16], pos[17],
-            pos[18], pos[19], pos[20], pos[21], pos[22], pos[23], pos[24], pos[25], pos[26], pos[27], pos[28], pos[29], pos[30], pos[31], pos[32], pos[33], pos[34], pos[35],
-            pos[36], pos[37], pos[38], pos[39], pos[40], pos[41], pos[42], pos[43], pos[44], pos[45], pos[46], pos[47], pos[48], pos[49], pos[50], pos[51], pos[52], pos[53], 
-            pos[54], pos[55], pos[56]],
-          }],
-          labels: [
-          ('AK', 'Alaska'), ('AL', 'Alabama'), ('AR', 'Arkansas'), ('AS', 'American Samoa'), ('AZ', 'Arizona'), ('CA', 'California'), ('CO', 'Colorado'), 
+  const dataLength = chartData.data.length;
+
+    /* Create color array */
+  var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+    /* Create chart */
+  const myChart = new Chart(chartElement, {
+    type: 'bar',
+    data: {
+      labels: chartData.labels,
+      datasets: [
+        {
+          backgroundColor: COLORS,
+          hoverBackgroundColor: COLORS,
+          data: chartData.data
+        }
+      ],
+    },
+    options: {
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+                fontSize: 11,
+            },
+        }],
+        yAxes: [{
+            ticks: {
+                fontSize: 25,
+            },
+        }],
+    },
+      responsive: true,
+      legend: {
+        display: false,
+      },
+      hover: {
+        onHover: function(e) {
+          var point = this.getElementAtEvent(e);
+          e.target.style.cursor = point.length ? 'pointer' : 'default';
+        },
+      },
+    },
+    events: ['click'], // prevents a weird hover bug
+  });
+
+  return myChart;
+}
+
+var i;
+var data = [];
+var labels = [];
+var labelList =[ ('AK', 'Alaska'), ('AL', 'Alabama'), ('AR', 'Arkansas'), ('AS', 'American Samoa'), ('AZ', 'Arizona'), ('CA', 'California'), ('CO', 'Colorado'), 
 						('CT', 'Connecticut'), ('DC', 'Washington DC'), ('DE', 'Delaware'), ('FL', 'Florida'), ('GA', 'Georgia'), ('GU', 'Guam'), ('HI', 'Hawaii'), ('IA', 'Iowa'), ('ID', 'Idaho'), 
 						('IL', 'Illinois'), ('IN', 'Indiana'), ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisianna'), ('MA', 'Massachusettes'), ('MD', 'Maryland'), ('ME', 'Maine'), 
 						('MI', 'Michigan'), ('MN', 'Minnisota'), ('MO', 'Missouri'), ('MP', 'Nortern Mariana Islands'), ('MS', 'Mississippi'), 
 						('MT', 'Montana'), ('NC', 'North Carolina'), ('ND', 'North Dakota'), ('NE', 'Nebraska'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NV', 'Nevada'),  
 						('NY', 'New York'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('PR', 'Puerto Rico'),
 						('RI', 'Rhode Island'), ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VA', 'Virginia'), 
-						('VI', 'Virgin Islands'), ('VT', 'Vermont'), ('WA', 'Washington'), ('WI', 'Wisconsin'), ('WV', 'West Virginia'), ('WY', 'Wyoming')
+						('VI', 'Virgin Islands'), ('VT', 'Vermont'), ('WA', 'Washington'), ('WI', 'Wisconsin'), ('WV', 'West Virginia'), ('WY', 'Wyoming') ];
 
-          ]
-        },
-        options: {
-          scales: {
-            xAxes: [{
-              gridLines: {
-                  offsetGridLines: true
-              },
-            }],
-          },
-        },
-        events: ['click'], // prevents a weird hover bug
-    });
+const arrayLength = labelList.length;
 
-    
-    </script>
+for (i = 0; i < arrayLength; i++) {
+  data.push(pos[i]);
+  labels.push(labelList[i]);
+}
+
+const chartData = {
+  labels: labels,
+  data: data,
+};
+
+const colorScale = d3.interpolateInferno;
+
+const colorRangeInfo = {
+  colorStart: 0,
+  colorEnd: 1,
+  useEndAsStart: false,
+}; 
+
+
+
+function calculatePoint(i, intervalSize, colorRangeInfo) {
+    var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
+    return (useEndAsStart
+      ? (colorEnd - (i * intervalSize))
+      : (colorStart + (i * intervalSize)));
+  }
+
+
+/* Must use an interpolated color scale, which has a range of [0, 1] */
+function interpolateColors(dataLength, colorScale, colorRangeInfo) {
+    var { colorStart, colorEnd } = colorRangeInfo;
+    var colorRange = colorEnd - colorStart;
+    var intervalSize = colorRange / dataLength;
+    var i, colorPoint;
+    var colorArray = [];
+  
+    for (i = 0; i < dataLength; i++) {
+      colorPoint = calculatePoint(i, intervalSize, colorRangeInfo);
+      colorArray.push(colorScale(colorPoint));
+    }
+  
+    return colorArray;
+  }  
+
+  createBarChart('bar-chart', chartData, colorScale, colorRangeInfo);
+</script>
+
     {% endblock %}
 {% endblock%}

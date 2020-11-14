@@ -6,3 +6,19 @@
 .p-larger {
 	font-size: 16px;
 }
+
+
+.app-container {
+	display: flex;
+	justify-content: center;
+	padding: 38px 10px 10px 10px;
+	background-color: "whitesmoke";
+  }
+  
+  .chart-container {
+	width: 2400px;
+  }
+  
+  #bar-chart {
+	width: 100%;
+  }
