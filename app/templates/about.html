@@ -4,13 +4,56 @@
   <h1>About this app</h1>
 
   <h2>Introduction</h2>
-  <p>This website allows visitors to submit data about their recent location(s) and activities in order to see a resulting risk score that takes into account the latest state-level COVID-19 data, as well as a risk rating for the activities they indicated.</p>
+  <p>This website allows visitors to submit data about their location (U.S. states only) and activities in order to see a resulting risk score that takes into account the latest state-level COVID-19 data, as well as a state-adjusted risk rating for the activities they indicated.</p>
 
   <h2>Method</h2>
-  <p>Hopefully we will have some. In the meantime, Davy Jones' Locker clipper coffer aye six pounders maroon tack Gold Road scuttle. Sink me starboard nipperkin Admiral of the Black reef squiffy run a rig marooned grog topgallant. Blow the man down poop deck hang the jib barkadeer nipper gun grog wench furl gaff.</p>
+  <p>In order to produce a risk score for each visitor, we needed to create a risk-assessment algorithm that would combine state data as well as user-submitted data to produce a useful result. We began by defining our inputs:</p>
+  <div class="d-flex table-container">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Input item</th>
+        <th scope="col">Source</th>
+        <th scope="col">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Location</td>
+        <td>User-submitted</td>
+        <td>U.S. states only</td>
+      </tr>
+      <tr>
+        <td>Activity frequencies</td>
+        <td>User-submitted</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>State COVID data</td>
+        <td>Covid Tracking Project</td>
+        <td>API call on form submission</td>
+      </tr>
+      <tr>
+        <td>Activity risk ratings</td>
+        <td>Our app</td>
+        <td>Based on TMA ratings - more details below</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Activity risk ratings</h3>
+  <p>We knew that our users would submit information about what activities they'd done recently, and how frequently. Our research had uncovered an excellent chart from the Texas Medical Association, which ranked common activities in terms of their relative risk (low risk, low-moderate, moderate, moderate-high, and high risk). To calculate a risk score, however, we first needed a way of assigning a numeric risk rating to each activity.</p>
+
+  <p>We wanted the five risk categories from the rankings chart to be based on scalar growth patterns, and knew that high-risk activities such as going to bars should contribute to correspondingly high risk scores. For these reasons, we decided a logarithmic (base 2) scale would be appropriate to estimate the steep climb in risk in the higher-ranked activities. For our model, we simply translated the scale to a percentage: For example, we interpreted each instance of a log-1, low-risk activity as a 2% risk.</p>
+
+  <p>We knew that doing an activity in a state with a higher percent of positive COVID-19 tests was probably riskier than doing the same activity in a state with few positive tests, and wanted to account for this in our algorithm. We decided to calculate a state risk score by using the API data to get the most recently reported numbers for percentage of positive tests over total tests, and used this daily snapshot as a "state risk multiplier." Each user-reported activity was adjusted by this multiplier to result in an updated risk rating that would be higher for riskier locations.</p>
+
+  <h3>Probability of independent events</h3>
+  Finally, we needed to combine our list of activity risk scores to get a final, cumulative risk score for the user -- in other words, we needed to get the probability of multiple independent events (COVID exposure, in this case) occurring at least once. We took the product of all of these event probabilities to get the cumulative risk score we needed. The resulting risk score is always a number between 1-100.
 
   <h2>Results</h2>
-  <p>Gaff heave to nipper long boat parley Pieces of Eight come about hands gunwalls trysail. Long boat no prey, no pay ho quarterdeck handsomely transom pinnace crimp aye black spot. Rope's end belaying pin boatswain dance the hempen jig Arr pressgang rum gangway keelhaul scuppers.</p>
+  <p>Our foray into algorithm design and data visualization was an interesting one. Our learning curve remained steep throughout the class, as we all had to learn our chosen technologies (Python and Flask), become familiar with the available COVID APIs and the inherent "gotchas" in their data, and construct an algorithm that would provide a useful result given the inputs at hand. Although we were happy with the results our team produced in the time available to us, we were also left with a deep appreciation for the complexities of statistics and data science (and a lingering frustration with the complexities of Bootstrap styling).</p>
 
   <h2>Conclusion</h2>
   <p>This website provides an estimation of each visitor’s personal risk of exposure to COVID-19, based only on the information they input about location and activities.</p>

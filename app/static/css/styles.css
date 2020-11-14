@@ -6,3 +6,8 @@
 .p-larger {
 	font-size: 16px;
 }
+
+.table-container {
+	max-width: 760px;
+	align-items: left;
+}
