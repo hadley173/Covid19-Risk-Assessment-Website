@@ -192,37 +192,13 @@
 
 
      // --------------- Bar CHART goes here --------------
-    //console.log({{all_states_pos}});
+    // need to copy data sent by routes.py into javascript variables
     var pos = {{all_states_pos}};
-    //console.log({{all_states_pos_inc}});
     var pos_inc = {{all_states_pos_inc}};
     var idx = {{index}};
     console.log('idx: ' + idx);
     console.log('pos: ' + pos);
     console.log('pos_inc: ' + pos_inc);
-    //var pos2 = [];
-    //var pos_inc2 = [];
-
-    //for (var i = 0, len = 56; i < len; i++) {
-      //console.log(i);
-      //console.log(pos[i]);
-      //pos2[i] = pos[i];
-      //console.log(pos2[i])
-      //pos_inc2[i] = pos_inc[i];
-      //console.log(pos_inc2[i])
-    //}   
-    //console.log('pos2: ' + pos2);
-    //console.log('pos_inc2: '  + pos_inc2);
-    //var positive_cases = {};
-    //Object.assign(all_states_pos, positive_cases);
-    //var positive_cases_inc = {};
-    //Object.assign(all_states_pos_inc, positive_cases_inc);
-    //console.log(positive_cases);
-    //console.log(positive_cases_inc);
-      
-     // stateCodes = ['al', 'ak', 'az','ar','ca','co','ct','dc','de','fl', 'ga','hi','id','il','in','ia', 
-     //'ks','ky','la','me', 'md','ma','mi','mn','ms', 'mo','mt','ne','nv','nh', 'nj','nm',
-				//	'ny','nc','nd','oh','ok','or','pa','ri', 'sc','sd','tn','tx','ut','vt','va','wa','wv','wi','wy']
     
 
     var ctx = document.getElementById("barChart").getContext("2d");
