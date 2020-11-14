@@ -1,31 +1,31 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-  <img src="https://nsc.edu/wp-content/uploads/2020/03/COVID-19-Banner-2.jpg" class="img-fluid" alt="Responsive image" width="100%" height="100%">
-  <div class="container" style="margin-right: 50px;margin-top: auto;text-align: center;padding-left: 0px;padding-right: 0px;margin-left: 0px;background-color: darkred;margin-right: 0px;width: 100%;color: white;">
+  <img src="https://nsc.edu/wp-content/uploads/2020/03/COVID-19-Banner-2.jpg" class="img-fluid" alt="Responsive image">
+  <div class="container">
     <br>
-    <h2 class=jumbo-header style="padding-left: 50px;padding-right: 50px;">Team COVID-19</h1>
-    <p class="lead" style="margin-left: 100px;margin-right: 100px; margin-top: 10px">Help protect yourself and others against COVID-19. Learn more about your personal COVID-19 risk profile using our customized risk calculator.</p>
+    <h2 class="jumbo-header">Team COVID-19</h1>
+    <p class="lead">Help protect yourself and others against COVID-19. Learn more about your personal COVID-19 risk profile using our customized risk calculator.</p>
     <p class="button">
-      <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button" style="margin-top: 10px; width: 40%; color: white; background-color:gray; border-color: black; font-size: 15px">Calculate your risk</a>
+      <a class="btn btn-primary" id="calc-risk-btn" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
     </p>
   </div>
 
 <br>
-<hr style="height:2px; border-width:0; color:gray; background-color:gray; margin-top: 0px; width: 50%">
+<hr>
 
-<div class="container-fluid" style="background-color: darkred;color: white;padding-left: 25px;padding-bottom: 25px;padding-top: 25px;padding-right: 25px">
-<div class="row" style="text-align:center">
+<div class="container-fluid" id="col-lg-4-containter">
+<div class="row">
   <div class="col-lg-4">
     <div class="card">
       <div class="embed-responsive embed-responsive-16by9">
-        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://content.thriveglobal.com/wp-content/uploads/2019/06/innovation-LIGHT-BULB-iStock-1023387542.jpg" style="border-radius: 5px 5px 5px 5px">
+        <img alt="Card image cap" class="card-img-top embed-responsive-item"src="https://content.thriveglobal.com/wp-content/uploads/2019/06/innovation-LIGHT-BULB-iStock-1023387542.jpg">
       </div>
       <div class="card-block">
         <h4 class="card-title">About Us</h4>
         <p class="card-text">Learn more about our COVID-19 project.</p>
         <p>
-          <a class="btn btn-primary" href="{{ url_for('about') }}" role="button"  style="margin-top: 10px; color: white; background-color:gray; border-color: black; font-size: 15px">Learn more</a>
+          <a class="btn btn-primary" id="about-btn" href="{{ url_for('about') }}" role="button">Learn more</a>
         </p>
       </div>
     </div>
@@ -34,13 +34,13 @@
   <div class="col-lg-4">
     <div class="card">
       <div class="embed-responsive embed-responsive-16by9">
-        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://e3.365dm.com/20/07/2048x1152/skynews-coronavirus-graphic_5052697.jpg" style="border-radius: 5px 5px 5px 5px;">
+        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://e3.365dm.com/20/07/2048x1152/skynews-coronavirus-graphic_5052697.jpg">
       </div>
       <div class="card-block">
         <h4 class="card-title">Calculate Personal COVID-19 Risk</h4>
         <p class="card-text">Learn more about your personal COVID-19 risk rating.</p>
         <p>
-          <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button"  style="margin-top: 10px; color: white; background-color:gray; border-color: black; font-size: 15px">Calculate your risk</a>
+          <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
         </p>
       </div>
     </div>
@@ -49,12 +49,12 @@
   <div class="col-lg-4">
     <div class="card">
       <div class="embed-responsive embed-responsive-16by9">
-        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTOpLUNJqE3s74qBiJVLYtBgLQOl2gIMZK8QA&usqp=CAU" style="border-radius: 5px 5px 5px 5px;">
+        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTOpLUNJqE3s74qBiJVLYtBgLQOl2gIMZK8QA&usqp=CAU">
       </div>
       <div class="card-block">
         <h4 class="card-title">Activity Risk Levels</h4>
         <p class="card-text">Learn about COVID-19 risk levels of various activities.</p>
-        <p><a class="btn btn-primary" href="{{ url_for('activities') }}" role="button" style="margin-top: 10px; color: white; background-color:gray; border-color: black; font-size: 15px">View the activities</a></p>
+        <p><a class="btn btn-primary" href="{{ url_for('activities') }}" role="button">View the activities</a></p>
       </div>
     </div>
   </div>
@@ -62,12 +62,12 @@
 </div>
 <br>
 
-<footer class="footer" style="text-align:center">
+<footer class="footer">
   <div class="container-fluid">
     <div class="row">
-      <hr style="height:2px; border-width:0; color:gray; background-color:gray; margin-top: 0px; width: 80%">
+      <hr class="footer-hr">
       <div class="col-lg-12">
-        <h5 style="margin-top: 0px">DISCLAIMER</h5>
+        <h5 class="disclaimer-h5">DISCLAIMER</h5>
         <p>This is a student project. The content displayed on this website is not medical advice and cannot be used to diagnose or treat anything.</p>
       </div>
     </div>

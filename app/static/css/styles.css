@@ -1,11 +1,150 @@
-.user-data {
-	color: #0066ff;
-	font-weight: bold;
+.container-fluid {
+	background-color: whitesmoke;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
+/* Container on bottom of landing page */
+#col-lg-4-containter {
+	background-color: darkred;
+	color: white;
+	padding-left: 25px;
+	padding-bottom: 25px;
+	padding-top: 25px;
+	padding-right: 25px;
+}
+
+.container {
+	margin-right: 50px;
+	margin-top: auto;
+	text-align: center;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 0px;
+	background-color: darkred;
+	margin-right: 0px;
+	width: 100%;
+	color: white;
+}
+
+.row {
+	text-align: center;
+}
+
+/* Navbar */
+.navbar-default {
+	margin-bottom: 0px;
+}
+
+/* Active navbar links */
 .navbar-default .navbar-nav>.active> a,
 .navbar-default .navbar-nav>.active> a:focus,
 .navbar-default .navbar-nav>.active> a:hover {
   background-color: darkred;
 	color: whitesmoke;
+}
+
+/* Navbar brand "COVID 19 Risk App" */
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+	margin-left: 0px;
+}
+
+/* Main image "masthead" at top of every page */
+.img-fluid {
+	height: 100%;
+	width: 100%;
+}
+
+/* Jumbotron text under masthead */
+.container .jumbotron, .container-fluid .jumbotron {
+	text-align: center;
+	background-color: darkred;
+	font-size: xxx-large;
+	color: whitesmoke;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-bottom: 0px;
+	border-radius: 0px;
+}
+
+h2 > .jumbo-header {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+p > .lead {
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-top: 10px
+}
+
+/* Main call-to-action button on landing page */
+#calc-risk-btn {
+	margin-top: 10px;
+	width: 40%;
+	color: black;
+	background-color:whitesmoke;
+	border-color: grey;
+	font-size: 15px";
+}
+
+/* Three buttons underneath images on landing page */
+.btn-primary {
+	margin-top: 10px;
+	width: 40%;
+	color: white;
+	background-color:black;
+	border-color: black;
+	font-size: 15px;
+}
+
+
+/* horizontal row */
+hr {
+	height:2px;
+	border-width:0;
+	color:gray;
+	background-color:gray;
+	margin-top: 10px;
+	width: 50%
+}
+
+/* Embedded image settings on the landing page - Learn more, Calculate risk, View the activities images */
+.embed-responsive .embed-responsive-item, .embed-responsive embed, .embed-responsive iframe, .embed-responsive object, .embed-responsive video {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+	text-align: center;
+}
+
+/* Footer horizontal row separator */
+.footer-hr {
+	height:2px;
+	border-width:0;
+	color:black;
+	background-color:gray;
+	margin-top: 0px;
+	width: 80%;
+	text-align: center;
+}
+
+/* Disclaimer h5 styling */
+.disclaimer-h5 {
+	margin-top: 10px;
+}
+
+.user-data {
+	color: #0066ff;
+	font-weight: bold;
 }
