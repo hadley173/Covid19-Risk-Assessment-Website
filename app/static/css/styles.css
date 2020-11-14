@@ -11,3 +11,11 @@
 	max-width: 760px;
 	align-items: left;
 }
+
+.gray-bg {
+	background-color: #f2f2f2;
+}
+
+.space-below {
+	margin-bottom: 40px;
+}

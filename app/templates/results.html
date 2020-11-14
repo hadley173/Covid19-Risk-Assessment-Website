@@ -14,9 +14,7 @@
       <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
       <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
       <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
-      <p class="p-larger">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>
-      
-      <br>  
+      <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>  
       <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
     </div>
   </div>
@@ -39,16 +37,13 @@
         <canvas id="pieChart2" width="300" height="300"></canvas>
         <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p>
       </div>
-      <div class="col-sm-4" style="background-color: whitesmoke">
+      <div class="col-sm-4 space-below" style="background-color: whitesmoke">
         <h3>A Third Chart Here?</h3>
         <canvas id="" width="300" height="300"></canvas>
         <p id="caption">Here's a caption for the chart</p>
       </div>
     </div>
   {% endif %}
-  <br>
-  <br>
-
 
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
