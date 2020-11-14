@@ -2,34 +2,13 @@ import requests
 import json
 from app.form import RiskForm
 
-class State:
-	def __init__(self, state, positive, positiveIncrease, totalTestResultsIncrease, inIcuCurrently, hospitalizedCurrently  ):
-		self.state = state
-		self.positive = positive
-		self.positiveIncrease = positiveIncrease
-		self.totalTestResultsIncrease = totalTestResultsIncrease
-		self.inIcuCurrently = inIcuCurrently
-		self.hospitalizedCurrently = hospitalizedCurrently
-		
-	# from tutorial i watched, dont think it's needed
-	#@classmethod
-	#def from_json(cls, json_string):
-		#json_dict = json.loads(json_string)
-		#return cls(**json_dict)
-
-	#def __repr__(self):
-		#return f'<State { self.state }>'
-
 def getData():
-	# state codes needed for api call
-	stateCodes = ['al', 'ak', 'az','ar','ca','co','ct','dc','de','fl', 'ga','hi','id','il','in','ia',
-					'ks','ky','la','me', 'md','ma','mi','mn','ms', 'mo','mt','ne','nv','nh', 'nj','nm',
-					'ny','nc','nd','oh','ok','or','pa','ri', 'sc','sd','tn','tx','ut','vt','va','wa','wv','wi','wy']
 
-	# empty list to hold data returned from api call
+	# empty dict to hold data returned from api call
 	stateList = {}
+
+	# get state information from api call
 	url = 'https://api.covidtracking.com/v1/states/current.json'
-	#stateList2 = requests.get(url).json
 	response = requests.get(url)
 	json_response = response.json()
 
@@ -37,27 +16,11 @@ def getData():
 	#for item in stateList2.items():
 		#print(item)
 
-	
+	# copy api information into dict
 	for i in range(56):
 		stateList[i] = json_response[i].copy()
-		print(json_response[i])
-		#stateList2.append( State(json_response[i].state, json_response[i].positive, json_response[i].positive_increase, json_response[i].totalTestResultsIncrease, 
-		#json_response[i].inIcuCurrently, json_response[i].hospitalizedCurrently))
-	
-	print ("STATELIST2 OBJECT START")
-
-	#print(stateList2[0])
-	
-
-	#user_state = stateList2[0].get('state')
-	#print("test.GET: ", user_state)
-	#print(stateList2[0].state)
-	#print(stateList2)
-	# iterate through each state to populate list
-	#for key, value in json_response.items():
-		#stateList3.add( State(state, positive, positive_increase, totalTestResultsIncrease, inIcuCurrently, hospitalizedCurrently))
-
-	
+		# debug check
+		# print(json_response[i])
 
 	form = RiskForm()
 
@@ -65,40 +28,43 @@ def getData():
 	user_state = RiskForm().statename.data.lower()
 	print(user_state)
 
-	state_score = 1
+
+	state_score = 0
 	default_risk = 0.083
-	# Calc the state multiplier
+
+	
 	all_states_pos = {}
 	all_states_pos_inc = {}
 	index = 0
 	count = 0
+
+	# Calc the state multiplier
 	try:
 		for i in stateList:
 			for item in stateList[i].items():
-				#copying too much data, need to refactor this
+				# get the number of total positive cases and daily increase in cases for all states
 				if (stateList[i].get('positive') >= 0):
 					all_states_pos[count] = stateList[i].get('positive')
 				if (stateList[i].get('positiveIncrease') >= 0):
 					all_states_pos_inc[count] = stateList[i].get('positiveIncrease')
 				
+				# get the data for the specific state chosen by the user
 				if(stateList[i].get('state').lower() == user_state):
 					index = i
 					#print('Match Found: ', stateList[i].get('state').lower())
+					#calculate state score 
 					try:
 						state_score = round(float(stateList[i].get('positiveIncrease') / (stateList[i].get('totalTestResultsIncrease'))), 2)
 					except: 
 						state_score = 0.083
 						print('error getting state score')
+					# get hospitilization and ICU data for state chosen by the user	
 					icuCurrently = stateList[i].get('inIcuCurrently')
-					hospCurrently = stateList[i].get('hospitalizedCurrently')
-					#print("state score: ", state_score)	
+					hospCurrently = stateList[i].get('hospitalizedCurrently')	
 			count += 1			
 	except ZeroDivisionError:
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
-		print("default state score: ", state_score)
-
-	#for i in range(56):
-		#for item in stateList[i].items():
+		print("default state score chosen: ", state_score)
 
 
 	# need to account for states that do not report this data
@@ -110,9 +76,11 @@ def getData():
 	except:
 		print("no icu and hosp data")
 	
+	# for debugging
 	for item in stateList[index].items():
 		print(item)
 
+	# for debugging
 	try:
 		print('all states pos: ', all_states_pos)
 		print('all states pos inc: ', all_states_pos_inc)
@@ -143,6 +111,7 @@ def getData():
 	print("mod_high_risk_events", mod_high_risk_events)
 	print("high_risk_events", high_risk_events)
 
+	# calculate base risk score 
 	base_score = 1 - (pow((1 - low_risk_rate), low_risk_events) * pow((1 - mod_risk_rate), mod_risk_events) * pow((1 - mod_high_risk_rate), mod_high_risk_events) * pow((1 - high_risk_rate), high_risk_events))
 	
 
@@ -161,10 +130,10 @@ def getData():
 	#	index -= 1
 	print("index: ", index)
 
-	#return state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, positive, positive_increase, inIcuCurrently, hospitalizedCurrently, totalTestResultsIncrease
+	
 	return risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc
 
-
+#old version of the algorithm
 '''
 	# iterate through each state to populate list
 	for obj in stateCodes:
