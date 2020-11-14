@@ -11,55 +11,56 @@
     </p>
   </div>
 
-<br>
-<hr>
+  <br>
+  <hr>
 
-<div class="container-fluid" id="col-lg-4-containter">
-<div class="row">
-  <div class="col-lg-4">
-    <div class="card">
-      <div class="embed-responsive embed-responsive-16by9">
-        <img alt="Card image cap" class="card-img-top embed-responsive-item"src="https://content.thriveglobal.com/wp-content/uploads/2019/06/innovation-LIGHT-BULB-iStock-1023387542.jpg">
+  <div class="container-fluid" id="col-lg-4-containter">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="embed-responsive embed-responsive-16by9">
+            <img alt="Card image cap" class="card-img-top embed-responsive-item"src="https://content.thriveglobal.com/wp-content/uploads/2019/06/innovation-LIGHT-BULB-iStock-1023387542.jpg">
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">About Us</h4>
+            <p class="card-text">Learn more about our COVID-19 project.</p>
+            <p>
+              <a class="btn btn-primary" id="about-btn" href="{{ url_for('about') }}" role="button">Learn more</a>
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="embed-responsive embed-responsive-16by9">
+          <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://e3.365dm.com/20/07/2048x1152/skynews-coronavirus-graphic_5052697.jpg">
+        </div>
+        <div class="card-block">
+          <h4 class="card-title">Calculate Personal COVID-19 Risk</h4>
+          <p class="card-text">Learn more about your personal COVID-19 risk rating.</p>
+          <p>
+            <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
+          </p>
+        </div>
       </div>
-      <div class="card-block">
-        <h4 class="card-title">About Us</h4>
-        <p class="card-text">Learn more about our COVID-19 project.</p>
-        <p>
-          <a class="btn btn-primary" id="about-btn" href="{{ url_for('about') }}" role="button">Learn more</a>
-        </p>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="embed-responsive embed-responsive-16by9">
+          <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTOpLUNJqE3s74qBiJVLYtBgLQOl2gIMZK8QA&usqp=CAU">
+        </div>
+        <div class="card-block">
+          <h4 class="card-title">Activity Risk Levels</h4>
+          <p class="card-text">Learn about COVID-19 risk levels of various activities.</p>
+          <p><a class="btn btn-primary" href="{{ url_for('activities') }}" role="button">View the activities</a></p>
+        </div>
       </div>
+    </div>
     </div>
   </div>
 
-  <div class="col-lg-4">
-    <div class="card">
-      <div class="embed-responsive embed-responsive-16by9">
-        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://e3.365dm.com/20/07/2048x1152/skynews-coronavirus-graphic_5052697.jpg">
-      </div>
-      <div class="card-block">
-        <h4 class="card-title">Calculate Personal COVID-19 Risk</h4>
-        <p class="card-text">Learn more about your personal COVID-19 risk rating.</p>
-        <p>
-          <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4">
-    <div class="card">
-      <div class="embed-responsive embed-responsive-16by9">
-        <img alt="Card image cap" class="card-img-top embed-responsive-item" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTOpLUNJqE3s74qBiJVLYtBgLQOl2gIMZK8QA&usqp=CAU">
-      </div>
-      <div class="card-block">
-        <h4 class="card-title">Activity Risk Levels</h4>
-        <p class="card-text">Learn about COVID-19 risk levels of various activities.</p>
-        <p><a class="btn btn-primary" href="{{ url_for('activities') }}" role="button">View the activities</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 <br>
 
 <footer class="footer">

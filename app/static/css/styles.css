@@ -148,3 +148,31 @@ hr {
 	color: #0066ff;
 	font-weight: bold;
 }
+
+/* Dropdown accordion card body on about page */
+.card-body {
+	background-color: whitesmoke;
+}
+
+.p-larger {
+	font-size: 16px;
+}
+
+.table-container {
+	max-width: 760px;
+	align-items: left;
+}
+
+.gray-bg {
+	background-color: #f2f2f2;
+}
+
+.space-below {
+	margin-bottom: 40px;
+}
+
+.form-question {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+>>>>>>> main

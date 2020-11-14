@@ -3,12 +3,9 @@ from app.form import RiskForm
 
 def getData():
 	form = RiskForm()
-# TEST: Get current data for California, USA
-	#return json_response["state"]
 
 	# Pull the user input for state and convert to lower case
 	state = RiskForm().statename.data.lower()
-	print(state)
 
 	# Build URL query string
 	url = 'https://api.covidtracking.com/v1/states/' + state + '/current.json'
@@ -20,20 +17,12 @@ def getData():
 	#DEBUG: Print json
 	print(json_response)
 
-
-	#iterate through json payload
-	#for key, value in json_response.items():
-	#	if key == 'state':
-	#		state = value
-	#	if key == 'positiveIncrease':
-	#		positive_increase = value
-	#	if key == 'totalTestResultsIncrease':
-	#		total_test_results_increase = value
-
-	# let's do this instead of iterating through the entire payload!
+	# store data
 	state = json_response['state']
 	positive_increase = json_response['positiveIncrease']
 	total_test_results_increase = json_response['totalTestResultsIncrease']
+	icuCurrently = json_response['inIcuCurrently']
+	hospCurrently = json_response['hospitalizedCurrently']
 
 
 	print(state)	
@@ -82,4 +71,4 @@ def getData():
 	risk_rating = round(float(base_score *100), 1)
 	state_score = round(float(state_score*100), 1)
 
-	return positive_increase, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events
+	return positive_increase, state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently
