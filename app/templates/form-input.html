@@ -9,122 +9,150 @@
   {{ form.hidden_tag() }}
 
     <div class="form-row">
-      <div class="col-8">
+      <div class="col">
         <p class="lead">Please provide your location.</p>
       </div>
     </div>
-    <div class="form-row space-below">
-      <div class="col" style="max-width:300px">
-        {{ wtf.form_field(form.statename) }}
+    <div class="form-row">
+      <div class="col-xs-12">
+        <div class="space-below">
+          {{ wtf.form_field(form.statename) }}
+        </div>
       </div>
     </div>
 
-  <div class="form-group">
     <div class="form-row">
-      <div class="col-8">
+      <div class="col">
         <p class="lead">In the past two weeks, how many times have you...?</p>
       </div>
     </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity1) }}
+    <div class="form-row">
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity1) }}
+        </div>
+      </div>
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity2) }}
+        </div>
       </div>
     </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity2) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity3) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity4) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity5) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity6) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity7) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity8) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity9) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity10) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity11) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity12) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity13) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity14) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity15) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity16) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity17) }}
-      </div>
-    </div>
-    <div class="form-row form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity18) }}
-      </div>
-    </div>
-    <div class="form-row space-below form-question">
-      <div class="form-inline col-6">
-        {{ wtf.form_field(form.activity19) }}
-    </div>
-  </div>
 
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity3) }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity4) }}
+        </div>
+      </div>
+    </div>
 
+    <div class="form-row">
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity5) }}
+        </div>
+      </div>
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity6) }}
+        </div>
+      </div>
+    </div>
 
-  <div class="row">
-    <div class="col-sm-4">
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity7) }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity8) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity9) }}
+        </div>
+      </div>
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity10) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity11) }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity12) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity13) }}
+        </div>
+      </div>
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity14) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity15) }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity16) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity17) }}
+        </div>
+      </div>
+      <div class="col-md-6 gray-bg">
+        <div class="form-inline form-question">
+          {{ wtf.form_field(form.activity18) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12">
+        <div class="form-inline form-question space-below">
+          {{ wtf.form_field(form.activity19) }}
+        </div>
+      </div>
+    </div>
+
+  <div class="form-row">
+    <div class="col-xs-6">
       {{ wtf.form_field(form.submit, button_map={'submit': 'primary'}) }}
     </div>
   </div>
