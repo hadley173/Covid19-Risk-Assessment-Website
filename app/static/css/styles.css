@@ -84,11 +84,22 @@ p > .lead {
 #calc-risk-btn {
 	margin-top: 10px;
 	width: 40%;
+	color: white;
+	background-color:;
+	border-color: whitesmoke;
+	font-size: 15px;
+}
+
+/* Main call-to-action button on landing page - hover styling */
+#calc-risk-btn:hover {
+	margin-top: 10px;
+	width: 40%;
 	color: black;
 	background-color:whitesmoke;
 	border-color: grey;
-	font-size: 15px";
+	font-size: 15px;
 }
+
 
 /* Three buttons underneath images on landing page */
 .btn-primary {
@@ -96,6 +107,16 @@ p > .lead {
 	width: 40%;
 	color: white;
 	background-color:black;
+	border-color: whitesmoke;
+	font-size: 15px;
+}
+
+/* Three buttons underneath images on landing page: hover styling */
+.btn-primary:hover {
+	margin-top: 10px;
+	width: 40%;
+	color: black;
+	background-color: whitesmoke;
 	border-color: black;
 	font-size: 15px;
 }
