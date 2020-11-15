@@ -69,6 +69,21 @@
 	border-radius: 0px;
 }
 
+/* Jumbotron on About, Assess Risk, and Activity Risk pages */
+.jumbotron {
+	text-align: center;
+	background-color: darkred;
+	font-size: xxx-large;
+	color: whitesmoke;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-bottom: 0px;
+	border-radius: 0px;
+}
+
+
 h2 > .jumbo-header {
 	padding-left: 50px;
 	padding-right: 50px;
@@ -79,6 +94,62 @@ p > .lead {
 	margin-right: 100px;
 	margin-top: 10px
 }
+
+/* About: Campus image on about page */
+#OSU-img {
+	margin-bottom: 0px;
+	margin-top: 15px;
+	width: 95%;
+	height: 100%;
+}
+
+/* About: Accordion row */
+.accordion-row {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+}
+
+/*About: Accordion cards */
+.accordion-card {
+	margin-right: 0px;
+	margin-left: 0px;
+	background-color: darkred;
+}
+
+
+/* About: Accordion Header Text formatting */
+.mb-0 {
+	margin-bottom: 0px;
+	margin-top: 15px;
+	margin-left: 0px;
+}
+
+
+/* About: Accordion header text */
+.btn-link, .btn-link:hover {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: whitesmoke;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+/* About: Card body text */
+.card-body > p {
+	background-color: whitesmoke;
+	padding-left: 20px;
+	padding-top: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	font-size: 16px;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+}
+
 
 /* Main call-to-action button on landing page */
 #calc-risk-btn {
@@ -99,7 +170,6 @@ p > .lead {
 	border-color: grey;
 	font-size: 15px;
 }
-
 
 /* Three buttons underneath images on landing page */
 .btn-primary {
