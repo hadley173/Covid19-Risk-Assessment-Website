@@ -45,7 +45,7 @@ def formInput():
 		
 		#state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, positive, posIncrease, inIcuCurrently, hospCurrently, total_test_results_increase = getData()
 		stateList=[]
-		risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc = getData()
+		risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc, stateGrade = getData()
 		# CHART.JS example line chart test
 		legend = 'Monthly Data'
 		labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
@@ -57,7 +57,7 @@ def formInput():
 		high_risk_events=high_risk_events, icuCurrently=inIcuCurrently, hospCurrently=hospCurrently, total_test_results_increase=total_test_results_increase)
 		"""
 		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, 
-		high_risk_events=high_risk_events, stateList=stateList, icuCurrently=icuCurrently, hospCurrently=hospCurrently, index=index, all_states_pos=all_states_pos, all_states_pos_inc=all_states_pos_inc)
+		high_risk_events=high_risk_events, stateList=stateList, icuCurrently=icuCurrently, hospCurrently=hospCurrently, index=index, all_states_pos=all_states_pos, all_states_pos_inc=all_states_pos_inc, stateGrade=stateGrade)
 	
 	return render_template('form-input.html', title = 'Calculator', form=form)
 

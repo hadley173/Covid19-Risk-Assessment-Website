@@ -28,7 +28,7 @@ def getData():
 	user_state = RiskForm().statename.data.lower()
 	print(user_state)
 
-
+	stateGrade = 'A'
 	state_score = 0
 	default_risk = 0.083
 
@@ -60,7 +60,8 @@ def getData():
 						print('error getting state score')
 					# get hospitilization and ICU data for state chosen by the user	
 					icuCurrently = stateList[i].get('inIcuCurrently')
-					hospCurrently = stateList[i].get('hospitalizedCurrently')	
+					hospCurrently = stateList[i].get('hospitalizedCurrently')
+					stateGrade = stateList[i].get('dataQualityGrade')
 			count += 1			
 	except ZeroDivisionError:
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
@@ -131,7 +132,7 @@ def getData():
 	print("index: ", index)
 
 	
-	return risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc
+	return risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc, stateGrade
 
 #old version of the algorithm
 '''
