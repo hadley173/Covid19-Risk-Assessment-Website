@@ -33,7 +33,7 @@
         <p id="caption">Risk contributed per activity type</p>
       </div>
       <div class="col-sm-4">
-        <h3>Current hospitalizations in {{ userData.state }}</h3>
+        <h3>Hospitalizations in {{ userData.state }}</h3>
         <canvas id="pieChart2" width="300" height="300"></canvas>
         <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p>
       </div>
@@ -80,37 +80,6 @@
           },
           events: ['click'], // prevents a weird hover bug
         }
-      });
-
-      // --------------- PIE CHART 2 ---------------
-      // get chart canvas
-      var ctx = document.getElementById("pieChart2").getContext("2d");
-
-      // create chart using the canvas
-      var pieChart2 = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          datasets: [{
-            // displays each event type by percentage of total risk score to 2 decimals
-            data: [{{ hospCurrently }}, {{ icuCurrently }}],
-            backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-          }],
-          labels: ['In hospital','In ICU'],
-        },
-        options: {
-          cutoutPercentage: 0,
-          legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            labels: {
-              boxWidth: 20,
-              fontSize: 26,
-              fontStyle: 'bold',
-            },
-          },
-          events: ['click'], // prevents a weird hover bug
-        },
       });
 
       // --------------- PIE CHART 1 ---------------
@@ -161,6 +130,38 @@
           events: ['click'], // prevents a weird hover bug
         },
       });
+
+      // --------------- PIE CHART 2 ---------------
+      // get chart canvas
+      var ctx = document.getElementById("pieChart2").getContext("2d");
+
+      // create chart using the canvas
+      var pieChart2 = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: [{{ hospCurrently }}, {{ icuCurrently }}],
+            backgroundColor: ['rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+          }],
+          labels: ['In hospital','In ICU'],
+        },
+        options: {
+          cutoutPercentage: 0,
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 20,
+              fontSize: 26,
+              fontStyle: 'bold',
+            },
+          },
+          events: ['click'], // prevents a weird hover bug
+        },
+      });
+
+
     </script>
     {% endblock %}
 {% endblock%}
