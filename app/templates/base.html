@@ -47,6 +47,7 @@
 {% block content %}
 
     {% block app_content %}
+      
       {% block scripts %}
         {{super()}}
         <script src={{url_for('static', filename='script.js')}}></script>

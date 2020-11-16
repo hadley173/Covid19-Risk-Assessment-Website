@@ -1,49 +1,78 @@
+<!-- Import D3 Scale Chromatic via CDN -->
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<!--<script src="\app\utils\color-generator.js"></script>-->
+
 {% extends "base.html" %}
 {% block app_content %}
-  <div class="row">
-    <div class="col-sm-8">
-      <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }}</span></h1>
-      <canvas id="gaugeChart" width="600" height="400"></canvas>
-    </div>
-    <div class="col-sm-4">
-      <h3>Your state</h3>
-      <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ posIncrease }}</span> new cases in {{ userData.state }}.</p>
-      <p class="p-larger">{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
-      
-      <h3>Your activities</h3>
-      <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
-      <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
-      <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
-      <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>  
-      <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
-    </div>
-  </div>
-  
-  <div class="row">
-    <h2>Supplementary information</h2>
-  </div>
-
-  {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
-      <h2>No Data Available</h2>
-  {% else %}
-    <div class="row">
+  <div class="calc-container">
+    <div class="row calc-row">
+      <div class="col-sm-8">
+        <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }} </span></h1>
+        <canvas id="gaugeChart" width="600" height="400"></canvas>
+      </div>
       <div class="col-sm-4">
+        <h3>Your state</h3>
+        <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ stateList[index].positiveIncrease }}</span> new cases in {{ stateList[index].state }}.</p>
+        <p class="p-larger">{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
+        
+        <h3>Your activities</h3>
+        <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
+        <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
+        <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
+        <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>  
+        <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
+      </div>
+    </div>
+
+    <div class="row results-row">
+      <h2>Supplementary information</h2>
+    </div>
+
+    
+    <!--Activity Risk Group Pie Chart-->
+  <div class="row calc-row">
+    <div class="col-sm-4">
+      {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
+        <h3>No activity data received</h3>
+      {% else %}
         <h3>Activity Risk Groups</h3>
           <canvas id="pieChart1" width="300" height="300"></canvas>
-        <p id="caption">Risk contributed per activity type</p>
-      </div>
-      <div class="col-sm-4">
-        <h3>Hospitalizations in {{ userData.state }}</h3>
-        <canvas id="pieChart2" width="300" height="300"></canvas>
-        <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p>
-      </div>
-      <div class="col-sm-4 space-below" style="background-color: whitesmoke">
-        <h3>A Third Chart Here?</h3>
-        <canvas id="" width="300" height="300"></canvas>
-        <p id="caption">Here's a caption for the chart</p>
-      </div>
+          <p id="caption">Risk contributed per activity type</p>
+       {% endif %}
     </div>
-  {% endif %}
+
+    <!--Hospitalization Pie Chart-->
+    <div class="col-sm-4">
+      {% if (hospCurrently == 0 or icuCurrently == 0) %}
+        <h3>Hospitalization data unavailable</h3>
+      {% else %}
+        <h3>Hospitalizations in {{ userData.state }}</h3> 
+        <canvas id="pieChart2" width="300" height="300"></canvas>
+        <p id="caption">Total currently in hospital: <b>{{ hospCurrently }}</b></p>
+      {% endif %}
+    </div>
+
+    <!--State letter grade-->
+    <div class="col-sm-4">
+      <h3>State data grade</h3>
+      <p class="gradeCircleText">{{userData.state}}'s data-quality grade evaluates how well the state publishes its COVID-19 data.</p>  
+      <div class="gradeCircle">{{ stateGrade }}</div>
+      <p id="caption">For more info: <a href="https://covidtracking.com/about-data/state-grades" target="_blank">covidtracking.com</a></p>      
+    </div>
+
+  </div>
+    <!--State Positive Cases Chart-->
+    <div class="row"></div>
+        <h3>Positive cases: All states</h3>
+        <div class="app-container">
+          <div class="chart-container">
+            <canvas id="bar-chart"></canvas>
+          </div>
+       </div>
+  <br>
+  <br>
 
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
@@ -84,84 +113,222 @@
 
       // --------------- PIE CHART 1 ---------------
       // get chart canvas
-      var ctx = document.getElementById("pieChart1").getContext("2d");
+      try{
+        var ctx = document.getElementById("pieChart1").getContext("2d");
 
       // get chart data
-      var low_risk_events = 0
-      low_risk_events += document.getElementById("low_risk_events").innerHTML
-      var mod_risk_events = 0
-      mod_risk_events += document.getElementById("mod_risk_events").innerHTML
-      var mod_high_risk_events = 0
-      mod_high_risk_events += document.getElementById("mod_high_risk_events").innerHTML
-      var high_risk_events = 0
-      high_risk_events += document.getElementById("high_risk_events").innerHTML
-      var total_events = 0
-      total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
+      
+        var low_risk_events = 0
+        low_risk_events += document.getElementById("low_risk_events").innerHTML
+        var mod_risk_events = 0
+        mod_risk_events += document.getElementById("mod_risk_events").innerHTML
+        var mod_high_risk_events = 0
+        mod_high_risk_events += document.getElementById("mod_high_risk_events").innerHTML
+        var high_risk_events = 0
+        high_risk_events += document.getElementById("high_risk_events").innerHTML
+        var total_events = 0
+        total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
+     
 
-      // create chart using the canvas
-      var chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          datasets: [{
-            // displays each event type by percentage of total risk score to 2 decimals
-            data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
-            (Math.round(high_risk_events*16/total_events*(100))/100)],
-            backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-          }],
-          labels: [
-            'Low risk',
-            'Moderate risk',
-            'Moderate-High risk',
-            'High risk'
-          ]
-        },
-        options: {
-          cutoutPercentage: 50,
-          legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            labels: {
-              boxWidth: 20,
-              fontSize: 26,
-              fontStyle: 'bold',
-            },
+        // create chart using the canvas
+        var chart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            datasets: [{
+              // displays each event type by percentage of total risk score to 2 decimals
+              data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
+              (Math.round(high_risk_events*16/total_events*(100))/100)],
+              backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+            }],
+            labels: [
+              'Low risk',
+              'Moderate risk',
+              'Moderate-High risk',
+              'High risk'
+            ]
           },
-          events: ['click'], // prevents a weird hover bug
-        },
-      });
+          options: {
+            cutoutPercentage: 50,
+            legend: {
+              display: true,
+              position: 'top',
+              align: 'start',
+              labels: {
+                boxWidth: 20,
+                fontSize: 14,
+                fontStyle: 'bold',
+              },
+            },
+            events: ['click'], // prevents a weird hover bug
+          },
+        });
+      }
+      catch(err){
+        console.log('No activities selected')
+      }
 
       // --------------- PIE CHART 2 ---------------
       // get chart canvas
-      var ctx = document.getElementById("pieChart2").getContext("2d");
+      try{
+        var ctx = document.getElementById("pieChart2").getContext("2d");
+        var hospitalized = {{hospCurrently}};
+        var icu = {{icuCurrently}};
+        var nonICU = hospitalized - icu;
 
-      // create chart using the canvas
-      var pieChart2 = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          datasets: [{
-            data: [{{ hospCurrently }}, {{ icuCurrently }}],
-            backgroundColor: ['rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-          }],
-          labels: ['In hospital','In ICU'],
-        },
-        options: {
-          cutoutPercentage: 0,
-          legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            labels: {
-              boxWidth: 20,
-              fontSize: 26,
-              fontStyle: 'bold',
-            },
+        // create chart using the canvas
+        var pieChart2 = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            datasets: [{
+              // displays each event type by percentage of total risk score to 2 decimals
+              data: [ nonICU , icu ],
+              backgroundColor: ['rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+            }],
+            labels: ['In hospital (general)', 'In hospital ICUs'],
           },
-          events: ['click'], // prevents a weird hover bug
+          options: {
+            cutoutPercentage: 0,
+            legend: {
+              display: true,
+              position: 'top',
+              align: 'start',
+              labels: {
+                boxWidth: 20,
+                fontSize: 14,
+                fontStyle: 'bold',
+              },
+            },
+            events: ['click'], // prevents a weird hover bug
+          },
+        });
+      } 
+      catch(err) {
+        console.log("no hospitalization data");
+      }
+
+     // --------------- Bar CHART  --------------
+    // need to copy data sent by routes.py into javascript variables
+var pos = {{all_states_pos}};
+var pos_inc = {{all_states_pos_inc}};
+var idx = {{index}};
+console.log('idx: ' + idx);
+console.log('pos: ' + pos);
+console.log('pos_inc: ' + pos_inc);
+
+    // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
+function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
+  /* Grab chart element by id */
+  const chartElement = document.getElementById(chartId);
+
+  const dataLength = chartData.data.length;
+
+    /* Create color array */
+  var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
+
+    /* Create chart */
+  const myChart = new Chart(chartElement, {
+    type: 'bar',
+    data: {
+      labels: chartData.labels,
+      datasets: [
+        {
+          backgroundColor: COLORS,
+          hoverBackgroundColor: COLORS,
+          data: chartData.data
+        }
+      ],
+    },
+    options: {
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+                fontSize: 11,
+            },
+        }],
+        yAxes: [{
+            ticks: {
+                fontSize: 25,
+            },
+        }],
+    },
+      responsive: true,
+      legend: {
+        display: false,
+      },
+      hover: {
+        onHover: function(e) {
+          var point = this.getElementAtEvent(e);
+          e.target.style.cursor = point.length ? 'pointer' : 'default';
         },
-      });
+      },
+    },
+    events: ['click'], // prevents a weird hover bug
+  });
+
+  return myChart;
+}
+
+var i;
+var data = [];
+var labels = [];
+var labelList =[ 'Alaska', 'Alabama', 'Arkansas', 'American Samoa', 'Arizona', 'California','Colorado', 
+						'Connecticut','Washington DC','Delaware', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Iowa', 'Idaho', 
+						'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Louisianna', 'Massachusettes', 'Maryland', 'Maine', 
+						'Michigan', 'Minnisota', 'Missouri', 'Nortern Mariana Islands', 'Mississippi', 
+						'Montana', 'North Carolina', 'North Dakota', 'Nebraska', 'New Hampshire', 'New Jersey', 'New Mexico', 'Nevada',  
+						'New York', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico',
+						'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia', 
+						'Virgin Islands', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming' ];
 
 
-    </script>
+
+const arrayLength = labelList.length;
+for (i = 0; i < arrayLength; i++) {
+  data.push(pos[i]);
+  labels.push(labelList[i]);
+}
+
+const chartData = {
+  labels: labels,
+  data: data,
+};
+
+const colorScale = d3.interpolateInferno;
+
+const colorRangeInfo = {
+  colorStart: 0,
+  colorEnd: 1,
+  useEndAsStart: false,
+}; 
+
+function calculatePoint(i, intervalSize, colorRangeInfo) {
+  var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
+  return (useEndAsStart
+    ? (colorEnd - (i * intervalSize))
+    : (colorStart + (i * intervalSize)));
+  }
+
+
+/* Must use an interpolated color scale, which has a range of [0, 1] */
+function interpolateColors(dataLength, colorScale, colorRangeInfo) {
+  var { colorStart, colorEnd } = colorRangeInfo;
+  var colorRange = colorEnd - colorStart;
+  var intervalSize = colorRange / dataLength;
+  var i, colorPoint;
+  var colorArray = [];
+  
+  for (i = 0; i < dataLength; i++) {
+    colorPoint = calculatePoint(i, intervalSize, colorRangeInfo);
+    colorArray.push(colorScale(colorPoint));
+    }
+  
+  return colorArray;
+}  
+
+createBarChart('bar-chart', chartData, colorScale, colorRangeInfo);
+
+</script>
+
     {% endblock %}
 {% endblock%}
