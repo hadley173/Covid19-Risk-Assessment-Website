@@ -282,3 +282,36 @@ hr {
 	text-align: left;
 	padding-left: 15px;
 }
+.app-container {
+	display: flex;
+	justify-content: center;
+	padding: 38px 10px 10px 10px;
+	background-color: "whitesmoke";
+}
+
+.chart-container {
+	width: 2400px;
+}
+
+#bar-chart {
+	width: 100%;
+}
+
+.gradeCircle {
+	display: inline-flex;
+	height: 240px;
+	width: 240px;
+	border-radius: 50%;
+	background-color: #003399;
+	color: #fff;
+	font-weight: bold;
+	font-size: 60px;
+	align-items: center;
+	justify-content: center;
+}
+
+.gradeCircleText {
+	margin-top: 16px;
+	color: #666;
+	font-weight: bold;
+}
