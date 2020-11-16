@@ -207,21 +207,18 @@
         console.log("no hospitalization data");
       }
 
-
-
      // --------------- Bar CHART  --------------
     // need to copy data sent by routes.py into javascript variables
-    var pos = {{all_states_pos}};
-    var pos_inc = {{all_states_pos_inc}};
-    var idx = {{index}};
-    console.log('idx: ' + idx);
-    console.log('pos: ' + pos);
-    console.log('pos_inc: ' + pos_inc);
-    
+var pos = {{all_states_pos}};
+var pos_inc = {{all_states_pos_inc}};
+var idx = {{index}};
+console.log('idx: ' + idx);
+console.log('pos: ' + pos);
+console.log('pos_inc: ' + pos_inc);
+
     // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
   /* Grab chart element by id */
-  
   const chartElement = document.getElementById(chartId);
 
   const dataLength = chartData.data.length;
@@ -276,17 +273,18 @@ function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
 var i;
 var data = [];
 var labels = [];
-var labelList =[ ('AK', 'Alaska'), ('AL', 'Alabama'), ('AR', 'Arkansas'), ('AS', 'American Samoa'), ('AZ', 'Arizona'), ('CA', 'California'), ('CO', 'Colorado'), 
-						('CT', 'Connecticut'), ('DC', 'Washington DC'), ('DE', 'Delaware'), ('FL', 'Florida'), ('GA', 'Georgia'), ('GU', 'Guam'), ('HI', 'Hawaii'), ('IA', 'Iowa'), ('ID', 'Idaho'), 
-						('IL', 'Illinois'), ('IN', 'Indiana'), ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisianna'), ('MA', 'Massachusettes'), ('MD', 'Maryland'), ('ME', 'Maine'), 
-						('MI', 'Michigan'), ('MN', 'Minnisota'), ('MO', 'Missouri'), ('MP', 'Nortern Mariana Islands'), ('MS', 'Mississippi'), 
-						('MT', 'Montana'), ('NC', 'North Carolina'), ('ND', 'North Dakota'), ('NE', 'Nebraska'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NV', 'Nevada'),  
-						('NY', 'New York'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('PR', 'Puerto Rico'),
-						('RI', 'Rhode Island'), ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VA', 'Virginia'), 
-						('VI', 'Virgin Islands'), ('VT', 'Vermont'), ('WA', 'Washington'), ('WI', 'Wisconsin'), ('WV', 'West Virginia'), ('WY', 'Wyoming') ];
+var labelList =[ 'Alaska', 'Alabama', 'Arkansas', 'American Samoa', 'Arizona', 'California','Colorado', 
+						'Connecticut','Washington DC','Delaware', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Iowa', 'Idaho', 
+						'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Louisianna', 'Massachusettes', 'Maryland', 'Maine', 
+						'Michigan', 'Minnisota', 'Missouri', 'Nortern Mariana Islands', 'Mississippi', 
+						'Montana', 'North Carolina', 'North Dakota', 'Nebraska', 'New Hampshire', 'New Jersey', 'New Mexico', 'Nevada',  
+						'New York', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico',
+						'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia', 
+						'Virgin Islands', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming' ];
+
+
 
 const arrayLength = labelList.length;
-
 for (i = 0; i < arrayLength; i++) {
   data.push(pos[i]);
   labels.push(labelList[i]);
@@ -305,33 +303,32 @@ const colorRangeInfo = {
   useEndAsStart: false,
 }; 
 
-
-
 function calculatePoint(i, intervalSize, colorRangeInfo) {
-    var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
-    return (useEndAsStart
-      ? (colorEnd - (i * intervalSize))
-      : (colorStart + (i * intervalSize)));
+  var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
+  return (useEndAsStart
+    ? (colorEnd - (i * intervalSize))
+    : (colorStart + (i * intervalSize)));
   }
 
 
 /* Must use an interpolated color scale, which has a range of [0, 1] */
 function interpolateColors(dataLength, colorScale, colorRangeInfo) {
-    var { colorStart, colorEnd } = colorRangeInfo;
-    var colorRange = colorEnd - colorStart;
-    var intervalSize = colorRange / dataLength;
-    var i, colorPoint;
-    var colorArray = [];
+  var { colorStart, colorEnd } = colorRangeInfo;
+  var colorRange = colorEnd - colorStart;
+  var intervalSize = colorRange / dataLength;
+  var i, colorPoint;
+  var colorArray = [];
   
-    for (i = 0; i < dataLength; i++) {
-      colorPoint = calculatePoint(i, intervalSize, colorRangeInfo);
-      colorArray.push(colorScale(colorPoint));
+  for (i = 0; i < dataLength; i++) {
+    colorPoint = calculatePoint(i, intervalSize, colorRangeInfo);
+    colorArray.push(colorScale(colorPoint));
     }
   
-    return colorArray;
-  }  
+  return colorArray;
+}  
 
-  createBarChart('bar-chart', chartData, colorScale, colorRangeInfo);
+createBarChart('bar-chart', chartData, colorScale, colorRangeInfo);
+
 </script>
 
     {% endblock %}
