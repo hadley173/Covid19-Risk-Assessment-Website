@@ -155,7 +155,7 @@ p > .lead {
 	background-color: darkred;
 }
 
-/* Form-input Frequency form styling */
+/* Form-input: Frequency form styling */
 .form-row {
 	margin-left: 10%;
 	margin-right: 10%;
@@ -181,26 +181,56 @@ p > .lead {
 	font-size: 18px;
 }
 
-/* Three buttons underneath images on landing page */
-.btn-primary {
+/* Index: Learn more about us button */
+#about-btn, #about-btn:hover, #about-btn:focus {
 	margin-top: 10px;
-	width: 40%;
+	width: inherit;
 	color: white;
 	background-color:black;
 	border-color: whitesmoke;
 	font-size: 18px;
 }
 
-/* Three buttons underneath images on landing page: hover styling */
+/* Index: Calculate risk button small */
+#sm-calc-risk-btn , #sm-calc-risk-btn:hover, #sm-calc-risk-btn:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Index: Activity risk ratings button */
+#sm-activity-btn , #sm-activity-btn:hover, #sm-activity-btn:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Three buttons underneath images on landing page */
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Three buttons underneath images on landing page: hover styling
 .btn-primary:hover {
 	margin-top: 10px;
 	width: 40%;
 	color: black;
 	background-color: whitesmoke;
 	border-color: black;
-	font-size: 15px;
+	font-size: 18px;
 }
-
+*/
 
 /* horizontal row */
 hr {
