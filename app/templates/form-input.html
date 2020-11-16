@@ -2,8 +2,14 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-  <h1>Assess your current COVID-19 risk</h1>
-  <p class="space-below">Answer the following questions so that we can calculate your current risk score.</p>
+<div class=container-form>
+  <img src="https://nsc.edu/wp-content/uploads/2020/03/COVID-19-Banner-2.jpg" class="img-fluid" alt="Responsive image">
+  <section class="jumbotron">Discover Personal COVID-19 Risk.</section>
+</div>
+
+  <p class="space-below">Instructions: Answer the following questions so that we can calculate your current risk score.</p>
+  <hr class="form-hr">
+
 
   <form class="form" action="" method="post" role="form" novalidate>
   {{ form.hidden_tag() }}
@@ -13,9 +19,10 @@
         <p class="lead">Please provide your location.</p>
       </div>
     </div>
+
     <div class="form-row">
-      <div class="col-xs-12">
-        <div class="space-below">
+      <div class="col-lg-12">
+        <div class="statename">
           {{ wtf.form_field(form.statename) }}
         </div>
       </div>
@@ -145,17 +152,26 @@
 
     <div class="form-row">
       <div class="col-xs-12">
-        <div class="form-inline form-question space-below">
+        <div class="form-inline form-question">
           {{ wtf.form_field(form.activity19) }}
         </div>
       </div>
     </div>
 
   <div class="form-row">
-    <div class="col-xs-6">
+    <div class="col-lg-12" id="submit-btn">
       {{ wtf.form_field(form.submit, button_map={'submit': 'primary'}) }}
     </div>
   </div>
-
   </form>
-{% endblock %} 
+
+  <footer class="footer">
+    <div class="row">
+      <div class="col-lg-12">
+        <hr class="footer-hr">
+        <h5 class="disclaimer-h5">DISCLAIMER</h5>
+        <p>This is a student project. The content displayed on this website is not medical advice and cannot be used to diagnose or treat anything.</p>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
