@@ -266,3 +266,19 @@ hr {
 	padding-top: 8px;
 	padding-bottom: 8px;
 }
+
+.calc-container {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.calc-row {
+	text-align: left;
+}
+
+.results-row {
+	text-align: left;
+	padding-left: 15px;
+}

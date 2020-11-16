@@ -1,214 +1,216 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-  <h1>Activity risks</h1>
+  <div class="calc-container">
+    <h1>Activity risks</h1>
 
-  <p>In July 2020, the Texas Medical Association (TMA) COVID-19 Task Force and the TMA Committee on Infectious Diseases created a chart to help people understand the relative risk levels of common activities during the pandemic. We used a subset of the information in this chart as a baseline from which to create activity risk ratings.</p>
-  <p>The relative risk ratings below assume that people are following CDC guidelines on hygiene, personal protective equipment, and social distancing.</p>
+    <p>In July 2020, the Texas Medical Association (TMA) COVID-19 Task Force and the TMA Committee on Infectious Diseases created a chart to help people understand the relative risk levels of common activities during the pandemic. We used a subset of the information in this chart as a baseline from which to create activity risk ratings.</p>
+    <p>The relative risk ratings below assume that people are following CDC guidelines on hygiene, personal protective equipment, and social distancing.</p>
 
-  <div class="d-flex table-container">
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <th scope="col">Activity</th>
-        <th scope="col">Risk rank</th>
-        <th scope="col">Risk category</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Opening the mail</td>
-        <td>1</td>
-        <td>Low risk</td>
-      </tr>
-      <tr>
-        <td>Getting restaurant takeout</td>
-        <td>2</td>
-        <td>Low risk</td>
-      </tr>
-      <tr>
-        <td>Pumping gasoline</td>
-        <td>2</td>
-        <td>Low risk</td>
-      </tr>
-      <tr>
-        <td>Playing tennis</td>
-        <td>2</td>
-        <td>Low risk</td>
-      </tr>
-      <tr>
-        <td>Going camping</td>
-        <td>2</td>
-        <td>Low risk</td>
-      </tr>
-      <tr>
-        <td>Grocery shopping</td>
-        <td>3</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Going for a walk, run, or bike ride with others/td>
-        <td>3</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Playing golf</td>
-        <td>3</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Staying at a hotel for two nights</td>
-        <td>4</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Sitting in a doctor's waiting room</td>
-        <td>4</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Going to a librar or museum</td>
-        <td>4</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Eating in a restaurant (outside)</td>
-        <td>4</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Walking in a busy downtown</td>
-        <td>4</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Spending an hour at a playground</td>
-        <td>4</td>
-        <td>Low-moderate risk</td>
-      </tr>
-      <tr>
-        <td>Having dinner at someone else's house</td>
-        <td>5</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Attending a backyard barbecue</td>
-        <td>5</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Going to a beach</td>
-        <td>5</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Shopping at a mall</td>
-        <td>5</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Sending kids to school, camp, or daycare</td>
-        <td>6</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Working a week in an office building</td>
-        <td>6</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Swimming in a public pool</td>
-        <td>6</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Visiting an elderly relative or friend in their home</td>
-        <td>6</td>
-        <td>Moderate risk</td>
-      </tr>
-      <tr>
-        <td>Going to a hair salon or barbershop</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Eating in a restauring (inside)</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Attending a wedding or funeral</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Traveling by plane</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Playing basketball</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Playing football</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Hugging or shaking hands when greeting a friend</td>
-        <td>7</td>
-        <td>Moderate-high risk</td>
-      </tr>
-      <tr>
-        <td>Eating at a buffet</td>
-        <td>8</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Working out at a gym</td>
-        <td>8</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Going to an amusement park</td>
-        <td>8</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Going to a movie theater</td>
-        <td>8</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Attending a large music concert</td>
-        <td>9</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Going to a sports stadium</td>
-        <td>9</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Attending a religious service with 500+ worshippers</td>
-        <td>9</td>
-        <td>High risk</td>
-      </tr>
-      <tr>
-        <td>Going to a bar</td>
-        <td>9</td>
-        <td>High risk</td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="d-flex table-container">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Activity</th>
+          <th scope="col">Risk rank</th>
+          <th scope="col">Risk category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Opening the mail</td>
+          <td>1</td>
+          <td>Low risk</td>
+        </tr>
+        <tr>
+          <td>Getting restaurant takeout</td>
+          <td>2</td>
+          <td>Low risk</td>
+        </tr>
+        <tr>
+          <td>Pumping gasoline</td>
+          <td>2</td>
+          <td>Low risk</td>
+        </tr>
+        <tr>
+          <td>Playing tennis</td>
+          <td>2</td>
+          <td>Low risk</td>
+        </tr>
+        <tr>
+          <td>Going camping</td>
+          <td>2</td>
+          <td>Low risk</td>
+        </tr>
+        <tr>
+          <td>Grocery shopping</td>
+          <td>3</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Going for a walk, run, or bike ride with others</td>
+          <td>3</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Playing golf</td>
+          <td>3</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Staying at a hotel for two nights</td>
+          <td>4</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Sitting in a doctor's waiting room</td>
+          <td>4</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Going to a librar or museum</td>
+          <td>4</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Eating in a restaurant (outside)</td>
+          <td>4</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Walking in a busy downtown</td>
+          <td>4</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Spending an hour at a playground</td>
+          <td>4</td>
+          <td>Low-moderate risk</td>
+        </tr>
+        <tr>
+          <td>Having dinner at someone else's house</td>
+          <td>5</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Attending a backyard barbecue</td>
+          <td>5</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Going to a beach</td>
+          <td>5</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Shopping at a mall</td>
+          <td>5</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Sending kids to school, camp, or daycare</td>
+          <td>6</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Working a week in an office building</td>
+          <td>6</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Swimming in a public pool</td>
+          <td>6</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Visiting an elderly relative or friend in their home</td>
+          <td>6</td>
+          <td>Moderate risk</td>
+        </tr>
+        <tr>
+          <td>Going to a hair salon or barbershop</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Eating in a restauring (inside)</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Attending a wedding or funeral</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Traveling by plane</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Playing basketball</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Playing football</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Hugging or shaking hands when greeting a friend</td>
+          <td>7</td>
+          <td>Moderate-high risk</td>
+        </tr>
+        <tr>
+          <td>Eating at a buffet</td>
+          <td>8</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Working out at a gym</td>
+          <td>8</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Going to an amusement park</td>
+          <td>8</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Going to a movie theater</td>
+          <td>8</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Attending a large music concert</td>
+          <td>9</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Going to a sports stadium</td>
+          <td>9</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Attending a religious service with 500+ worshippers</td>
+          <td>9</td>
+          <td>High risk</td>
+        </tr>
+        <tr>
+          <td>Going to a bar</td>
+          <td>9</td>
+          <td>High risk</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p>These ratings are intended to help people make informed choices about the types of activities they engage in during the pandemic. For more information, please see the <a href="https://www.texmed.org/TexasMedicineDetail.aspx?Pageid=46106&id=54216" target="_blank">original source</a>.</p>
+    
+    <h3>Make it personal</h3>
+    <p>Get your current COVID-19 risk score by submitting information about your location and recent activities.</p>
+    <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
   </div>
-
-  <p>These ratings are intended to help people make informed choices about the types of activities they engage in during the pandemic. For more information, please see the <a href="https://www.texmed.org/TexasMedicineDetail.aspx?Pageid=46106&id=54216" target="_blank">original source</a>.</p>
-  
-  <h3>Make it personal</h3>
-  <p>Get your current COVID-19 risk score by submitting information about your location and recent activities.</p>
-  <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
 
 {% endblock %}

@@ -1,49 +1,53 @@
 {% extends "base.html" %}
 {% block app_content %}
-  <div class="row">
-    <div class="col-sm-8">
-      <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }}</span></h1>
-      <canvas id="gaugeChart" width="600" height="400"></canvas>
+  <div class="calc-container">
+    <div class="row calc-row">
+      <div class="col-sm-8">
+        <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }}</span></h1>
+        <canvas id="gaugeChart" width="600" height="400"></canvas>
+      </div>
+      <div class="col-sm-4">
+        <h3>Your state</h3>
+        <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ posIncrease }}</span> new cases in {{ userData.state }}.</p>
+        <p class="p-larger">{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
+        
+        <h3>Your activities</h3>
+        <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
+        <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
+        <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
+        <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>  
+        <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <h3>Your state</h3>
-      <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ posIncrease }}</span> new cases in {{ userData.state }}.</p>
-      <p class="p-larger">{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
-      
-      <h3>Your activities</h3>
-      <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
-      <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
-      <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
-      <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>  
-      <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
+
+    <div class="row results-row">
+      <h2>Supplementary information</h2>
     </div>
+
+    {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
+      <h2>No Data Available</h2>
+    {% else %}
+      <div class="row calc-row">
+        <div class="col-sm-4">
+          <h3>Activity Risk Groups</h3>
+            <canvas id="pieChart1" width="300" height="300"></canvas>
+          <p id="caption">Risk contributed per activity type</p>
+        </div>
+        <div class="col-sm-4">
+          <h3>Hospitalizations in {{ userData.state }}</h3>
+          <canvas id="pieChart2" width="300" height="300"></canvas>
+          <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p>
+        </div>
+        <div class="col-sm-4 space-below" style="background-color: whitesmoke">
+          <h3>A Third Chart Here?</h3>
+          <canvas id="" width="300" height="300"></canvas>
+          <p id="caption">Here's a caption for the chart</p>
+        </div>
+      </div>
+    {% endif %}
+
   </div>
   
-  <div class="row">
-    <h2>Supplementary information</h2>
-  </div>
-
-  {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
-      <h2>No Data Available</h2>
-  {% else %}
-    <div class="row">
-      <div class="col-sm-4">
-        <h3>Activity Risk Groups</h3>
-          <canvas id="pieChart1" width="300" height="300"></canvas>
-        <p id="caption">Risk contributed per activity type</p>
-      </div>
-      <div class="col-sm-4">
-        <h3>Hospitalizations in {{ userData.state }}</h3>
-        <canvas id="pieChart2" width="300" height="300"></canvas>
-        <p id="caption"><span class="user-data">{{ hospCurrently + icuCurrently }}</span> total hospitalizations</p>
-      </div>
-      <div class="col-sm-4 space-below" style="background-color: whitesmoke">
-        <h3>A Third Chart Here?</h3>
-        <canvas id="" width="300" height="300"></canvas>
-        <p id="caption">Here's a caption for the chart</p>
-      </div>
-    </div>
-  {% endif %}
 
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
