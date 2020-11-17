@@ -1,6 +1,288 @@
+.container-fluid {
+	background-color: whitesmoke;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+/* Container on bottom of landing page */
+#col-lg-4-containter {
+	background-color: darkred;
+	color: white;
+	padding-left: 25px;
+	padding-bottom: 25px;
+	padding-top: 25px;
+	padding-right: 25px;
+}
+
+.container {
+	margin-right: 50px;
+	margin-top: auto;
+	text-align: center;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 0px;
+	background-color: darkred;
+	margin-right: 0px;
+	width: 100%;
+	color: white;
+}
+
+.row {
+	text-align: center;
+}
+
+/* Navbar */
+.navbar-default {
+	margin-bottom: 0px;
+}
+
+/* Active navbar links */
+.navbar-default .navbar-nav>.active> a,
+.navbar-default .navbar-nav>.active> a:focus,
+.navbar-default .navbar-nav>.active> a:hover {
+  background-color: darkred;
+	color: whitesmoke;
+}
+
+/* Navbar brand "COVID 19 Risk App" */
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+	margin-left: 0px;
+}
+
+/* Main image "masthead" at top of every page */
+.img-fluid {
+	height: 100%;
+	width: 100%;
+}
+
+/* Jumbotron text under masthead */
+.container .jumbotron, .container-fluid .jumbotron {
+	text-align: center;
+	background-color: darkred;
+	font-size: xxx-large;
+	color: whitesmoke;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-bottom: 0px;
+	border-radius: 0px;
+}
+
+/* Jumbotron on About, Assess Risk, and Activity Risk pages */
+.jumbotron {
+	text-align: center;
+	background-color: darkred;
+	font-size: xxx-large;
+	color: whitesmoke;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-bottom: 0px;
+	border-radius: 0px;
+}
+
+
+h2 > .jumbo-header {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+p > .lead {
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-top: 10px
+}
+
+/* About: Campus image on about page */
+#OSU-img {
+	margin-bottom: 0px;
+	margin-top: 15px;
+	width: 95%;
+	height: 100%;
+}
+
+/* About: Accordion row */
+.accordion-row {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+}
+
+/*About: Accordion cards */
+.accordion-card {
+	margin-right: 0px;
+	margin-left: 0px;
+	background-color: darkred;
+}
+
+
+/* About: Accordion Header Text formatting */
+.mb-0 {
+	margin-bottom: 0px;
+	margin-top: 15px;
+	margin-left: 0px;
+}
+
+
+/* About: Accordion header text */
+.btn-link, .btn-link:hover {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: whitesmoke;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+/* About: Card body text */
+.card-body > p {
+	background-color: whitesmoke;
+	padding-left: 20px;
+	padding-top: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	font-size: 16px;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+}
+
+/* Form-input: Container styling */
+.container-form {
+	background-color: darkred;
+}
+
+/* Form-input: Frequency form styling */
+.form-row {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+/* Main call-to-action button on landing page */
+#calc-risk-btn {
+	margin-top: 10px;
+	width: 40%;
+	color: black;
+	background-color:whitesmoke;
+	border-color: white;
+	font-size: 18px;
+}
+
+/* Main call-to-action button on landing page - hover styling */
+#calc-risk-btn:hover {
+	margin-top: 10px;
+	width: 40%;
+	color: whitesmoke;
+	background-color:black;
+	border-color: white;
+	font-size: 18px;
+}
+
+/* Index: Learn more about us button */
+#about-btn, #about-btn:hover, #about-btn:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Index: Calculate risk button small */
+#sm-calc-risk-btn , #sm-calc-risk-btn:hover, #sm-calc-risk-btn:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Index: Activity risk ratings button */
+#sm-activity-btn , #sm-activity-btn:hover, #sm-activity-btn:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Three buttons underneath images on landing page */
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+	margin-top: 10px;
+	width: inherit;
+	color: white;
+	background-color:black;
+	border-color: whitesmoke;
+	font-size: 18px;
+}
+
+/* Three buttons underneath images on landing page: hover styling
+.btn-primary:hover {
+	margin-top: 10px;
+	width: 40%;
+	color: black;
+	background-color: whitesmoke;
+	border-color: black;
+	font-size: 18px;
+}
+*/
+
+/* horizontal row */
+hr {
+	height:2px;
+	border-width:0;
+	color:gray;
+	background-color:gray;
+	margin-top: 10px;
+	width: 50%
+}
+
+/* Embedded image settings on the landing page - Learn more, Calculate risk, View the activities images */
+.embed-responsive .embed-responsive-item, .embed-responsive embed, .embed-responsive iframe, .embed-responsive object, .embed-responsive video {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+	text-align: center;
+}
+
+/* Footer horizontal row separator */
+.footer-hr {
+	height:2px;
+	border-width:0;
+	color:black;
+	background-color:gray;
+	margin-top: 15px;
+	width: 80%;
+	text-align: center;
+}
+
+/* Disclaimer h5 styling */
+.disclaimer-h5 {
+	margin-top: 10px;
+}
+
 .user-data {
 	color: #0066ff;
 	font-weight: bold;
+}
+
+/* Dropdown accordion card body on about page */
+.card-body {
+	background-color: whitesmoke;
 }
 
 .p-larger {
@@ -16,11 +298,95 @@
 	background-color: #f2f2f2;
 }
 
+/* Form-input: Top horizontal row */
+.form-hr {
+	width: 100%;
+}
+
+/* Form-input: "Answer the following questions.." text */
 .space-below {
-	margin-bottom: 40px;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 10px;
+	font-size: 21px;
+	text-align: center;
+	margin-bottom: 10px;
+	background-color: black;
+	color: whitesmoke;
+	border-radius: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/* Form-input: "Which start are you in?" text */
+.form-row > .col-lg-12 > .statename {
+	text-align: left;
+}
+
+/* Form-input: Form submit button */
+.form-row > #submit-btn {
+	text-align: center;
+}
+
+.form-row > #submit-btn > .btn-primary, .btn-primary:hover {
+	background-color: darkred;
+	color: whitesmoke;
+	width: 50%;
+	font-size: 18px;
 }
 
 .form-question {
 	padding-top: 8px;
 	padding-bottom: 8px;
+}
+
+.calc-container {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.calc-row {
+	text-align: left;
+}
+
+.results-row {
+	text-align: left;
+	padding-left: 15px;
+}
+.app-container {
+	display: flex;
+	justify-content: center;
+	padding: 38px 10px 10px 10px;
+	background-color: "whitesmoke";
+}
+
+.chart-container {
+	width: 2400px;
+}
+
+#bar-chart {
+	width: 100%;
+}
+
+.gradeCircle {
+	display: inline-flex;
+	height: 240px;
+	width: 240px;
+	border-radius: 50%;
+	background-color: #003399;
+	color: #fff;
+	font-weight: bold;
+	font-size: 60px;
+	align-items: center;
+	justify-content: center;
+}
+
+.gradeCircleText {
+	margin-top: 16px;
+	color: #666;
+	font-weight: bold;
 }
