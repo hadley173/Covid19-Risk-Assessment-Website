@@ -208,12 +208,35 @@
 
      // --------------- Bar CHART  --------------
     // need to copy data sent by routes.py into javascript variables
-var pos = {{all_states_pos}};
+//var pos = {{all_states_pos}};
+//var pos2 = '{{sorted_pos_total}}';
+var pos = JSON.parse('{{sorted_pos_total | tojson}}');
+var pos2 = sortJsObject(pos);
 var pos_inc = {{all_states_pos_inc}};
+//var pos_inc2 = '{{sorted_pos_inc}}';
+//var pos_inc = pos_inc1;
 var idx = {{index}};
 console.log('idx: ' + idx);
 console.log('pos: ' + pos);
 console.log('pos_inc: ' + pos_inc);
+console.log('pos2: ' + pos2);
+console.log('pos2[AK]: ', pos2['AK']);
+//console.log('pos_inc2: ' + pos_inc2);
+
+/*
+console.log("boutta try");
+
+try {
+  console.log("trying");
+  var testPositiveTotal = {{json_stateObject}};
+  //console.log("testing stateObject: ", {{stateObject}});
+  //console.log("testing testPositiveTotal: ", testPositiveTotal);
+}
+catch(err){
+  console.log("we fucked up");
+}
+console.log("we tried");
+*/
 
     // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
@@ -281,13 +304,38 @@ var labelList =[ 'Alaska', 'Alabama', 'Arkansas', 'American Samoa', 'Arizona', '
 						'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia', 
 						'Virgin Islands', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming' ];
 
-
-
+/*
+// CHANGE THIS TO GO BY STATE CODE
 const arrayLength = labelList.length;
 for (i = 0; i < arrayLength; i++) {
   data.push(pos[i]);
   labels.push(labelList[i]);
 }
+
+
+for (const key in pos2) {
+  if (pos2.hasOwnProperty(key)){
+    console.log(key, pos2[key]);
+    data.push(pos2[key]);
+    labels.push(key);
+  }
+}
+*/
+const arrayLength = pos.length;
+for (i = 55; i >= 0 ; i--) {
+  for (const key in pos) {
+    if(pos.hasOwnProperty(key)){
+      
+        if(pos[key] == pos2[i]){
+          data.push(pos[key]);
+          labels.push(key);
+      }
+    }
+  }
+}
+console.log("data" + data);
+console.log("labels" + labels);
+
 
 const chartData = {
   labels: labels,
@@ -327,6 +375,33 @@ function interpolateColors(dataLength, colorScale, colorRangeInfo) {
 }  
 
 createBarChart('bar-chart', chartData, colorScale, colorRangeInfo);
+
+
+//  Sorting function for top 10 list
+//  Sorts dictionary by Value from smallest to largest
+// https://stackoverflow.com/questions/25500316/sort-a-dictionary-by-value-in-javascript
+
+function sortJsObject(dict) {
+    //var dict = {"x" : 1, "y" : 6,  "z" : 9, "a" : 5, "b" : 7, "c" : 11, "d" : 17, "t" : 3};
+
+    var keys = [];
+    for(var key in dict) { 
+       keys[keys.length] = key;
+     }
+
+     var values = []; 
+
+     for(var i = 0; i < keys.length; i++) {
+         values[values.length] = dict[keys [i]];
+     }
+
+     var sortedValues = values.sort(sortNumber);
+    return sortedValues;     
+}
+
+function sortNumber(a,b) {
+   return a - b;
+}
 
 </script>
 
