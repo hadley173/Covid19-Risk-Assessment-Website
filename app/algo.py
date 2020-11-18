@@ -4,31 +4,26 @@ from app.form import RiskForm
 
 def getData():
 	class State:
-		def __init__(self, state, positive, positiveIncrease, inIcuCurrently, hospitalizedCurrently, dataQualityGrade  ):
+		def __init__(self, state, positive, positive_increase, icu_currently, hospitalized_currently, data_quality_grade  ):
 			self.state = state
 			self.positive = positive
-			self.positiveIncrease = positiveIncrease
-			#self.totalTestResultsIncrease = totalTestResultsIncrease
-			self.icuCurrently = inIcuCurrently
-			self.hospCurrently = hospitalizedCurrently
-			self.stateGrade = dataQualityGrade
+			self.positive_increase = positive_increase
+			self.icu_currently = icu_currently
+			self.hosp_currently = hospitalized_currently
+			self.state_grade = data_quality_grade
 	
 	# empty dict to hold data returned from api call
-	stateList = {}
-	stateObject = []
+	raw_api_data = {}
+	state_list = []
 
 	# get state information from api call
 	url = 'https://api.covidtracking.com/v1/states/current.json'
 	response = requests.get(url)
 	json_response = response.json()
 
-	#stateList2 = json_response
-	#for item in stateList2.items():
-		#print(item)
-
 	# copy api information into dict
 	for i in range(56):
-		stateList[i] = json_response[i].copy()
+		raw_api_data[i] = json_response[i].copy()
 		# debug check
 		# print(json_response[i])
 
@@ -39,83 +34,59 @@ def getData():
 	print(user_state)
 
 
-	icuCurrently = 0
-	hospCurrently = 0
-	stateGrade = 'Z'
+	icu_currently = 0
+	hosp_currently = 0
+	state_grade = 'Z'
 	state_score = 0
 	default_risk = 0.083
 
 	
-	all_states_pos = {}
-	all_states_pos_inc = {}
+	#all_states_pos = {}
+	#all_states_pos_inc = {}
 	index = 0
 	count = 0
 
 	# Calc the state multiplier
 	try:
-		for i in stateList:
-			for item in stateList[i].items():
-				state = stateList[i].get('state')
+		for i in raw_api_data:
+			for item in raw_api_data[i].items():
+				state = raw_api_data[i].get('state')
 				# get the number of total positive cases and daily increase in cases for all states
-				if (stateList[i].get('positive') >= 0):
-					all_states_pos[count] = stateList[i].get('positive')
-					positive = stateList[i].get('positive')
-				if (stateList[i].get('positiveIncrease') >= 0):
-					all_states_pos_inc[count] = stateList[i].get('positiveIncrease')
-					positiveIncrease = stateList[i].get('positiveIncrease')
-				
+				if (raw_api_data[i].get('positive') >= 0):
+					positive = raw_api_data[i].get('positive')
+				if (raw_api_data[i].get('positiveIncrease') >= 0):
+					positive_increase = raw_api_data[i].get('positiveIncrease')	
 			# get the data for the specific state chosen by the user
-			if(stateList[i].get('state').lower() == user_state):
-				index = i
-				#print('Match Found: ', stateList[i].get('state').lower())
+			if(raw_api_data[i].get('state').lower() == user_state):
+				index = i # keep track of which state the user chose
 				#calculate state score 
 				try:
-					state_score = round(float(stateList[i].get('positiveIncrease') / (stateList[i].get('totalTestResultsIncrease'))), 2)
+					state_score = round(float(raw_api_data[i].get('positiveIncrease') / (raw_api_data[i].get('totalTestResultsIncrease'))), 2)
 				except: 
-					state_score = 0.083
+					# set state score to default rating
+					state_score = default_risk
 					print('error getting state score')
 				# get hospitilization and ICU data for state chosen by the user	
-				icuCurrently = stateList[i].get('inIcuCurrently')
-				hospCurrently = stateList[i].get('hospitalizedCurrently')
-				stateGrade = stateList[i].get('dataQualityGrade')
+				icu_currently = raw_api_data[i].get('inIcuCurrently')
+				hosp_currently = raw_api_data[i].get('hospitalizedCurrently')
+				state_grade = raw_api_data[i].get('dataQualityGrade')
+				# need to account for states that do not report this data
 				try:
-					if icuCurrently == None:
-						icuCurrently = 0
-					if hospCurrently == None:
-						hospCurrently = 0		
+					if icu_currently == None:
+						icu_currently = 0
+					if hosp_currently == None:
+						hosp_currently = 0		
 				except:
-					print("hosp/icu data okay")	
-			stateObject.append( State(state, positive, positiveIncrease, icuCurrently, hospCurrently, stateGrade))
+					print("hosp/icu data okay")
+			state_list.append( State(state, positive, positive_increase, icu_currently, hosp_currently, state_grade))
 			count += 1			
 	except ZeroDivisionError:
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
 		print("default state score chosen: ", state_score)
-
-
-	# need to account for states that do not report this data
-	try:
-		if icuCurrently == None:
-			icuCurrently = 0
-		if hospCurrently == None:
-			hospCurrently = 0
-	except:
-		print("no icu and hosp data")
 	
 	# for debugging
-	for item in stateList[index].items():
+	for item in raw_api_data[index].items():
 		print(item)
-
-	# for debugging
-	
-	try:
-		print('all states pos: ', all_states_pos)
-		print('all states pos inc: ', all_states_pos_inc)
-		print('all states pos[index]: ', all_states_pos[index])
-		print('all states pos inc[index]: ', all_states_pos_inc[index])
-
-	except:
-		print("copy error")
-	
 
 	if state_score <= 0:
 		state_score = default_risk
@@ -153,57 +124,40 @@ def getData():
 
 	
 	print("base score: ", base_score)
-	
-	#if index > 0:
-	#	index -= 1
+
 	print("index: ", index)
-
-
-	labelList = ['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 
-				'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 
-				'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 
-				'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 
-				'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 
-				'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 
-				'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY']
 
 	temp_pos = []
 	temp_pos_inc = []
+	label_list = []
+	
 
 	#create list with positive case numbers
-	for obj in stateObject:
+	for obj in state_list:
 		temp_pos.append(obj.positive)
-		temp_pos_inc.append(obj.positiveIncrease)
+		temp_pos_inc.append(obj.positive_increase)
+		label_list.append(obj.state)
 
-	zipped_pos = dict(zip(labelList, temp_pos))
-	zipped_pos_inc = dict(zip(labelList, temp_pos_inc))
-	#print("zipped", zipped_pos)
+	# pair up state codes with positive and positive increase values so they can be sorted later
+	zipped_pos_total = dict(zip(label_list, temp_pos))
+	zipped_pos_inc = dict(zip(label_list, temp_pos_inc))
 
-	temp_zipped_pos = {}
-	temp_zipped_pos_inc = {}
+	#store necessary information to pass along
+	user_state_specifics = {}
+	user_state_specifics.update({"state": state_list[index].state})
+	user_state_specifics.update({"risk_rating": risk_rating})
+	user_state_specifics.update({"state_score": state_score})
+	user_state_specifics.update({"state_grade": state_list[index].state_grade})
+	user_state_specifics.update({"positive": state_list[index].positive})
+	user_state_specifics.update({"positive_increase": state_list[index].positive_increase})
+	user_state_specifics.update({"hosp_currently": state_list[index].hosp_currently})
+	user_state_specifics.update({"icu_currently": state_list[index].icu_currently})
+	user_state_specifics.update({"low_risk_events": low_risk_events})
+	user_state_specifics.update({"mod_risk_events": mod_risk_events})
+	user_state_specifics.update({"mod_high_risk_events": mod_high_risk_events})
+	user_state_specifics.update({"high_risk_events": high_risk_events})
+	print(user_state_specifics)
 
-	sorted_pos_total = {}
-	sorted_pos_inc = {}
 
-	temp_zipped_pos = sorted(zipped_pos.items(), key=lambda x: x[1], reverse=True)
-	temp_zipped_pos_inc = sorted(zipped_pos_inc.items(), key=lambda x: x[1], reverse=True)
-
-	
-
-	for i in temp_zipped_pos:
-		#print(i[0], i[1])
-		sorted_pos_total[i[0]] = i[1]
-	print("sorted_pos_total: ", sorted_pos_total)
-
-	for i in temp_zipped_pos_inc:
-		#print(i[0], i[1])
-		sorted_pos_inc[i[0]] = i[1]
-	print("sorted_pos_inc: ", sorted_pos_inc)
-	
-	print("sorted_pos_total[user_state]: ", sorted_pos_total[user_state.upper()])
-
-	#@for item in sort_pos_zipped:
-		#print(item)
-	
-	#return risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc, stateGrade
-	return risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, sorted_pos_total, sorted_pos_inc, stateGrade, all_states_pos, all_states_pos_inc
+	#return risk_rating, state_score, raw_api_data, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icu_currently, hosp_currently, index, zipped_pos_total, zipped_pos_inc, state_grade, state_list
+	return user_state_specifics, zipped_pos_total, zipped_pos_inc

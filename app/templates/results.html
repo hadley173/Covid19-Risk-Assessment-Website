@@ -9,19 +9,19 @@
   <div class="calc-container">
     <div class="row calc-row">
       <div class="col-sm-8">
-        <h1>Your risk score: <span id="score" class="user-data">{{ risk_rating }} </span></h1>
+        <h1>Your risk score: <span id="score" class="user-data">{{ user_state_specifics['risk_rating'] }} </span></h1>
         <canvas id="gaugeChart" width="600" height="400"></canvas>
       </div>
       <div class="col-sm-4">
         <h3>Your state</h3>
-        <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ stateList[index].positiveIncrease }}</span> new cases in {{ stateList[index].state }}.</p>
-        <p class="p-larger">{{ userData.state }}'s current risk multiplier: <span class="user-data">{{ state_score }}%</span></p>
+        <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ user_state_specifics['positive_increase'] }}</span> new cases in {{ user_state_specifics['state'] }}.</p>
+        <p class="p-larger">{{ user_state_specifics['state'] }}'s current risk multiplier: <span class="user-data">{{ user_state_specifics['state_score'] }}%</span></p>
         
         <h3>Your activities</h3>
-        <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ low_risk_events }}</span></p> 
-        <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ mod_risk_events }}</span></p>
-        <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ mod_high_risk_events }}</span></p>
-        <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ high_risk_events }}</span></p>  
+        <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ user_state_specifics['low_risk_events'] }}</span></p> 
+        <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ user_state_specifics['mod_risk_events'] }}</span></p>
+        <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ user_state_specifics['mod_high_risk_events'] }}</span></p>
+        <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ user_state_specifics['high_risk_events'] }}</span></p>  
         <a class="btn btn-primary" href="{{ url_for('formInput') }}" role="button">Try again</a>
       </div>
     </div>
@@ -34,7 +34,7 @@
     <!--Activity Risk Group Pie Chart-->
   <div class="row calc-row">
     <div class="col-sm-4">
-      {% if low_risk_events == mod_risk_events == mod_high_risk_events == high_risk_events == 0 %}
+      {% if user_state_specifics['low_risk_events'] == user_state_specifics['mod_risk_events'] == user_state_specifics['mod_high_risk_events'] == user_state_specifics['high_risk_events'] == 0 %}
         <h3>No activity data received</h3>
       {% else %}
         <h3>Activity risk groups</h3>
@@ -45,39 +45,61 @@
 
     <!--Hospitalization Pie Chart-->
     <div class="col-sm-4">
-      {% if (hospCurrently == 0 or icuCurrently == 0) %}
+      {% if user_state_specifics['hosp_currently'] == user_state_specifics['icu_currently'] == 0 %}
         <h3>Hospitalization data unavailable</h3>
       {% else %}
-        <h3>Hospitalizations in {{ userData.state }}</h3> 
+        <h3>Hospitalizations in {{ user_state_specifics['state'] }}</h3> 
         <canvas id="pieChart2" width="300" height="300"></canvas>
-        <p id="caption">Total currently in hospital: <b>{{ hospCurrently }}</b></p>
+        <p id="caption">Total currently in hospital: <b>{{ user_state_specifics['hosp_currently'] }} </b></p>
       {% endif %}
     </div>
 
     <!--State letter grade-->
     <div class="col-sm-4">
       <h3>State data grade</h3>
-      <p class="gradeCircleText">{{userData.state}}'s data-quality grade evaluates how well the state publishes its COVID-19 data.</p>  
-      <div class="gradeCircle">{{ stateGrade }}</div>
+      <p class="gradeCircleText">{{user_state_specifics['state']}}'s data-quality grade evaluates how well the state publishes its COVID-19 data.</p>  
+      <div class="gradeCircle">{{ user_state_specifics['state_grade'] }}</div>
       <p id="caption">For more info: <a href="https://covidtracking.com/about-data/state-grades" target="_blank">covidtracking.com</a></p>      
     </div>
-
   </div>
-    <!--State Positive Cases Chart-->
-    <div class="row"></div>
-        <h3>Positive cases: All states</h3>
-        <div class="app-container">
-          <div class="chart-container">
-            <canvas id="bar-chart"></canvas>
+
+    <div class="row calc-row">
+      <div class="col-sm-6"> 
+        <div class = "app-container">
+          <div class = "chart-container">
+             <!--State Overall Positive Cases Chart-->
+      
+            <h3>Total Positive Cases: All States</h3>
+              <canvas id="total-pos-chart" width="300" height="300"></canvas>
+           </div>
+        </div>
+      </div> 
+    
+      <!--State Daily Positive Cases Chart-->
+      <div class="col-sm-6">
+        <div class = "app-container">
+          <div class = "chart-container">
+            <h3>Daily Positive Cases: All States</h3>
+              <canvas id="daily-pos-chart" width="300" height="300"></canvas>
           </div>
-       </div>
+        </div>
+      </div>
+    </div>
   <br>
   <br>
 
   {% block scripts %}
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/chartjs-gauge@0.2.0/dist/chartjs-gauge.js"></script>
     <script>
+
+    var low_risk_events = '{{user_state_specifics["low_risk_events"]}}';
+        var mod_risk_events = '{{user_state_specifics["mod_risk_events"]}}';
+        var mod_high_risk_events = '{{user_state_specifics["mod_high_risk_events"]}}';
+        var high_risk_events = '{{user_state_specifics["high_risk_events"]}}';
+        var total_events = 0
+        total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
       // Global parameters: do not resize the chart canvas
       Chart.defaults.global.responsive = false;
 
@@ -115,20 +137,6 @@
       // get chart canvas
       try{
         var ctx = document.getElementById("pieChart1").getContext("2d");
-
-      // get chart data
-      
-        var low_risk_events = 0
-        low_risk_events += document.getElementById("low_risk_events").innerHTML
-        var mod_risk_events = 0
-        mod_risk_events += document.getElementById("mod_risk_events").innerHTML
-        var mod_high_risk_events = 0
-        mod_high_risk_events += document.getElementById("mod_high_risk_events").innerHTML
-        var high_risk_events = 0
-        high_risk_events += document.getElementById("high_risk_events").innerHTML
-        var total_events = 0
-        total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
-     
 
         // create chart using the canvas
         var chart = new Chart(ctx, {
@@ -171,8 +179,9 @@
       // get chart canvas
       try{
         var ctx = document.getElementById("pieChart2").getContext("2d");
-        var hospitalized = {{hospCurrently}};
-        var icu = {{icuCurrently}};
+        var hospitalized = '{{user_state_specifics["hosp_currently"]}}';
+        console.log(hospitalized);
+        var icu = '{{user_state_specifics["icu_currently"]}}';
         var nonICU = hospitalized - icu;
 
         // create chart using the canvas
@@ -208,35 +217,8 @@
 
      // --------------- Bar CHART  --------------
     // need to copy data sent by routes.py into javascript variables
-//var pos = {{all_states_pos}};
-//var pos2 = '{{sorted_pos_total}}';
-var pos = JSON.parse('{{sorted_pos_total | tojson}}');
-var pos2 = sortJsObject(pos);
-var pos_inc = {{all_states_pos_inc}};
-//var pos_inc2 = '{{sorted_pos_inc}}';
-//var pos_inc = pos_inc1;
-var idx = {{index}};
-console.log('idx: ' + idx);
-console.log('pos: ' + pos);
-console.log('pos_inc: ' + pos_inc);
-console.log('pos2: ' + pos2);
-console.log('pos2[AK]: ', pos2['AK']);
-//console.log('pos_inc2: ' + pos_inc2);
 
-/*
-console.log("boutta try");
 
-try {
-  console.log("trying");
-  var testPositiveTotal = {{json_stateObject}};
-  //console.log("testing stateObject: ", {{stateObject}});
-  //console.log("testing testPositiveTotal: ", testPositiveTotal);
-}
-catch(err){
-  console.log("we fucked up");
-}
-console.log("we tried");
-*/
 
     // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
@@ -292,55 +274,93 @@ function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
   return myChart;
 }
 
-var i;
-var data = [];
-var labels = [];
-var labelList =[ 'Alaska', 'Alabama', 'Arkansas', 'American Samoa', 'Arizona', 'California','Colorado', 
-						'Connecticut','Washington DC','Delaware', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Iowa', 'Idaho', 
-						'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Louisianna', 'Massachusettes', 'Maryland', 'Maine', 
-						'Michigan', 'Minnisota', 'Missouri', 'Nortern Mariana Islands', 'Mississippi', 
-						'Montana', 'North Carolina', 'North Dakota', 'Nebraska', 'New Hampshire', 'New Jersey', 'New Mexico', 'Nevada',  
-						'New York', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico',
-						'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia', 
-						'Virgin Islands', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming' ];
 
-/*
-// CHANGE THIS TO GO BY STATE CODE
-const arrayLength = labelList.length;
-for (i = 0; i < arrayLength; i++) {
-  data.push(pos[i]);
-  labels.push(labelList[i]);
-}
+// fetch total and daily positive cases from routing page
+var pos = JSON.parse('{{zipped_pos_total | tojson}}');
+var pos_inc = JSON.parse('{{zipped_pos_inc | tojson}}');
 
+// sort the states by total positive cases in descending order
+var pos_sorted = sortJsObject(pos);
+// sort the states by daily positive cases in descending order
+var pos_inc_sorted = sortJsObject(pos_inc);
 
-for (const key in pos2) {
-  if (pos2.hasOwnProperty(key)){
-    console.log(key, pos2[key]);
-    data.push(pos2[key]);
-    labels.push(key);
-  }
-}
-*/
-const arrayLength = pos.length;
-for (i = 55; i >= 0 ; i--) {
-  for (const key in pos) {
-    if(pos.hasOwnProperty(key)){
-      
-        if(pos[key] == pos2[i]){
-          data.push(pos[key]);
-          labels.push(key);
+// for debugging
+console.log('pos: ' + pos);
+console.log('pos_inc: ' + pos_inc);
+console.log('pos_sorted: ' + pos_sorted);
+
+// Sort total cases in Descending order and then find the corresponding state code
+function get_bar_chart_data(dict, dict_sorted){
+  var i;
+  var data = [];
+  var labels = [];
+  var label_key = [];
+
+  var label_dict = {'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado', 
+              'CT': 'Connecticut', 'DC': 'Washington DC', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'IA': 'Iowa', 'ID': 'Idaho', 
+              'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisianna', 'MA': 'Massachusettes', 'MD': 'Maryland', 'ME': 'Maine', 
+              'MI': 'Michigan', 'MN': 'Minnisota', 'MO': 'Missouri', 'MP': 'Nortern Mariana Islands', 'MS': 'Mississippi', 
+              'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada',  
+              'NY': 'New York', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico',
+              'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia', 
+              'VI': 'Virgin Islands', 'VT': 'Vermont', 'WA': 'Washington', 'WI': 'Wisconsin', 'WV': 'West Virginia', 'WY': 'Wyoming'};
+
+  console.log("in function");
+
+  for (i = 55; i > 45; i--) {
+    for (const key in dict) {
+      if(dict.hasOwnProperty(key)){
+          if(dict[key] == dict_sorted[i]){
+            // add data and label for displaying in chart
+            data.push(dict[key]);
+            // label is just the 2 letter state code
+            label_key.push(key);
+        }
       }
     }
   }
+
+  // need to get full state name by matching to state code
+  for (i = 0; i < 10; i++) {
+    for (const key in label_dict) {
+      if(label_dict.hasOwnProperty(key)){
+          if(key == label_key[i]){
+            labels.push(label_dict[key]);
+          }
+      }
+    }
+  }
+
+  console.log("data in func: " + data);
+  console.log("labels in func: " + labels);
+  return {
+    data, 
+    labels
+  }
 }
-console.log("data" + data);
-console.log("labels" + labels);
+
+var {data, labels} = get_bar_chart_data(pos, pos_sorted);
+var data_total = data;
+var labels_total = labels;
+var {data, labels} = get_bar_chart_data(pos_inc, pos_inc_sorted);
+var data_daily = data;
+var labels_daily = labels;
+console.log("data out func: " + data_total);
+console.log("labels out func: " + labels_total);
+console.log("data out func: " + data_daily);
+console.log("labels out func: " + labels_daily);
 
 
-const chartData = {
-  labels: labels,
-  data: data,
+const chartData_total = {
+  labels: labels_total,
+  data: data_total,
 };
+const chartData_daily = {
+  labels: labels_daily,
+  data: data_daily,
+};
+
+
 
 const colorScale = d3.interpolateInferno;
 
@@ -348,14 +368,16 @@ const colorRangeInfo = {
   colorStart: 0,
   colorEnd: 1,
   useEndAsStart: false,
-}; 
+  }; 
+
+//var colorScale = chart_color();
 
 function calculatePoint(i, intervalSize, colorRangeInfo) {
   var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
   return (useEndAsStart
     ? (colorEnd - (i * intervalSize))
     : (colorStart + (i * intervalSize)));
-  }
+}
 
 
 /* Must use an interpolated color scale, which has a range of [0, 1] */
@@ -374,15 +396,13 @@ function interpolateColors(dataLength, colorScale, colorRangeInfo) {
   return colorArray;
 }  
 
-createBarChart('bar-chart', chartData, colorScale, colorRangeInfo);
+createBarChart('total-pos-chart', chartData_total, colorScale, colorRangeInfo);
+createBarChart('daily-pos-chart', chartData_daily, colorScale, colorRangeInfo);
 
 
-//  Sorting function for top 10 list
 //  Sorts dictionary by Value from smallest to largest
 // https://stackoverflow.com/questions/25500316/sort-a-dictionary-by-value-in-javascript
-
 function sortJsObject(dict) {
-    //var dict = {"x" : 1, "y" : 6,  "z" : 9, "a" : 5, "b" : 7, "c" : 11, "d" : 17, "t" : 3};
 
     var keys = [];
     for(var key in dict) { 
