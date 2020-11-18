@@ -378,3 +378,7 @@ hr {
 	color: #666;
 	font-weight: bold;
 }
+
+.legible {
+	max-width: 800px;
+}
