@@ -4,12 +4,10 @@
 {% block app_content %}
 <div class=container-form>
   <img src="https://nsc.edu/wp-content/uploads/2020/03/COVID-19-Banner-2.jpg" class="img-fluid" alt="Responsive image">
-  <section class="jumbotron">Discover Personal COVID-19 Risk.</section>
 </div>
   <div class="calc-container">
   <h1>Assess your current COVID-19 risk</h1>
   <p class="space-below">Answer the following questions so that we can calculate your current risk score.</p>
-  <hr class="form-hr">
 
   <form class="form" action="" method="post" role="form" novalidate>
   {{ form.hidden_tag() }}
@@ -150,7 +148,7 @@
       </div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row space-below">
       <div class="col-xs-12">
         <div class="form-inline form-question">
           {{ wtf.form_field(form.activity19) }}
