@@ -161,80 +161,41 @@ p > .lead {
 	margin-right: 10%;
 }*/
 
+.btn-secondary {
+	margin-top: 10px;
+	color: white;
+	background-color:black;
+	border-color: black;
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+	margin-top: 10px;
+	color: black;
+	background-color: #bfbfbf;
+}
+
+
 /* Main call-to-action button on landing page */
 #calc-risk-btn {
 	margin-top: 10px;
-	width: 40%;
 	color: black;
-	background-color:whitesmoke;
-	border-color: white;
+	background-color: whitesmoke;
+	border-color: whitesmoke;
 	font-size: 18px;
 }
 
 /* Main call-to-action button on landing page - hover styling */
 #calc-risk-btn:hover {
 	margin-top: 10px;
-	width: 40%;
 	color: whitesmoke;
-	background-color:black;
-	border-color: white;
-	font-size: 18px;
-}
-
-/* Index: Learn more about us button */
-#about-btn, #about-btn:hover, #about-btn:focus {
-	margin-top: 10px;
-	width: inherit;
-	color: white;
-	background-color:black;
-	border-color: whitesmoke;
-	font-size: 18px;
-}
-
-/* Index: Calculate risk button small */
-#sm-calc-risk-btn , #sm-calc-risk-btn:hover, #sm-calc-risk-btn:focus {
-	margin-top: 10px;
-	width: inherit;
-	color: white;
-	background-color:black;
-	border-color: whitesmoke;
-	font-size: 18px;
-}
-
-/* Index: Activity risk ratings button */
-#sm-activity-btn , #sm-activity-btn:hover, #sm-activity-btn:focus {
-	margin-top: 10px;
-	width: inherit;
-	color: white;
-	background-color:black;
-	border-color: whitesmoke;
-	font-size: 18px;
-}
-
-/* Three buttons underneath images on landing page */
-.btn-primary, .btn-primary:hover, .btn-primary:focus {
-	margin-top: 10px;
-	width: inherit;
-	color: white;
-	background-color:black;
-	border-color: whitesmoke;
-	font-size: 18px;
-}
-
-/* Three buttons underneath images on landing page: hover styling
-.btn-primary:hover {
-	margin-top: 10px;
-	width: 40%;
-	color: black;
-	background-color: whitesmoke;
+	background-color: black;
 	border-color: black;
 	font-size: 18px;
 }
-*/
 
 /* horizontal row */
 hr {
-	height:2px;
+	height:1px;
 	border-width:0;
 	color:gray;
 	background-color:gray;
@@ -318,9 +279,13 @@ hr {
 	text-align: center;
 }
 
-.form-row > #submit-btn > .btn-primary, .btn-primary:hover {
+.form-row > #submit-btn > .btn-primary{
 	background-color: darkred;
-	color: whitesmoke;
+	padding: 12px;
+}
+
+.form-row > #submit-btn > .btn-primary:hover {
+	background-color: darkred;
 }
 
 .form-question {
