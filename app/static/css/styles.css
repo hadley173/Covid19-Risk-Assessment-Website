@@ -321,8 +321,6 @@ hr {
 .form-row > #submit-btn > .btn-primary, .btn-primary:hover {
 	background-color: darkred;
 	color: whitesmoke;
-	width: 50%;
-	font-size: 18px;
 }
 
 .form-question {
