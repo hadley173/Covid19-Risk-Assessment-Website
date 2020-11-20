@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2117cc45-4ea7-40f6-a236-92e6b4035651" name="Default Changelist" comment="" />
+    <list default="true" id="2117cc45-4ea7-40f6-a236-92e6b4035651" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/algo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/results.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/results.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +34,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603835910230</updated>
       <workItem from="1603835912156" duration="31000" />
+      <workItem from="1605742769675" duration="4000" />
     </task>
     <servers />
   </component>

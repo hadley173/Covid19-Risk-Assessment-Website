@@ -1,8 +1,8 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, jsonify
 from app import app
 from app.form import RiskForm
 from app.userData import UserData
-from app.algo import getData
+from app.algo import get_data
 
 @app.route('/')
 @app.route('/index')
@@ -40,25 +40,18 @@ def formInput():
 			if activity[i] < 0:
 				activity[i] = 0
 			#fill userData object
+			#######################################################################
+			# are we still using this userData class?
+			######################################################################
 			userData.act[i] = activity[i]
 		userData.state = form.statename.data
-		
-		#state_score, risk_rating, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, positive, posIncrease, inIcuCurrently, hospCurrently, total_test_results_increase = getData()
-		stateList=[]
-		risk_rating, state_score, stateList, low_risk_events, mod_risk_events, mod_high_risk_events, high_risk_events, icuCurrently, hospCurrently, index, all_states_pos, all_states_pos_inc, stateGrade = getData()
-		# CHART.JS example line chart test
-		legend = 'Monthly Data'
-		labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-		values = [10, 9, 8, 7, 6, 4, 8]
 
-		"""
-		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, positive=positive posIncrease=posIncrease, 
-		state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, 
-		high_risk_events=high_risk_events, icuCurrently=inIcuCurrently, hospCurrently=hospCurrently, total_test_results_increase=total_test_results_increase)
-		"""
-		return render_template('results.html', title='Risk score', legend=legend, labels=labels, values=values, userData=userData, state_score=state_score, risk_rating=risk_rating, low_risk_events=low_risk_events, mod_risk_events=mod_risk_events, mod_high_risk_events=mod_high_risk_events, 
-		high_risk_events=high_risk_events, stateList=stateList, icuCurrently=icuCurrently, hospCurrently=hospCurrently, index=index, all_states_pos=all_states_pos, all_states_pos_inc=all_states_pos_inc, stateGrade=stateGrade)
-	
+		# get information from api and user to be rendered on results page
+		user_state_specifics, zipped_pos_total, zipped_pos_inc = get_data()
+
+		return render_template('results.html', title='Risk score', user_state_specifics=user_state_specifics, 
+		zipped_pos_total=zipped_pos_total, zipped_pos_inc=zipped_pos_inc)
+
 	return render_template('form-input.html', title = 'Calculator', form=form)
 
 @app.route('/about')
