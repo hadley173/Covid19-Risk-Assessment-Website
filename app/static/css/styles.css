@@ -30,6 +30,18 @@
 	padding: 5% 1%;
 }
 
+/* Activity Risk: Container for content */
+#activity-risk-cont {
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 20px;
+}
+
+/* Activity Risk: legible paragraph content */
+p.legible {
+	max-width: 100%;
+}
+
 .row {
 	text-align: center;
 }
@@ -51,6 +63,7 @@
 .img-fluid {
 	height: 100%;
 	width: 100%;
+	vertical-align: inherit;
 }
 
 /* Jumbotron text under masthead */
@@ -106,6 +119,11 @@ a.btn.btn-primary.space-below:hover {
 	background-color: lightgray;
 	border-color: #000;
 	padding: 8px 24px;
+}
+
+/* About: Calculate risk button */
+#concl-risk-btn {
+	margin-left: 20px;
 }
 
 h2 > .jumbo-header {
@@ -177,6 +195,16 @@ p > .lead {
 /* Form-input: Container styling */
 .container-form {
 	background-color: #990022;
+}
+
+/* Form input: Calculate your risk button */
+input#submit.btn.btn-default {
+	width: 100%;
+}
+
+/*Form input: Mobile view footer hotfix - margin bottom allows to click button */
+form.form {
+	margin-bottom: 40%;
 }
 
 .btn-primary {
