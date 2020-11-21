@@ -2,11 +2,11 @@
 {% block app_content %}
   <div class="calc-container">
     <div class="row calc-row">
-      <div class="col-sm-8">
+      <div class="col-md-8">
         <h1>Your risk score: <span id="score" class="user-data">{{ user_state_specifics['risk_rating'] }} </span></h1>
         <canvas id="gaugeChart" width="600" height="400"></canvas>
       </div>
-      <div class="col-sm-4">
+      <div class="col-md-4">
         <h3>Your state</h3>
         <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ user_state_specifics['positive_increase'] }}</span> new cases in {{ user_state_specifics['state'] }}.</p>
         <p class="p-larger">{{ user_state_specifics['state'] }}'s current risk multiplier: <span class="user-data">{{ user_state_specifics['state_score'] }}%</span></p>
@@ -25,7 +25,7 @@
     </div>
     <!--Activity Risk Group Pie Chart-->
   <div class="row calc-row">
-    <div class="col-sm-4">
+    <div class="col-md-4">
       {% if user_state_specifics['low_risk_events'] == user_state_specifics['mod_risk_events'] == user_state_specifics['mod_high_risk_events'] == user_state_specifics['high_risk_events'] == 0 %}
         <h3>No activity data received</h3>
       {% else %}
@@ -36,7 +36,7 @@
     </div>
 
     <!--Hospitalization Pie Chart-->
-    <div class="col-sm-4">
+    <div class="col-md-4">
       {% if user_state_specifics['hosp_currently'] == user_state_specifics['icu_currently'] == 0 %}
         <h3>Hospitalization data unavailable</h3>
       {% else %}
@@ -47,16 +47,16 @@
     </div>
 
     <!--State letter grade-->
-    <div class="col-sm-4">
-      <h3>State data grade</h3>
-      <p class="gradeCircleText">{{user_state_specifics['state']}}'s data-quality grade evaluates how well the state publishes its COVID-19 data.</p>  
+    <div class="col-md-4">
+      <h3>Data quality grade</h3>
+      <p class="gradeCircleText">This grade evaluates how well the state publishes its COVID-19 data.</p>  
       <div class="gradeCircle">{{ user_state_specifics['state_grade'] }}</div>
       <p id="caption">For more info: <a href="https://covidtracking.com/about-data/state-grades" target="_blank">covidtracking.com</a></p>      
     </div>
   </div>
     
   <div class="row calc-row">
-    <div class="col-md-6"> 
+    <div class="col-lg-6"> 
       <div class = "app-container">
         <div class = "chart-container">
            <!--State Overall Positive Cases Chart-->
@@ -66,7 +66,7 @@
       </div>
     </div> 
     <!--State Daily Positive Cases Chart-->
-    <div class="col-md-6">
+    <div class="col-lg-6">
       <div class = "app-container">
         <div class = "chart-container">
           <h3>Daily positive cases: All states</h3>
