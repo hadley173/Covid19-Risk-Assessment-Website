@@ -26,7 +26,7 @@
           </div>
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" aria-expanded="false">
             <div class="card-body">
-              <p>This website allows visitors to submit data about their location (U.S. states only) and activities in order to see a resulting risk score that takes into account the latest state-level COVID-19 data, as well as a state-adjusted risk rating for the activities they indicated. </p>
+              <p>This website allows visitors to submit data about their location (U.S. states and territories only) and their activities in order to see a resulting risk score. The score takes into account the latest state-level COVID-19 data, as well as a state-adjusted risk rating for the activity frequencies the user submitted.</p>
             </div>
           </div>
         </div>
@@ -110,7 +110,10 @@
           </div>
           <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div class="card-body">
-              <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+              <p>This website provides an estimation of each visitor's personal risk of exposure to COVID-19, based on the information they provide. The score is not medical advice; however, it does account for each state's latest data on positive tests, as well as each user's submitted activity frequencies. In the future, we hope to develop the algorithm further to allow visitors to compare their information at the national level as well.</p>
+
+              <p>Get your current COVID-19 risk score by submitting information about your location and recent activities.</p>
+              <a class="btn btn-default space-below" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
             </div>
           </div>
         </div>
