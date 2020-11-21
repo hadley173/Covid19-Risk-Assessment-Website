@@ -91,7 +91,7 @@
 }
 
 /* Index: Main Calculate Risk button */
-a.btn.btn-primary.space-below, a.btn.btn-primary.space-below:hover {
+a.btn.btn-primary.space-below{
 	font-size: 26px;
 	color: #000;
 	background-color: whitesmoke;
