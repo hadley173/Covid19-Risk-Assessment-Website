@@ -12,6 +12,17 @@
 
 }
 
+/* About: Table in Results card of accordion */
+.table-container, .table-sm {
+	max-width: 760px;
+	align-items: left;
+	padding-left: 20px;
+	padding-top: 0px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	margin-bottom: 0px;
+}
+
 /* Container on bottom of landing page */
 #card-container {
 	background-color: #990022;
@@ -70,6 +81,14 @@
 	border-radius: 0px;
 }
 
+/*About: H3 in Methods accordion card */
+.h3, h3 {
+	margin-top: 10px;
+	padding-left: 20px;
+	padding-right: 0px;
+	padding-top: 0px;
+	font-size: 24px;
+}
 
 h2 > .jumbo-header {
 	padding-left: 50px;
@@ -232,7 +251,7 @@ hr {
 }
 
 .btn-link:focus{
-    color: #fff; 
+    color: #fff;
  }
 
 .p-larger {
