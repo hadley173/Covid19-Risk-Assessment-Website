@@ -39,7 +39,7 @@
 .navbar-default .navbar-nav>.active> a:focus,
 .navbar-default .navbar-nav>.active> a:hover {
   background-color: #990022;
-	color: whitesmoke;
+	color: #f4f1f2;
 }
 
 /* Navbar brand "COVID 19 Risk App" */
@@ -58,7 +58,7 @@
 	text-align: center;
 	background-color: #990022;
 	font-size: xxx-large;
-	color: whitesmoke;
+	color: #f4f1f2;
 	padding-bottom: 0px;
 	padding-top: 0px;
 	padding-left: 0px;
@@ -72,7 +72,7 @@
 	text-align: center;
 	background-color: #990022;
 	font-size: xxx-large;
-	color: whitesmoke;
+	color: #f4f1f2;
 	padding-bottom: 0px;
 	padding-top: 0px;
 	padding-left: 0px;
@@ -156,14 +156,14 @@ p > .lead {
 	padding-bottom: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	color: whitesmoke;
+	color: #f4f1f2;
 	font-size: 23px;
 	font-weight: bold;
 }
 
 /* About: Card body text */
 .card-body > p {
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 	padding-left: 20px;
 	padding-top: 20px;
 	padding-right: 20px;
@@ -182,7 +182,7 @@ p > .lead {
 .btn-primary {
 	font-size: 16px;
 	color: #000;
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 	border-color: #000;
 	padding: 8px 24px;
 }
@@ -245,10 +245,6 @@ footer {
 	padding: 20px 10%;
 }
 
-small {
-	padding: 20px 10%;
-}
-
 .user-data {
 	color: #0066ff;
 	font-weight: bold;
@@ -256,7 +252,7 @@ small {
 
 /* Dropdown accordion card body on about page */
 .card-body {
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 }
 
 .btn-link:focus{
@@ -313,7 +309,6 @@ small {
 	display: flex;
 	justify-content: center;
 	padding: 38px 10px 10px 10px;
-	background-color: "whitesmoke";
 }
 
 .chart-container {
