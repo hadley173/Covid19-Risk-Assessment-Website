@@ -30,6 +30,10 @@
 	padding: 5% 1%;
 }
 
+.card-title {
+	padding-left: 20px;
+}
+
 .row {
 	text-align: center;
 }
