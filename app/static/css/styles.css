@@ -90,6 +90,24 @@
 	font-size: 24px;
 }
 
+/* Index: Main Calculate Risk button */
+a.btn.btn-primary.space-below{
+	font-size: 26px;
+	color: #000;
+	background-color: whitesmoke;
+	border-color: #000;
+	padding: 8px 24px;
+}
+
+/* Index: Main Calculate Risk button - hover */
+a.btn.btn-primary.space-below:hover {
+	font-size: 26px;
+	color: #000;
+	background-color: lightgray;
+	border-color: #000;
+	padding: 8px 24px;
+}
+
 h2 > .jumbo-header {
 	padding-left: 50px;
 	padding-right: 50px;
