@@ -1,46 +1,33 @@
 .container-fluid {
 	background-color: whitesmoke;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-/* Container on bottom of landing page */
-#col-lg-4-containter {
-	background-color: darkred;
-	color: white;
-	padding-left: 25px;
-	padding-bottom: 25px;
-	padding-top: 25px;
-	padding-right: 25px;
 }
 
 .container {
-	margin-right: 50px;
-	margin-top: auto;
-	text-align: center;
-	padding-left: 0px;
-	padding-right: 0px;
-	margin-left: 0px;
-	background-color: darkred;
-	margin-right: 0px;
+	background-color: #990022;
 	width: 100%;
+	text-align: center;
 	color: white;
+	padding-left: 10%;
+	padding-right: 10%;
+
+}
+
+/* Container on bottom of landing page */
+#card-container {
+	background-color: #990022;
+	color: white;
+	padding: 5% 1%;
 }
 
 .row {
 	text-align: center;
 }
 
-/* Navbar */
-.navbar-default {
-	margin-bottom: 0px;
-}
-
 /* Active navbar links */
 .navbar-default .navbar-nav>.active> a,
 .navbar-default .navbar-nav>.active> a:focus,
 .navbar-default .navbar-nav>.active> a:hover {
-  background-color: darkred;
+  background-color: #990022;
 	color: whitesmoke;
 }
 
@@ -58,7 +45,7 @@
 /* Jumbotron text under masthead */
 .container .jumbotron, .container-fluid .jumbotron {
 	text-align: center;
-	background-color: darkred;
+	background-color: #990022;
 	font-size: xxx-large;
 	color: whitesmoke;
 	padding-bottom: 0px;
@@ -72,7 +59,7 @@
 /* Jumbotron on About, Assess Risk, and Activity Risk pages */
 .jumbotron {
 	text-align: center;
-	background-color: darkred;
+	background-color: #990022;
 	font-size: xxx-large;
 	color: whitesmoke;
 	padding-bottom: 0px;
@@ -114,7 +101,7 @@ p > .lead {
 .accordion-card {
 	margin-right: 0px;
 	margin-left: 0px;
-	background-color: darkred;
+	background-color: #990022;
 }
 
 
@@ -152,55 +139,53 @@ p > .lead {
 
 /* Form-input: Container styling */
 .container-form {
-	background-color: darkred;
+	background-color: #990022;
 }
 
-/* Form-input: Frequency form styling 
-.form-row {
-	margin-left: 10%;
-	margin-right: 10%;
-}*/
-
-.btn-secondary {
-	margin-top: 10px;
-	color: white;
-	background-color:black;
-	border-color: black;
+.btn-primary {
+	font-size: 16px;
+	color: #000;
+	background-color: whitesmoke;
+	border-color: #000;
+	padding: 8px 24px;
 }
 
-.btn-secondary:hover, .btn-secondary:focus {
-	margin-top: 10px;
-	color: black;
+.btn-primary:hover, .btn-primary:focus {
+	color: #000;
 	background-color: #bfbfbf;
 }
 
-
-/* Main call-to-action button on landing page */
-#calc-risk-btn {
-	margin-top: 10px;
-	color: black;
-	background-color: whitesmoke;
-	border-color: whitesmoke;
-	font-size: 18px;
+.btn-secondary {
+	color: white;
+	background-color:black;
+	border-color: #ccc;
 }
 
-/* Main call-to-action button on landing page - hover styling */
-#calc-risk-btn:hover {
-	margin-top: 10px;
-	color: whitesmoke;
-	background-color: black;
-	border-color: black;
-	font-size: 18px;
+.btn-secondary:hover, .btn-secondary:focus {
+	color: #000;
+	background-color: #bfbfbf;
+	border-color: #000;
+}
+
+.btn-default {
+	font-size: 16px;
+  color: #fff;
+  background-color: #990022;
+  border-color: #000;
+  padding: 8px 24px;
+}
+
+.btn-default:hover {
+	color: #000;
+	background-color: #bfbfbf;
+	border-color: #000;
+	padding: 8px 24px;
 }
 
 /* horizontal row */
 hr {
-	height:1px;
-	border-width:0;
-	color:gray;
-	background-color:gray;
-	margin-top: 10px;
 	width: 50%
+	border-top: 1px solid gray;
 }
 
 /* Embedded image settings on the landing page - Learn more, Calculate risk, View the activities images */
@@ -246,6 +231,10 @@ hr {
 	background-color: whitesmoke;
 }
 
+.btn-link:focus{
+    color: #fff; 
+ }
+
 .p-larger {
 	font-size: 16px;
 }
@@ -264,28 +253,13 @@ hr {
 	width: 100%;
 }
 
-/* Form-input: "Answer the following questions.." text */
 .space-below {
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 /* Form-input: "Which start are you in?" text */
 .form-row > .col-lg-12 > .statename {
 	text-align: left;
-}
-
-/* Form-input: Form submit button */
-.form-row > #submit-btn {
-	text-align: center;
-}
-
-.form-row > #submit-btn > .btn-primary{
-	background-color: darkred;
-	padding: 12px;
-}
-
-.form-row > #submit-btn > .btn-primary:hover {
-	background-color: darkred;
 }
 
 .form-question {
