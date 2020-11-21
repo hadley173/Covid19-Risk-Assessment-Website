@@ -1,5 +1,3 @@
-// Global parameters: do not resize the chart canvas
-Chart.defaults.global.responsive = false;
 Chart.defaults.global.animation.duration = 3000;
 
 // --------------- GAUGE CHART ---------------

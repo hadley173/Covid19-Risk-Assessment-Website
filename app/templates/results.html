@@ -37,8 +37,8 @@
 
     <!--Hospitalization Pie Chart-->
     <div class="col-md-4">
-      {% if user_state_specifics['hosp_currently'] == user_state_specifics['icu_currently'] == 0 %}
-        <h3>Hospitalization data unavailable</h3>
+      {% if (user_state_specifics['hosp_currently'] == 0) or (user_state_specifics['icu_currently'] == 0) %}
+        <h3>{{ user_state_specifics['state'] }} hospitalization data unavailable</h3>
       {% else %}
         <h3>Hospitalizations in {{ user_state_specifics['state'] }}</h3> 
         <canvas id="pieChart2" width="300" height="300"></canvas>
@@ -84,124 +84,104 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script type="text/javascript" src="../static/js/results-charts.js"></script>
 
     <script>
+
+    // Global parameters: do not resize the chart canvas
+    Chart.defaults.global.responsive = false;
+    Chart.defaults.global.animation.duration = 3000;
+
     var low_risk_events = '{{user_state_specifics["low_risk_events"]}}';
-        var mod_risk_events = '{{user_state_specifics["mod_risk_events"]}}';
-        var mod_high_risk_events = '{{user_state_specifics["mod_high_risk_events"]}}';
-        var high_risk_events = '{{user_state_specifics["high_risk_events"]}}';
-        var total_events = 0
-        total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
-      // Global parameters: do not resize the chart canvas
-      Chart.defaults.global.responsive = false;
-      // --------------- GAUGE CHART ---------------
-      // get chart canvas
-      var ctx = document.getElementById("gaugeChart").getContext("2d");
-      // get chart data
-      var score = 0
-      score += document.getElementById("score").innerHTML
+    var mod_risk_events = '{{user_state_specifics["mod_risk_events"]}}';
+    var mod_high_risk_events = '{{user_state_specifics["mod_high_risk_events"]}}';
+    var high_risk_events = '{{user_state_specifics["high_risk_events"]}}';
+    var total_events = 0
+
+    total_events += (low_risk_events*2) + (mod_risk_events*4) + (mod_high_risk_events*8) + (high_risk_events*16)
+      
+    // --------------- PIE CHART 1 ---------------
+    // get chart canvas
+    try{
+      var ctx = document.getElementById("pieChart1").getContext("2d");
       // create chart using the canvas
       var chart = new Chart(ctx, {
-        type: 'gauge',
+        type: 'pie',
         data: {
           datasets: [{
-            value: score,
-            data: [25, 50, 75, 100],
+            // displays each event type by percentage of total risk score to 2 decimals
+            data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
+            (Math.round(high_risk_events*16/total_events*(100))/100)],
             backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-          }]
+          }],
+          labels: [
+            'Low risk',
+            'Moderate risk',
+            'Moderate-High risk',
+            'High risk'
+          ]
         },
         options: {
-          needle: {
-            radiusPercentage: 4,
-            widthPercentage: 5,
-            lengthPercentage: 80,
-            color: 'rgba(0, 0, 0, 1)'
-          },
-          valueLabel: {
-            display: false,
+          cutoutPercentage: 50,
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 20,
+              fontSize: 14,
+              fontStyle: 'bold',
+            },
           },
           events: ['click'], // prevents a weird hover bug
-        }
+        },
       });
-      // --------------- PIE CHART 1 ---------------
-      // get chart canvas
-      try{
-        var ctx = document.getElementById("pieChart1").getContext("2d");
-        // create chart using the canvas
-        var chart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-            datasets: [{
-              // displays each event type by percentage of total risk score to 2 decimals
-              data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
-              (Math.round(high_risk_events*16/total_events*(100))/100)],
-              backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-            }],
-            labels: [
-              'Low risk',
-              'Moderate risk',
-              'Moderate-High risk',
-              'High risk'
-            ]
-          },
-          options: {
-            cutoutPercentage: 50,
-            legend: {
-              display: true,
-              position: 'top',
-              align: 'start',
-              labels: {
-                boxWidth: 20,
-                fontSize: 14,
-                fontStyle: 'bold',
-              },
+    }
+    catch(err){
+      console.log('No activities selected')
+    }
+
+    // --------------- PIE CHART 2 ---------------
+    // get chart canvas
+    try{
+      var ctx = document.getElementById("pieChart2").getContext("2d");
+      var hospitalized = '{{user_state_specifics["hosp_currently"]}}';
+      console.log(hospitalized);
+      var icu = '{{user_state_specifics["icu_currently"]}}';
+      var nonICU = hospitalized - icu;
+      // create chart using the canvas
+      var pieChart2 = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            // displays each event type by percentage of total risk score to 2 decimals
+            data: [ nonICU , icu ],
+            backgroundColor: ['rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
+          }],
+          labels: ['In hospital (general)', 'In hospital ICUs'],
+        },
+        options: {
+          cutoutPercentage: 0,
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 20,
+              fontSize: 14,
+              fontStyle: 'bold',
             },
-            events: ['click'], // prevents a weird hover bug
           },
-        });
-      }
-      catch(err){
-        console.log('No activities selected')
-      }
-      // --------------- PIE CHART 2 ---------------
-      // get chart canvas
-      try{
-        var ctx = document.getElementById("pieChart2").getContext("2d");
-        var hospitalized = '{{user_state_specifics["hosp_currently"]}}';
-        console.log(hospitalized);
-        var icu = '{{user_state_specifics["icu_currently"]}}';
-        var nonICU = hospitalized - icu;
-        // create chart using the canvas
-        var pieChart2 = new Chart(ctx, {
-          type: 'pie',
-          data: {
-            datasets: [{
-              // displays each event type by percentage of total risk score to 2 decimals
-              data: [ nonICU , icu ],
-              backgroundColor: ['rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
-            }],
-            labels: ['In hospital (general)', 'In hospital ICUs'],
-          },
-          options: {
-            cutoutPercentage: 0,
-            legend: {
-              display: true,
-              position: 'top',
-              align: 'start',
-              labels: {
-                boxWidth: 20,
-                fontSize: 14,
-                fontStyle: 'bold',
-              },
-            },
-            events: ['click'], // prevents a weird hover bug
-          },
-        });
-      } 
-      catch(err) {
-        console.log("no hospitalization data");
-      }
-     // --------------- Bar CHART  --------------
+          responsive: false,
+          events: ['click'], // prevents a weird hover bug
+        },
+      });
+    } 
+    catch(err) {
+      console.log("no hospitalization data");
+    }
+
+    // --------------- Bar CHART  --------------
     // need to copy data sent by routes.py into javascript variables
     // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
