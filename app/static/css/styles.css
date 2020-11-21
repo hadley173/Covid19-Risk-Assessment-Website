@@ -1,5 +1,5 @@
 .container-fluid {
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 }
 
 .container {
@@ -210,6 +210,7 @@ p > .lead {
   background-color: #990022;
   border-color: #000;
   padding: 8px 24px;
+  margin-bottom: 10px;
 }
 
 .btn-default:hover {
@@ -217,12 +218,12 @@ p > .lead {
 	background-color: #bfbfbf;
 	border-color: #000;
 	padding: 8px 24px;
+	margin-bottom: 10px;
 }
 
-/* horizontal row */
-hr {
-	width: 50%
-	border-top: 1px solid gray;
+.hr-gray {
+	width: 50%;
+	border-top: 1px solid #433d3f;
 }
 
 /* Embedded image settings on the landing page - Learn more, Calculate risk, View the activities images */
@@ -237,25 +238,15 @@ hr {
 	border-radius: 8px;
 }
 
-/* Footer */
-.footer {
+footer {
+	background-color: #f4f1f2;
 	text-align: center;
+	margin-top: 20px;
+	padding: 20px 10%;
 }
 
-/* Footer horizontal row separator */
-.footer-hr {
-	height:2px;
-	border-width:0;
-	color:black;
-	background-color:gray;
-	margin-top: 15px;
-	width: 80%;
-	text-align: center;
-}
-
-/* Disclaimer h5 styling */
-.disclaimer-h5 {
-	margin-top: 10px;
+small {
+	padding: 20px 10%;
 }
 
 .user-data {
@@ -282,20 +273,18 @@ hr {
 }
 
 .gray-bg {
-	background-color: #f2f2f2;
+	background-color: #f4f1f2;
 }
 
-/* Form-input: Top horizontal row */
-.form-hr {
-	width: 100%;
+.white-bg {
+	background-color: #fff;
 }
 
 .space-below {
 	margin-bottom: 15px;
 }
 
-/* Form-input: "Which start are you in?" text */
-.form-row > .col-lg-12 > .statename {
+.form-row {
 	text-align: left;
 }
 
@@ -319,6 +308,7 @@ hr {
 	text-align: left;
 	padding-left: 15px;
 }
+
 .app-container {
 	display: flex;
 	justify-content: center;
