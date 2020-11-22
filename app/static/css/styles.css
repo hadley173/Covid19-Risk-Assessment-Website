@@ -1,5 +1,5 @@
 .container-fluid {
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 }
 
 .container {
@@ -29,6 +29,7 @@
 	color: white;
 	padding: 5% 1%;
 }
+
 
 /* Activity Risk: Container for content */
 #activity-risk-cont {
@@ -61,6 +62,10 @@ td {
 	width: 100%;
 }
 
+.card-title {
+	padding-left: 20px;
+}
+
 .row {
 	text-align: center;
 }
@@ -70,7 +75,7 @@ td {
 .navbar-default .navbar-nav>.active> a:focus,
 .navbar-default .navbar-nav>.active> a:hover {
   background-color: #990022;
-	color: whitesmoke;
+	color: #f4f1f2;
 }
 
 /* Navbar brand "COVID 19 Risk App" */
@@ -90,7 +95,7 @@ td {
 	text-align: center;
 	background-color: #990022;
 	font-size: xxx-large;
-	color: whitesmoke;
+	color: #f4f1f2;
 	padding-bottom: 0px;
 	padding-top: 0px;
 	padding-left: 0px;
@@ -104,7 +109,7 @@ td {
 	text-align: center;
 	background-color: #990022;
 	font-size: xxx-large;
-	color: whitesmoke;
+	color: #f4f1f2;
 	padding-bottom: 0px;
 	padding-top: 0px;
 	padding-left: 0px;
@@ -114,7 +119,7 @@ td {
 }
 
 /*About: H3 in Methods accordion card */
-.h3, h3 {
+.h3 {
 	margin-top: 10px;
 	padding-left: 20px;
 	padding-right: 0px;
@@ -164,11 +169,13 @@ p > .lead {
 	height: 100%;
 }
 
+
+
 /* About: Accordion row */
 .accordion-row {
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 0px;
+	margin-left: 25px;
+	margin-right: 25px;
+	text-align: left;
 }
 
 /*About: Accordion cards */
@@ -193,14 +200,14 @@ p > .lead {
 	padding-bottom: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	color: whitesmoke;
+	color: #f4f1f2;
 	font-size: 23px;
 	font-weight: bold;
 }
 
 /* About: Card body text */
 .card-body > p {
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 	padding-left: 20px;
 	padding-top: 20px;
 	padding-right: 20px;
@@ -223,13 +230,13 @@ input#submit.btn.btn-default {
 
 /*Form input: Mobile view footer hotfix - margin bottom allows to click button */
 form.form {
-	margin-bottom: 40%;
+	margin-bottom: 0%;
 }
 
 .btn-primary {
 	font-size: 16px;
 	color: #000;
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 	border-color: #000;
 	padding: 8px 24px;
 }
@@ -257,6 +264,7 @@ form.form {
   background-color: #990022;
   border-color: #000;
   padding: 8px 24px;
+  margin-bottom: 10px;
 }
 
 .btn-default:hover {
@@ -264,12 +272,12 @@ form.form {
 	background-color: #bfbfbf;
 	border-color: #000;
 	padding: 8px 24px;
+	margin-bottom: 10px;
 }
 
-/* horizontal row */
-hr {
-	width: 50%
-	border-top: 1px solid gray;
+.hr-gray {
+	width: 40%;
+	border-top: 1px solid #433d3f;
 }
 
 /* Embedded image settings on the landing page - Learn more, Calculate risk, View the activities images */
@@ -284,25 +292,11 @@ hr {
 	border-radius: 8px;
 }
 
-/* Footer */
-.footer {
+footer {
+	background-color: #f4f1f2;
 	text-align: center;
-}
-
-/* Footer horizontal row separator */
-.footer-hr {
-	height:2px;
-	border-width:0;
-	color:black;
-	background-color:gray;
-	margin-top: 15px;
-	width: 80%;
-	text-align: center;
-}
-
-/* Disclaimer h5 styling */
-.disclaimer-h5 {
-	margin-top: 10px;
+	margin-top: 20px;
+	padding: 20px 10%;
 }
 
 .user-data {
@@ -312,7 +306,7 @@ hr {
 
 /* Dropdown accordion card body on about page */
 .card-body {
-	background-color: whitesmoke;
+	background-color: #f4f1f2;
 }
 
 .btn-link:focus{
@@ -329,20 +323,18 @@ hr {
 }
 
 .gray-bg {
-	background-color: #f2f2f2;
+	background-color: #f4f1f2;
 }
 
-/* Form-input: Top horizontal row */
-.form-hr {
-	width: 100%;
+.white-bg {
+	background-color: #fff;
 }
 
 .space-below {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
-/* Form-input: "Which start are you in?" text */
-.form-row > .col-lg-12 > .statename {
+.form-row {
 	text-align: left;
 }
 
@@ -366,11 +358,11 @@ hr {
 	text-align: left;
 	padding-left: 15px;
 }
+
 .app-container {
 	display: flex;
 	justify-content: center;
 	padding: 38px 10px 10px 10px;
-	background-color: "whitesmoke";
 }
 
 .chart-container {

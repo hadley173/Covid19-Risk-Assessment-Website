@@ -46,12 +46,17 @@
 
 {% block content %}
 
-    {% block app_content %}
-      
-      {% block scripts %}
-        {{super()}}
-        <script src={{url_for('static', filename='script.js')}}></script>
-      {% endblock %}
+  {% block app_content %}
+
+    {% block scripts %}
+      {{super()}}
+      <script src={{url_for('static', filename='script.js')}}></script>
     {% endblock %}
+  {% endblock %}
+  <footer class="footer">
+    <hr class="hr-gray">
+    <h5>DISCLAIMER</h5>
+    <p>This is a student project. The content displayed on this website is not medical advice and cannot be used to diagnose or treat anything.</p>
+  </footer>
 
 {% endblock %}

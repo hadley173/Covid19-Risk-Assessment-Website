@@ -13,8 +13,6 @@ def call_api():
 	# copy api information into dict
 	for i in range(56):
 		raw_api_data[i] = json_response[i].copy()
-		# debug check
-		# print(json_response[i])
 	return raw_api_data
 
 def calc_state_score(raw_api_data):
@@ -29,7 +27,6 @@ def calc_state_score(raw_api_data):
 	state_list = []
 
 	user_state = RiskForm().statename.data.lower()
-	print(user_state)
 
 	icu_currently = 0
 	hosp_currently = 0
