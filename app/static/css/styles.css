@@ -40,7 +40,7 @@
 
 /* Activity Risk: legible paragraph content */
 p.legible {
-	max-width: 100%;
+	max-width: 800px;
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-right: 20px;
