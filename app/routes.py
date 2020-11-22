@@ -12,13 +12,6 @@ def index():
 def formInput():
 	form = RiskForm()
 	if form.validate_on_submit():
-		# THIS NO LONGER WORKS SINCE WE'RE NOT PASSING THIS ARRAY
-		# input validation for negative numbers
-		#for i in range(19):
-		#	if activity[i] < 0:
-		#		activity[i] = 0
-
-
 		# get information from api and user to be rendered on results page
 		user_state_specifics, zipped_pos_total, zipped_pos_inc = get_data()
 
