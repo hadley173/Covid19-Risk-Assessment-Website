@@ -41,6 +41,24 @@
 p.legible {
 	max-width: 100%;
 	margin-top: 20px;
+	font-size: 18px;
+}
+
+/* Activity Risk: Table Header */
+th {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* Activity Risk: Table Row */
+td {
+	font-size: 15px;
+}
+
+/* Activity Risk: Horizontal Row */
+#make-personal-hr {
+	border: 1px solid gray;
+	width: 100%;
 }
 
 .row {
