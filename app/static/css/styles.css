@@ -199,7 +199,7 @@ p > .lead {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 100%;
 	color: #f4f1f2;
 	font-size: 23px;
 	font-weight: bold;
