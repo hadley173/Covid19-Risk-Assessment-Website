@@ -30,6 +30,38 @@
 	padding: 5% 1%;
 }
 
+
+/* Activity Risk: Container for content */
+#activity-risk-cont {
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 20px;
+}
+
+/* Activity Risk: legible paragraph content */
+p.legible {
+	max-width: 100%;
+	margin-top: 20px;
+	font-size: 18px;
+}
+
+/* Activity Risk: Table Header */
+th {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* Activity Risk: Table Row */
+td {
+	font-size: 15px;
+}
+
+/* Activity Risk: Horizontal Row */
+#make-personal-hr {
+	border: 1px solid gray;
+	width: 100%;
+}
+
 .card-title {
 	padding-left: 20px;
 }
@@ -55,6 +87,7 @@
 .img-fluid {
 	height: 100%;
 	width: 100%;
+	vertical-align: inherit;
 }
 
 /* Jumbotron text under masthead */
@@ -94,6 +127,29 @@
 	font-size: 24px;
 }
 
+/* Index: Main Calculate Risk button */
+a.btn.btn-primary.space-below{
+	font-size: 26px;
+	color: #000;
+	background-color: whitesmoke;
+	border-color: #000;
+	padding: 8px 24px;
+}
+
+/* Index: Main Calculate Risk button - hover */
+a.btn.btn-primary.space-below:hover {
+	font-size: 26px;
+	color: #000;
+	background-color: lightgray;
+	border-color: #000;
+	padding: 8px 24px;
+}
+
+/* About: Calculate risk button */
+#concl-risk-btn {
+	margin-left: 20px;
+}
+
 h2 > .jumbo-header {
 	padding-left: 50px;
 	padding-right: 50px;
@@ -113,11 +169,13 @@ p > .lead {
 	height: 100%;
 }
 
+
+
 /* About: Accordion row */
 .accordion-row {
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 0px;
+	margin-left: 25px;
+	margin-right: 25px;
+	text-align: left;
 }
 
 /*About: Accordion cards */
@@ -141,7 +199,7 @@ p > .lead {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 100%;
 	color: #f4f1f2;
 	font-size: 23px;
 	font-weight: bold;
@@ -163,6 +221,16 @@ p > .lead {
 /* Form-input: Container styling */
 .container-form {
 	background-color: #990022;
+}
+
+/* Form input: Calculate your risk button */
+input#submit.btn.btn-default {
+	width: 100%;
+}
+
+/*Form input: Mobile view footer hotfix - margin bottom allows to click button */
+form.form {
+	margin-bottom: 0%;
 }
 
 .btn-primary {
@@ -208,7 +276,7 @@ p > .lead {
 }
 
 .hr-gray {
-	width: 50%;
+	width: 40%;
 	border-top: 1px solid #433d3f;
 }
 
@@ -263,7 +331,7 @@ footer {
 }
 
 .space-below {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 .form-row {

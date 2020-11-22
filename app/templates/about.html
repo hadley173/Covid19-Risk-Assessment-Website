@@ -13,6 +13,7 @@
     </div>
   </div>
 
+  <div class="row">
   <div class="accordion-row">
     <div class="col-lg-12">
       <div id="accordion">
@@ -84,7 +85,6 @@
                   <h3 class="card-title">Probability of independent events</h3>
                   <p>Finally, we needed to combine our list of activity risk scores to get a final, cumulative risk score for the user -- in other words, we needed to get the probability of multiple independent events (COVID exposure, in this case) occurring at least once. We took the product of all of these event probabilities to get the cumulative risk score we needed. The resulting risk score is always a number between 1-100.</p>
                 </div>
-
               </div>
         </div>
         <div class="accordion-card">
@@ -115,12 +115,12 @@
 
               <h3 class="card-title">Get your score</h3>
               <p>Get your current COVID-19 risk score by submitting information about your location and recent activities.</p>
-              <a class="btn btn-default" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
+              <a class="btn btn-default space-below" id="concl-risk-btn" href="{{ url_for('formInput') }}" role="button">Calculate your risk</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
 {% endblock %}
