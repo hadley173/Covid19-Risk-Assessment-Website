@@ -15,18 +15,26 @@ def call_api():
 		raw_api_data[i] = json_response[i].copy()
 	return raw_api_data
 
-def calc_state_score(raw_api_data):
+def calc_state_score(raw_api_data, user_state):
 	class State:
-		def __init__(self, state, positive, positive_increase, icu_currently, hospitalized_currently, data_quality_grade  ):
-			self.state = state
+		def __init__(self, state_code, state_name, positive, positive_increase, icu_currently, hospitalized_currently, data_quality_grade  ):
+			self.state_code = state_code
+			self.state_name = state_name
 			self.positive = positive
 			self.positive_increase = positive_increase
 			self.icu_currently = icu_currently
 			self.hosp_currently = hospitalized_currently
 			self.state_grade = data_quality_grade
 	state_list = []
+	label_dict = {'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado', 
+		'CT': 'Connecticut', 'DC': 'Washington DC', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'IA': 'Iowa', 'ID': 'Idaho', 
+		'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisianna', 'MA': 'Massachusettes', 'MD': 'Maryland', 'ME': 'Maine', 
+		'MI': 'Michigan', 'MN': 'Minnisota', 'MO': 'Missouri', 'MP': 'Nortern Mariana Islands', 'MS': 'Mississippi', 
+		'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada',  
+		'NY': 'New York', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico',
+		'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia', 
+		'VI': 'Virgin Islands', 'VT': 'Vermont', 'WA': 'Washington', 'WI': 'Wisconsin', 'WV': 'West Virginia', 'WY': 'Wyoming'}
 
-	user_state = RiskForm().statename.data.lower()
 
 	icu_currently = 0
 	hosp_currently = 0
@@ -39,7 +47,8 @@ def calc_state_score(raw_api_data):
 	# Calc the state multiplier
 	try:
 		for i in raw_api_data:
-			state = raw_api_data[i].get('state')
+			state_code = raw_api_data[i].get('state')
+			state_name = label_dict[state_code]
 			# get the number of total positive cases and daily increase in cases for all states
 			if (raw_api_data[i].get('positive') >= 0):
 				positive = raw_api_data[i].get('positive')
@@ -67,7 +76,8 @@ def calc_state_score(raw_api_data):
 						hosp_currently = 0		
 				except:
 					print("hosp/icu data okay")
-			state_list.append( State(state, positive, positive_increase, icu_currently, hosp_currently, state_grade))
+			
+			state_list.append( State(state_code, state_name, positive, positive_increase, icu_currently, hosp_currently, state_grade))
 			count += 1			
 	except ZeroDivisionError:
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
@@ -123,6 +133,7 @@ def calc_risk_score(state_score, user_state_specifics):
 	state_score = round(float(state_score*100), 1)
 	print("risk: ",risk_rating)
 	print("state: ",state_score)
+
 	user_state_specifics.update({"risk_rating": risk_rating})
 	user_state_specifics.update({"state_score": state_score})
 	user_state_specifics.update({"low_risk_events": low_risk_events})
@@ -136,17 +147,19 @@ def prepare_data(state_list, user_state_specifics, index):
 	temp_pos_inc = []
 	label_list = []
 	
+	
 	#create list with positive case numbers
 	for obj in state_list:
 		temp_pos.append(obj.positive)
 		temp_pos_inc.append(obj.positive_increase)
-		label_list.append(obj.state)
+		label_list.append(obj.state_code)
 
 	# pair up state codes with positive and positive increase values so they can be sorted later
 	zipped_pos_total = dict(zip(label_list, temp_pos))
 	zipped_pos_inc = dict(zip(label_list, temp_pos_inc))
 
-	user_state_specifics.update({"state": state_list[index].state})
+	user_state_specifics.update({"state_name": state_list[index].state_name})
+	user_state_specifics.update({"state_code": state_list[index].state_code})
 	user_state_specifics.update({"state_grade": state_list[index].state_grade})
 	user_state_specifics.update({"positive": state_list[index].positive})
 	user_state_specifics.update({"positive_increase": state_list[index].positive_increase})
@@ -156,12 +169,13 @@ def prepare_data(state_list, user_state_specifics, index):
 	return zipped_pos_total, zipped_pos_inc
 
 def get_data():
+	user_state = RiskForm().statename.data.lower()
+	print(RiskForm().statename.data[0])
 	user_state_specifics = {}
 	raw_api_data = call_api()
-	state_score, state_list, index = calc_state_score(raw_api_data)
+	state_score, state_list, index = calc_state_score(raw_api_data, user_state)
 
 	calc_risk_score(state_score, user_state_specifics)
-	
 	#store necessary information to pass along
 	zipped_pos_total, zipped_pos_inc = prepare_data(state_list, user_state_specifics, index)
 
