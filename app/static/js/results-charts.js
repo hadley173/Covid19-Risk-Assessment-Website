@@ -88,6 +88,7 @@ function create_activity_pie_chart(user_state_specifics){
           ]
         },
         options: {
+          responsive: false,
           cutoutPercentage: 50,
           legend: {
             display: true,

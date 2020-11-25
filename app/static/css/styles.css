@@ -398,3 +398,8 @@ footer {
 .legible {
 	max-width: 800px;
 }
+
+.pieChart2{
+	width:500px;
+  	height:500px;
+}
