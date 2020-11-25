@@ -40,8 +40,11 @@
 
 /* Activity Risk: legible paragraph content */
 p.legible {
-	max-width: 100%;
+	max-width: 800px;
 	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
 	font-size: 18px;
 }
 
@@ -394,4 +397,9 @@ footer {
 
 .legible {
 	max-width: 800px;
+}
+
+.pieChart2{
+	width:500px;
+  	height:500px;
 }
