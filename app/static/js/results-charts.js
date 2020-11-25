@@ -1,4 +1,4 @@
-function render_charts(zipped_pos_total, zipped_pos_inc, user_state_specifics){
+function render_charts(total_cases, daily_cases, user_state_specifics){
 
   Chart.defaults.global.animation.duration = 3000;
   //<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
@@ -14,8 +14,8 @@ function render_charts(zipped_pos_total, zipped_pos_inc, user_state_specifics){
   create_activity_pie_chart(user_state_specifics);
   create_hosp_pie_chart(user_state_specifics);
  
-  //chartData_daily, chartData_total, labels_daily, labels_total = prepare_data_and_labels(zipped_pos_total, zipped_pos_inc);
-  var {chartData_daily, chartData_total} = prepare_data_and_labels(zipped_pos_total, zipped_pos_inc);
+  //chartData_daily, chartData_total, labels_daily, labels_total = prepare_data_and_labels(total_cases, daily_cases);
+  var {chartData_daily, chartData_total} = prepare_data_and_labels(total_cases, daily_cases);
 
   console.log('chartData_daily' + chartData_daily);
   console.log('chartData_total' + chartData_total);
@@ -257,25 +257,25 @@ function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
 
 
 
-  function prepare_data_and_labels(zipped_pos_total, zipped_pos_inc){
+  function prepare_data_and_labels(total_cases, daily_cases){
     // fetch total and daily positive cases from routing page
-    var pos = zipped_pos_total;
-    var pos_inc = zipped_pos_inc;
+    //var pos = total_cases;
+    //var pos_inc = daily_cases;
     // sort the states by total positive cases in descending order
-    var pos_sorted = sortJsObject(pos);
+    var total_cases_sorted = sortJsObject(total_cases);
     // sort the states by daily positive cases in descending order
-    var pos_inc_sorted = sortJsObject(pos_inc);
+    var daily_cases_sorted = sortJsObject(daily_cases);
 
     // for debugging
-    console.log('pos: ' + pos);
-    console.log('pos_inc: ' + pos_inc);
-    console.log('pos_sorted: ' + pos_sorted);
+    console.log('total_cases: ' + total_cases);
+    console.log('daily_cases: ' + daily_cases);
+    console.log('total_cases_sorted: ' + total_cases_sorted);
 
     // Sort total cases in Descending order and then find the corresponding state code
-    var {data, labels} = get_bar_chart_data(pos, pos_sorted);
+    var {data, labels} = get_bar_chart_data(total_cases, total_cases_sorted);
     var data_total = data;
     var labels_total = labels;
-    var {data, labels} = get_bar_chart_data(pos_inc, pos_inc_sorted);
+    var {data, labels} = get_bar_chart_data(daily_cases, daily_cases_sorted);
     var data_daily = data;
     var labels_daily = labels;
     console.log("data_total out func: " + data_total);

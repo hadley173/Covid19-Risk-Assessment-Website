@@ -76,7 +76,7 @@
     </div>
   </div>
 </div>
-<body onload="render_charts(pos, pos_inc, user_state_specifics)"></body>
+<body onload="render_charts(total_cases, daily_cases, user_state_specifics)"></body>
   {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/chartjs-gauge@0.2.0/dist/chartjs-gauge.js"></script>
@@ -86,8 +86,8 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script type="text/javascript" src="../static/js/results-charts.js"></script>
     <script>
-    var pos = JSON.parse('{{zipped_pos_total | tojson}}');
-    var pos_inc = JSON.parse('{{zipped_pos_inc | tojson}}');
+    var total_cases = JSON.parse('{{zipped_pos_total | tojson}}');
+    var daily_cases = JSON.parse('{{zipped_pos_inc | tojson}}');
     var user_state_specifics = JSON.parse('{{user_state_specifics | tojson}}');
     </script>
     
