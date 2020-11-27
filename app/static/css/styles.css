@@ -73,6 +73,13 @@ td {
 	text-align: center;
 }
 
+/* Navbar */
+.navbar-nav {
+	margin: 0 -15px 0 -15px;
+	text-align: center;
+	font-size: 16px;
+}
+
 /* Active navbar links */
 .navbar-default .navbar-nav>.active> a,
 .navbar-default .navbar-nav>.active> a:focus,
@@ -83,7 +90,7 @@ td {
 
 /* Navbar brand "COVID 19 Risk App" */
 .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
-	margin-left: 0px;
+	margin: 0 15px 0 0;
 }
 
 /* Main image "masthead" at top of every page */
@@ -172,8 +179,6 @@ p > .lead {
 	height: 100%;
 }
 
-
-
 /* About: Accordion row */
 .accordion-row {
 	margin-left: 25px;
@@ -228,7 +233,7 @@ p > .lead {
 
 /* Form input: Calculate your risk button */
 input#submit.btn.btn-default {
-	width: 100%;
+	width: 70%;
 }
 
 /*Form input: Mobile view footer hotfix - margin bottom allows to click button */
