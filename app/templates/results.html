@@ -8,8 +8,8 @@
       </div>
       <div class="col-md-4">
         <h3>Your state</h3>
-        <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ user_state_specifics['positive_increase'] }}</span> new cases in {{ user_state_specifics['state'] }}.</p>
-        <p class="p-larger">{{ user_state_specifics['state'] }}'s current risk multiplier: <span class="user-data">{{ user_state_specifics['state_score'] }}%</span></p>
+        <p class="p-larger">Based on the latest reported data, there are <span class="user-data">{{ user_state_specifics['positive_increase'] }}</span> new cases in {{ user_state_specifics['state_name'] }}.</p>
+        <p class="p-larger">{{ user_state_specifics['state_name'] }}'s current risk multiplier: <span class="user-data">{{ user_state_specifics['state_score'] }}%</span></p>
 
         <h3>Your activities</h3>
         <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ user_state_specifics['low_risk_events'] }}</span></p> 
@@ -38,9 +38,9 @@
     <!--Hospitalization Pie Chart-->
     <div class="col-md-4">
       {% if (user_state_specifics['hosp_currently'] == 0) or (user_state_specifics['icu_currently'] == 0) %}
-        <h3>{{ user_state_specifics['state'] }} hospitalization data unavailable</h3>
+        <h3>{{ user_state_specifics['state_name'] }} hospitalization data unavailable</h3>
       {% else %}
-        <h3>Hospitalizations in {{ user_state_specifics['state'] }}</h3> 
+        <h3>Hospitalizations in {{ user_state_specifics['state_name'] }}</h3> 
         <canvas id="pieChart2" width="300" height="300"></canvas>
         <p id="caption">Total currently in hospital: <b>{{ user_state_specifics['hosp_currently'] }} </b></p>
       {% endif %}
