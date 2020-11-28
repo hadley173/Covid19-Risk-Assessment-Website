@@ -38,14 +38,14 @@
 	padding-top: 20px;
 }
 
-/* Activity Risk: legible paragraph content */
-p.legible {
-	max-width: 800px;
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 20px;
+/* legible paragraph content */
+.legible {
 	margin-bottom: 20px;
 	font-size: 18px;
+}
+
+.constrain-width {
+	max-width: 800px;
 }
 
 /* Activity Risk: Table Header */
@@ -115,20 +115,6 @@ td {
 	border-radius: 0px;
 }
 
-/* Jumbotron on About, Assess Risk, and Activity Risk pages */
-.jumbotron {
-	text-align: center;
-	background-color: #990022;
-	font-size: xxx-large;
-	color: #f4f1f2;
-	padding-bottom: 0px;
-	padding-top: 0px;
-	padding-left: 0px;
-	padding-right: 0px;
-	margin-bottom: 0px;
-	border-radius: 0px;
-}
-
 /*About: H3 in Methods accordion card */
 .h3 {
 	margin-top: 10px;
@@ -140,7 +126,7 @@ td {
 
 /* Index: Main Calculate Risk button */
 a.btn.btn-primary.space-below{
-	font-size: 26px;
+	font-size: 22px;
 	color: #000;
 	background-color: whitesmoke;
 	border-color: #000;
@@ -149,7 +135,7 @@ a.btn.btn-primary.space-below{
 
 /* Index: Main Calculate Risk button - hover */
 a.btn.btn-primary.space-below:hover {
-	font-size: 26px;
+	font-size: 22px;
 	color: #000;
 	background-color: lightgray;
 	border-color: #000;
@@ -230,11 +216,6 @@ p > .lead {
 /* Form-input: Container styling */
 .container-form {
 	background-color: #990022;
-}
-
-/* Form input: Calculate your risk button */
-input#submit.btn.btn-default {
-	width: 70%;
 }
 
 /*Form input: Mobile view footer hotfix - margin bottom allows to click button */
@@ -340,7 +321,7 @@ footer {
 }
 
 .space-below {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 .form-row {
@@ -401,11 +382,11 @@ footer {
 	font-weight: bold;
 }
 
-.legible {
-	max-width: 800px;
-}
-
 .pieChart2{
 	width:500px;
-  	height:500px;
+  height:500px;
+}
+
+.unavailable {
+	color: #bca9af;
 }
