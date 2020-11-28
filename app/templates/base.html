@@ -13,36 +13,33 @@
 {% endblock %}
 
 {% block navbar %}
-  <nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{{ url_for('index') }}">COVID-19 Risk App</a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li {% if request.path == url_for('index') %}class="active"{% endif %}>
-            <a href="{{ url_for('index') }}">Home</a>
-          </li>
-          <li {% if request.path == url_for('about') %}class="active"{% endif %}>
-            <a href="{{ url_for('about') }}">About</a>
-          </li>
-          <li {% if request.path == url_for('formInput') %}class="active"{% endif %}>
-            <a href="{{ url_for('formInput') }}">Assess your risk</a>
-          </li>
-          <li {% if request.path == url_for('activities') %}class="active"{% endif %}>
-            <a href="{{ url_for('activities') }}">Activity risk ratings</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+      <nav class="navbar navbar-default" style="margin-bottom: 0px; border-radius: 0px; background-color: whitesmoke">
+        <div class="navbar-header" style="padding-right: -10px;">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index" style="padding-right: 15px;">COVID-19 Risk App</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" aria-expanded="false" style="background-color: whitesmoke; margin-left: 190px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; margin-top: 1px; padding-left: 0px; padding-right: 0px; height: 1px; position: absolute; border: 0px" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav" style="margin-right: 0px;margin-left: 0px;">
+            <li {% if request.path == url_for('index') %}class="active"{% endif %}>
+              <a href="{{ url_for('index') }}">Home</a>
+            </li>
+            <li {% if request.path == url_for('about') %}class="active"{% endif %}>
+              <a href="{{ url_for('about') }}">About</a>
+            </li>
+            <li {% if request.path == url_for('formInput') %}class="active"{% endif %}>
+              <a href="{{ url_for('formInput') }}">Assess your risk</a>
+            </li>
+            <li {% if request.path == url_for('activities') %}class="active"{% endif %}>
+              <a href="{{ url_for('activities') }}">Activity risk ratings</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 {% endblock %}
 
 {% block content %}
@@ -53,6 +50,7 @@
       {{super()}}
     {% endblock %}
   {% endblock %}
+
   <footer class="footer">
     <hr class="hr-gray">
     <h5>DISCLAIMER</h5>
