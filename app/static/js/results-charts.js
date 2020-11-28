@@ -1,29 +1,28 @@
 function render_charts(total_cases, daily_cases, user_state_specifics){
 
   Chart.defaults.global.animation.duration = 3000;
-  //<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
-  //<script src="https://unpkg.com/chartjs-gauge@0.2.0/dist/chartjs-gauge.js"></script>
-  //<!-- Import D3 Scale Chromatic via CDN -->
-  //<script src="https://d3js.org/d3-color.v1.min.js"></script>
-  //<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-  //<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-  // --------------- GAUGE CHART ---------------
-  // get chart canvas
+  // gauge chart displays the user's risk rating based on user input and the subsequent calculations of our algorithm
   create_guage_chart();
+
+   // this chart displays how much each of the 4 event types contributed to the user's risk rating
   create_activity_pie_chart(user_state_specifics);
+
+  // this chart displays the total number of hospitilizatons in the state chosen by the user
+  // the total hospitilizations are displayed as the number of patients in the ICU and those that are not
   create_hosp_pie_chart(user_state_specifics);
  
-  //chartData_daily, chartData_total, labels_daily, labels_total = prepare_data_and_labels(total_cases, daily_cases);
+  // get data and labels for total cases and daily cases bar charts
   var {chartData_daily, chartData_total} = prepare_data_and_labels(total_cases, daily_cases);
 
-  console.log('chartData_daily' + chartData_daily);
-  console.log('chartData_total' + chartData_total);
+  // The first bar chart shows the top ten states in total number of positive cases for all time
+  // The second bar chart shows the top ten states in positive cases for that day
   createBarChart('total-pos-chart', chartData_total, colorScale, colorRangeInfo);
   createBarChart('daily-pos-chart', chartData_daily, colorScale, colorRangeInfo);
-
 }
-  
+
+  // --------------- GAUGE CHART ---------------
+  // gauge chart displays the user's risk rating based on user input and the subsequent calculations of our algorithm
 function create_guage_chart(){
     var ctx = document.getElementById("gaugeChart").getContext("2d");
   // get chart data
@@ -58,8 +57,8 @@ function create_guage_chart(){
 
   
     
-  // --------------- PIE CHART 1 ---------------
-  // get chart canvas
+  // --------------- Activities Pie Chart ---------------
+  // this chart displays how much each of the 4 event types contributed to the user's risk rating
 function create_activity_pie_chart(user_state_specifics){
   var low_risk_events = user_state_specifics["low_risk_events"];
   var mod_risk_events = user_state_specifics["mod_risk_events"];
@@ -112,13 +111,13 @@ function create_activity_pie_chart(user_state_specifics){
 
 
 
-  // --------------- PIE CHART 2 ---------------
-  // get chart canvas
+  // --------------- Hospitilization Pie Chart ---------------
+  // this chart displays the total number of hospitilizatons in the state chosen by the user
+  // the total hospitilizations are displayed as the number of patients in the ICU and those that are not
 function create_hosp_pie_chart(user_state_specifics){
   try{
     var ctx = document.getElementById("pieChart2").getContext("2d");
     var hospitalized = user_state_specifics["hosp_currently"];
-    console.log(hospitalized);
     var icu = user_state_specifics["icu_currently"];
     var nonICU = hospitalized - icu;
     // create chart using the canvas
@@ -126,7 +125,7 @@ function create_hosp_pie_chart(user_state_specifics){
       type: 'pie',
       data: {
         datasets: [{
-          // displays each event type by percentage of total risk score to 2 decimals
+          // displays number of patients in ICU out of total hospitalizations 
           data: [ nonICU , icu ],
           backgroundColor: ['rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
         }],
@@ -155,9 +154,11 @@ function create_hosp_pie_chart(user_state_specifics){
 }
 
 
-  // --------------- Bar CHART  --------------
-  // need to copy data sent by routes.py into javascript variables
+  // --------------- State Case Breakdown Bar Chart  --------------
   // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
+  // This function is used to create 2 bar charts
+  // The first chart shows the top ten states in total number of positive cases for all time
+  // The second chart shows the top ten states in positive cases for that day
 function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
     // Grab chart element by id 
     const chartElement = document.getElementById(chartId);
@@ -207,70 +208,54 @@ function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
       return myChart;
 }
 
-
-
- 
-
-  
-  function get_bar_chart_data(dict, dict_sorted){
-    var i;
-    var data = [];
-    var labels = [];
-    var label_key = [];
-    var label_dict = {'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado', 
-              'CT': 'Connecticut', 'DC': 'Washington DC', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'IA': 'Iowa', 'ID': 'Idaho', 
-              'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisianna', 'MA': 'Massachusettes', 'MD': 'Maryland', 'ME': 'Maine', 
-              'MI': 'Michigan', 'MN': 'Minnisota', 'MO': 'Missouri', 'MP': 'Nortern Mariana Islands', 'MS': 'Mississippi', 
-              'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada',  
-              'NY': 'New York', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico',
-              'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia', 
-              'VI': 'Virgin Islands', 'VT': 'Vermont', 'WA': 'Washington', 'WI': 'Wisconsin', 'WV': 'West Virginia', 'WY': 'Wyoming'};
-    console.log("in function");
-    for (i = 55; i > 45; i--) {
-    for (const key in dict) {
-      if(dict.hasOwnProperty(key)){
-          if(dict[key] == dict_sorted[i]){
-            // add data and label for displaying in chart
-            data.push(dict[key]);
-            // label is just the 2 letter state code
-            label_key.push(key);
-        }
+function get_bar_chart_data(dict, dict_sorted){
+  var i;
+  var data = [];
+  var labels = [];
+  var label_key = [];
+  var label_dict = {'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado', 
+            'CT': 'Connecticut', 'DC': 'Washington DC', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'IA': 'Iowa', 'ID': 'Idaho', 
+            'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisianna', 'MA': 'Massachusettes', 'MD': 'Maryland', 'ME': 'Maine', 
+            'MI': 'Michigan', 'MN': 'Minnisota', 'MO': 'Missouri', 'MP': 'Nortern Mariana Islands', 'MS': 'Mississippi', 
+            'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada',  
+            'NY': 'New York', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico',
+            'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia', 
+            'VI': 'Virgin Islands', 'VT': 'Vermont', 'WA': 'Washington', 'WI': 'Wisconsin', 'WV': 'West Virginia', 'WY': 'Wyoming'};
+  for (i = 55; i > 45; i--) {
+  for (const key in dict) {
+    if(dict.hasOwnProperty(key)){
+        if(dict[key] == dict_sorted[i]){
+          // add data and label for displaying in chart
+          data.push(dict[key]);
+          // label is just the 2 letter state code
+          label_key.push(key);
       }
     }
-    }
-    // need to get full state name by matching to state code
-    for (i = 0; i < 10; i++) {
-    for (const key in label_dict) {
-      if(label_dict.hasOwnProperty(key)){
-          if(key == label_key[i]){
-            labels.push(label_dict[key]);
-          }
-      }
-    }
-    }
-    console.log("data in func: " + data);
-    console.log("labels in func: " + labels);
-    return {
-      data, 
-      labels
-        }
   }
+  }
+  // need to get full state name by matching to state code
+  for (i = 0; i < 10; i++) {
+  for (const key in label_dict) {
+    if(label_dict.hasOwnProperty(key)){
+        if(key == label_key[i]){
+          labels.push(label_dict[key]);
+        }
+    }
+  }
+  }
+  return {
+    data, 
+    labels
+      }
+}
 
 
 
   function prepare_data_and_labels(total_cases, daily_cases){
-    // fetch total and daily positive cases from routing page
-    //var pos = total_cases;
-    //var pos_inc = daily_cases;
     // sort the states by total positive cases in descending order
     var total_cases_sorted = sortJsObject(total_cases);
     // sort the states by daily positive cases in descending order
     var daily_cases_sorted = sortJsObject(daily_cases);
-
-    // for debugging
-    console.log('total_cases: ' + total_cases);
-    console.log('daily_cases: ' + daily_cases);
-    console.log('total_cases_sorted: ' + total_cases_sorted);
 
     // Sort total cases in Descending order and then find the corresponding state code
     var {data, labels} = get_bar_chart_data(total_cases, total_cases_sorted);
@@ -279,11 +264,8 @@ function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
     var {data, labels} = get_bar_chart_data(daily_cases, daily_cases_sorted);
     var data_daily = data;
     var labels_daily = labels;
-    console.log("data_total out func: " + data_total);
-    console.log("labels_total out func: " + labels_total);
-    console.log("data_daily out func: " + data_daily);
-    console.log("labels_daily out func: " + labels_daily);
 
+    // format chart data before returning
     const chartData_total = {
       labels: labels_total,
       data: data_total,
@@ -299,9 +281,8 @@ function createBarChart(chartId, chartData, colorScale, colorRangeInfo) {
         }
   }
 
-
-
-
+  // for creating chart color gradient
+  // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 const colorScale = d3.interpolateInferno;
 const colorRangeInfo = {
   colorStart: 0,
@@ -310,7 +291,8 @@ const colorRangeInfo = {
 }; 
 
 
-  //var colorScale = chart_color();
+  // for creating chart color gradient
+  // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 function calculatePoint(i, intervalSize, colorRangeInfo) {
     var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
     return (useEndAsStart
@@ -318,8 +300,9 @@ function calculatePoint(i, intervalSize, colorRangeInfo) {
     : (colorStart + (i * intervalSize)));
 }
 
-
+  // for creating chart color gradient
   // Must use an interpolated color scale, which has a range of [0, 1] 
+  // Source: https://medium.com/code-nebula/automatically-generate-chart-colors-with-chart-js-d3s-color-scales-f62e282b2b41
 function interpolateColors(dataLength, colorScale, colorRangeInfo) {
     var { colorStart, colorEnd } = colorRangeInfo;
     var colorRange = colorEnd - colorStart;
@@ -333,7 +316,7 @@ function interpolateColors(dataLength, colorScale, colorRangeInfo) {
   return colorArray;
 }  
 
-  //  Sorts dictionary by Value from smallest to largest
+  //  Sorts dictionary by Value
   // https://stackoverflow.com/questions/25500316/sort-a-dictionary-by-value-in-javascript
 function sortJsObject(dict) {
   var keys = [];
