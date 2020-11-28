@@ -26,15 +26,14 @@ def calc_state_score(raw_api_data, user_state):
 			self.hosp_currently = hospitalized_currently
 			self.state_grade = data_quality_grade
 	state_list = []
-	label_dict = {'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado', 
-		'CT': 'Connecticut', 'DC': 'Washington DC', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'IA': 'Iowa', 'ID': 'Idaho', 
-		'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisianna', 'MA': 'Massachusettes', 'MD': 'Maryland', 'ME': 'Maine', 
-		'MI': 'Michigan', 'MN': 'Minnisota', 'MO': 'Missouri', 'MP': 'Nortern Mariana Islands', 'MS': 'Mississippi', 
-		'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada',  
+	label_dict = {'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado',
+		'CT': 'Connecticut', 'DC': 'Washington DC', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'GU': 'Guam', 'HI': 'Hawaii', 'IA': 'Iowa', 'ID': 'Idaho',
+		'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisianna', 'MA': 'Massachusettes', 'MD': 'Maryland', 'ME': 'Maine',
+		'MI': 'Michigan', 'MN': 'Minnisota', 'MO': 'Missouri', 'MP': 'Nortern Mariana Islands', 'MS': 'Mississippi',
+		'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada',
 		'NY': 'New York', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'PR': 'Puerto Rico',
-		'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia', 
+		'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia',
 		'VI': 'Virgin Islands', 'VT': 'Vermont', 'WA': 'Washington', 'WI': 'Wisconsin', 'WV': 'West Virginia', 'WY': 'Wyoming'}
-
 
 	icu_currently = 0
 	hosp_currently = 0
@@ -53,18 +52,18 @@ def calc_state_score(raw_api_data, user_state):
 			if (raw_api_data[i].get('positive') >= 0):
 				positive = raw_api_data[i].get('positive')
 			if (raw_api_data[i].get('positiveIncrease') >= 0):
-				positive_increase = raw_api_data[i].get('positiveIncrease')	
+				positive_increase = raw_api_data[i].get('positiveIncrease')
 			# get the data for the specific state chosen by the user
 			if(raw_api_data[i].get('state').lower() == user_state):
 				index = i # keep track of which state the user chose
-				#calculate state score 
+				#calculate state score
 				try:
 					state_score = round(float(raw_api_data[i].get('positiveIncrease') / (raw_api_data[i].get('totalTestResultsIncrease'))), 2)
-				except: 
+				except:
 					# set state score to default rating
 					state_score = default_risk
 					print('error getting state score')
-				# get hospitilization and ICU data for state chosen by the user	
+				# get hospitilization and ICU data for state chosen by the user
 				icu_currently = raw_api_data[i].get('inIcuCurrently')
 				hosp_currently = raw_api_data[i].get('hospitalizedCurrently')
 				state_grade = raw_api_data[i].get('dataQualityGrade')
@@ -73,24 +72,24 @@ def calc_state_score(raw_api_data, user_state):
 					if icu_currently == None:
 						icu_currently = 0
 					if hosp_currently == None:
-						hosp_currently = 0		
+						hosp_currently = 0
 				except:
 					print("hosp/icu data okay")
-			
+
 			state_list.append( State(state_code, state_name, positive, positive_increase, icu_currently, hosp_currently, state_grade))
-			count += 1			
+			count += 1
 	except ZeroDivisionError:
 		state_score = default_risk  #average positive test rate for all states over one week was 8.3%
 		print("default state score chosen: ", state_score)
 
-	print("before checks: ", state_score)
+	# print("before checks: ", state_score)
 	if state_score <= 0:
 		state_score = default_risk
-	
+
 	# state risk score capped at 35%
 	if state_score >=0.35:
 		state_score = 0.35
-	print("after checks: ", state_score)
+	# print("after checks: ", state_score)
 	return state_score, state_list, index
 
 def calc_risk_score(state_score, user_state_specifics):
@@ -108,31 +107,30 @@ def calc_risk_score(state_score, user_state_specifics):
 	mod_high_risk_events = form.activity11.data + form.activity12.data + form.activity13.data + form.activity14.data + form.activity15.data
 	high_risk_events = form.activity16.data + form.activity17.data + form.activity18.data + form.activity19.data
 
-	print("low_risk_rate", low_risk_rate)
-	print("mod_risk_rate", mod_risk_rate)
-	print("mod_high_risk_rate", mod_high_risk_rate)
-	print("high_risk_rate", high_risk_rate)
+	# Display results of calculations
+	#print("low_risk_rate", low_risk_rate)
+	#print("mod_risk_rate", mod_risk_rate)
+	#print("mod_high_risk_rate", mod_high_risk_rate)
+	#print("high_risk_rate", high_risk_rate)
+	#print("low_risk_events", low_risk_events)
+	#print("mod_risk_events", mod_risk_events)
+	#print("mod_high_risk_events", mod_high_risk_events)
+	#print("high_risk_events", high_risk_events)
 
-
-	print("low_risk_events", low_risk_events)
-	print("mod_risk_events", mod_risk_events)
-	print("mod_high_risk_events", mod_high_risk_events)
-	print("high_risk_events", high_risk_events)
-
-	# calculate base risk score 
+	# calculate base risk score
 	base_score = 1 - (pow((1 - low_risk_rate), low_risk_events) * pow((1 - mod_risk_rate), mod_risk_events) * pow((1 - mod_high_risk_rate), mod_high_risk_events) * pow((1 - high_risk_rate), high_risk_events))
-	
+
 	# need to account for default state risk with no activities
 	if base_score == 0:
 		base_score = .01 * (1 + state_score)
-	print("base score: ", base_score)
+	#print("base score: ", base_score)
 
 
 	# convert risk and state scores to % so they can be displayed to the user
 	risk_rating = round(float(base_score*100), 1)
 	state_score = round(float(state_score*100), 1)
-	print("risk: ",risk_rating)
-	print("state: ",state_score)
+	#print("risk: ",risk_rating)
+	#print("state: ",state_score)
 
 	user_state_specifics.update({"risk_rating": risk_rating})
 	user_state_specifics.update({"state_score": state_score})
@@ -146,8 +144,8 @@ def prepare_data(state_list, user_state_specifics, index):
 	temp_pos = []
 	temp_pos_inc = []
 	label_list = []
-	
-	
+
+
 	#create list with positive case numbers
 	for obj in state_list:
 		temp_pos.append(obj.positive)
@@ -170,7 +168,7 @@ def prepare_data(state_list, user_state_specifics, index):
 
 def get_data():
 	user_state = RiskForm().statename.data.lower()
-	print(RiskForm().statename.data[0])
+	#print(RiskForm().statename.data[0])
 	user_state_specifics = {}
 	raw_api_data = call_api()
 	state_score, state_list, index = calc_state_score(raw_api_data, user_state)
@@ -179,7 +177,7 @@ def get_data():
 	#store necessary information to pass along
 	zipped_pos_total, zipped_pos_inc = prepare_data(state_list, user_state_specifics, index)
 
-	print("user_state_specifics :", user_state_specifics)
+	#print("user_state_specifics :", user_state_specifics)
 
 	# send back data when called from routes.py
 	return user_state_specifics, zipped_pos_total, zipped_pos_inc
