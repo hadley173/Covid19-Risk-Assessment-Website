@@ -27,7 +27,7 @@
   <div class="row calc-row">
     <div class="col-md-4">
       {% if user_state_specifics['low_risk_events'] == user_state_specifics['mod_risk_events'] == user_state_specifics['mod_high_risk_events'] == user_state_specifics['high_risk_events'] == 0 %}
-        <h3>No activity data received</h3>
+        <h3 class="unavailable">Sorry! Your activity data was not received.</h3>
       {% else %}
         <h3>Activity risk groups</h3>
           <canvas id="pieChart1" width="300" height="300"></canvas>
@@ -38,7 +38,7 @@
     <!--Hospitalization Pie Chart-->
     <div class="col-md-4">
       {% if (user_state_specifics['hosp_currently'] == 0) or (user_state_specifics['icu_currently'] == 0) %}
-        <h3>{{ user_state_specifics['state_name'] }} hospitalization data unavailable</h3>
+        <h3 class="unavailable">Sorry! {{ user_state_specifics['state_name'] }} hospitalization data is currently unavailable</h3>
       {% else %}
         <h3>Hospitalizations in {{ user_state_specifics['state_name'] }}</h3> 
         <canvas id="pieChart2" width="300" height="300"></canvas>
@@ -60,7 +60,7 @@
       <div class = "app-container">
         <div class = "chart-container">
            <!--State Overall Positive Cases Chart-->
-          <h3>Total positive cases: All states</h3>
+          <h3>Total positive cases: Top 10 states</h3>
             <canvas id="total-pos-chart" width="480" height="320"></canvas>
          </div>
       </div>
@@ -69,7 +69,7 @@
     <div class="col-lg-6">
       <div class = "app-container">
         <div class = "chart-container">
-          <h3>Daily positive cases: All states</h3>
+          <h3>Daily positive cases: Top 10 states</h3>
             <canvas id="daily-pos-chart" width="480" height="320"> 
         </div>
       </div>
