@@ -4,7 +4,7 @@
     <div class="row calc-row">
       <div class="col-md-8">
         <h1>Your risk score: <span id="score" class="user-data">{{ user_state_specifics['risk_rating'] }} </span></h1>
-        <canvas id="gaugeChart" width="600" height="400"></canvas>
+        <canvas id="gaugeChart" width="500" height="300"></canvas>
       </div>
       <div class="col-md-4">
         <h3>Your state</h3>
@@ -40,9 +40,9 @@
       {% if (user_state_specifics['hosp_currently'] == 0) or (user_state_specifics['icu_currently'] == 0) %}
         <h3 class="unavailable">Sorry! {{ user_state_specifics['state_name'] }} hospitalization data is currently unavailable</h3>
       {% else %}
-        <h3>Hospitalizations in {{ user_state_specifics['state_name'] }}</h3> 
+        <h3>State hospitalizations</h3> 
         <canvas id="pieChart2" width="300" height="300"></canvas>
-        <p id="caption">Total currently in hospital: <b>{{ user_state_specifics['hosp_currently'] }} </b></p>
+        <p id="caption">Currently hospitalized in your state: <b>{{ user_state_specifics['hosp_currently'] }} </b></p>
       {% endif %}
     </div>
 
