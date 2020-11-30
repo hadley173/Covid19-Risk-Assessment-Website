@@ -334,10 +334,3 @@ function sortJsObject(dict) {
 function sortNumber(a,b) {
   return a - b;
 }
-
-
-
-
-
-
-
