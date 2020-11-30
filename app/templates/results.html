@@ -12,10 +12,10 @@
         <p class="p-larger">{{ user_state_specifics['state_name'] }}'s current risk multiplier: <span class="user-data">{{ user_state_specifics['state_score'] }}%</span></p>
 
         <h3>Your activities</h3>
-        <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ user_state_specifics['low_risk_events'] }}</span></p> 
+        <p class="p-larger">Low-risk activities: <span id="low_risk_events", class="user-data">{{ user_state_specifics['low_risk_events'] }}</span></p>
         <p class="p-larger">Moderate-risk activities: <span id="mod_risk_events", class="user-data">{{ user_state_specifics['mod_risk_events'] }}</span></p>
         <p class="p-larger">Moderate-High risk activities: <span id="mod_high_risk_events", class="user-data">{{ user_state_specifics['mod_high_risk_events'] }}</span></p>
-        <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ user_state_specifics['high_risk_events'] }}</span></p>  
+        <p class="p-larger space-below">High-risk activities: <span id="high_risk_events", class="user-data">{{ user_state_specifics['high_risk_events'] }}</span></p>
         <a class="btn btn-default" href="{{ url_for('formInput') }}" role="button">Try again</a>
       </div>
     </div>
@@ -40,7 +40,7 @@
       {% if (user_state_specifics['hosp_currently'] == 0) or (user_state_specifics['icu_currently'] == 0) %}
         <h3 class="unavailable">Sorry! {{ user_state_specifics['state_name'] }} hospitalization data is currently unavailable</h3>
       {% else %}
-        <h3>State hospitalizations</h3> 
+        <h3>State hospitalizations</h3>
         <canvas id="pieChart2" width="300" height="300"></canvas>
         <p id="caption">Currently hospitalized in your state: <b>{{ user_state_specifics['hosp_currently'] }} </b></p>
       {% endif %}
@@ -49,14 +49,14 @@
     <!--State letter grade-->
     <div class="col-md-4">
       <h3>Data quality grade</h3>
-      <p class="gradeCircleText">This grade evaluates how well the state publishes its COVID-19 data.</p>  
+      <p class="gradeCircleText">This grade evaluates how well the state publishes its COVID-19 data.</p>
       <div class="gradeCircle">{{ user_state_specifics['state_grade'] }}</div>
-      <p id="caption">For more info: <a href="https://covidtracking.com/about-data/state-grades" target="_blank">covidtracking.com</a></p>      
+      <p id="caption">For more info: <a href="https://covidtracking.com/about-data/state-grades" target="_blank">covidtracking.com</a></p>
     </div>
   </div>
-    
+
   <div class="row calc-row">
-    <div class="col-lg-6"> 
+    <div class="col-lg-6">
       <div class = "app-container">
         <div class = "chart-container">
            <!--State Overall Positive Cases Chart-->
@@ -64,13 +64,13 @@
             <canvas id="total-pos-chart" width="480" height="320"></canvas>
          </div>
       </div>
-    </div> 
+    </div>
     <!--State Daily Positive Cases Chart-->
     <div class="col-lg-6">
       <div class = "app-container">
         <div class = "chart-container">
           <h3>Daily positive cases: Top 10 states</h3>
-            <canvas id="daily-pos-chart" width="480" height="320"> 
+            <canvas id="daily-pos-chart" width="480" height="320">
         </div>
       </div>
     </div>
@@ -78,6 +78,7 @@
 </div>
 <body onload="render_charts(total_cases, daily_cases, user_state_specifics)"></body>
   {% block scripts %}
+    {{super()}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/chartjs-gauge@0.2.0/dist/chartjs-gauge.js"></script>
     <!-- Import D3 Scale Chromatic via CDN -->
@@ -90,7 +91,7 @@
     var daily_cases = JSON.parse('{{zipped_pos_inc | tojson}}');
     var user_state_specifics = JSON.parse('{{user_state_specifics | tojson}}');
     </script>
-    
-    
+
+
     {% endblock %}
 {% endblock%}
