@@ -75,8 +75,8 @@ function create_activity_pie_chart(user_state_specifics){
         data: {
           datasets: [{
             // displays each event type by percentage of total risk score to 2 decimals
-            data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), (Math.round(mod_high_risk_events*8/total_events*(100))/100), 
-            (Math.round(high_risk_events*16/total_events*(100))/100)],
+            data: [(Math.round(low_risk_events*2/total_events*(100))/100), (Math.round(mod_risk_events*4/total_events*(100))/100), 
+              (Math.round(mod_high_risk_events*8/total_events*(100))/100), (Math.round(high_risk_events*16/total_events*(100))/100)],
             backgroundColor: ['rgba(88, 214, 141, 1)', 'rgba(255, 195, 0, 1)', 'rgba(255, 87, 51, 1)', 'rgba(199, 0, 57, 1)'],
           }],
           labels: [
